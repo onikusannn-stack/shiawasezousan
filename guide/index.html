@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>親の介護、何から始める？状況別ガイド｜しあわせぞうさん（出雲市・大社町のケアマネジャー）</title>
+<meta name="description" content="「退院してと言われた」「物忘れが増えた」「遠くの親が心配」…出雲市のケアマネジャーが、よくある6つの状況別に介護の始め方をやさしく解説。相談・ケアプラン作成は自己負担0円。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --main: #2e8b6f;
+    --main-dark: #1f6b54;
+    --accent: #f4a83c;
+    --bg: #fdfaf4;
+    --text: #333333;
+    --muted: #666666;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+  body {
+    font-family: "Zen Maru Gothic", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.9;
+    font-size: 16px;
+    letter-spacing: 0.02em;
+  }
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  }
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 10px 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .logo {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--main-dark);
+    text-decoration: none;
+  }
+  .logo small { display: block; font-size: 0.68rem; font-weight: normal; color: var(--muted); }
+  .header-inner .home-link {
+    font-size: 0.85rem;
+    color: var(--main-dark);
+    text-decoration: none;
+    border: 1px solid var(--main);
+    border-radius: 999px;
+    padding: 4px 14px;
+  }
+
+  .hero {
+    background: linear-gradient(160deg, #e8f5ef 0%, #fdf3e0 100%);
+    text-align: center;
+    padding: 44px 16px;
+  }
+  .hero img.zou {
+    width: 170px;
+    max-width: 70%;
+    border: 6px solid #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+    transform: rotate(-2deg);
+  }
+  .hero h1 {
+    font-size: 1.55rem;
+    color: var(--main-dark);
+    margin: 18px 0 10px;
+    line-height: 1.5;
+  }
+  .hero p { max-width: 640px; margin: 0 auto; color: var(--muted); }
+  .hero .free {
+    display: inline-block;
+    margin-top: 14px;
+    background: #ffffff;
+    border-radius: 999px;
+    padding: 6px 20px;
+    color: var(--accent);
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .inner { max-width: 900px; margin: 0 auto; padding: 0 16px; }
+  section { padding: 52px 0; }
+  h2 {
+    text-align: center;
+    color: var(--main-dark);
+    font-size: 1.45rem;
+    margin-bottom: 30px;
+  }
+
+  /* パターン選択 */
+  .picker {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .picker a {
+    display: block;
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 18px 16px;
+    text-decoration: none;
+    color: var(--text);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    line-height: 1.6;
+  }
+  .picker a:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.10); }
+  .picker .icon { font-size: 1.6rem; }
+  .picker .t { display: block; font-weight: bold; color: var(--main-dark); margin-top: 4px; }
+  @media (max-width: 600px) {
+    .picker { grid-template-columns: 1fr; }
+  }
+
+  /* 事例 */
+  .case {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    padding: 30px 24px;
+    margin-bottom: 30px;
+  }
+  .case .tag {
+    display: inline-block;
+    background: var(--main);
+    color: #ffffff;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    padding: 3px 14px;
+    margin-bottom: 10px;
+  }
+  .case h3 {
+    color: var(--main-dark);
+    font-size: 1.25rem;
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+  .case .story {
+    background: var(--bg);
+    border-radius: 12px;
+    padding: 16px 18px;
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 18px;
+  }
+  .case h4 {
+    color: var(--accent);
+    font-size: 1rem;
+    margin: 18px 0 6px;
+  }
+  .case ul { padding-left: 1.3em; }
+  .case li { margin-bottom: 4px; font-size: 0.95rem; }
+  .case .point {
+    margin-top: 14px;
+    font-size: 0.9rem;
+    background: #fdf3e0;
+    border-radius: 10px;
+    padding: 12px 16px;
+  }
+  .case .cta {
+    text-align: center;
+    margin-top: 22px;
+  }
+  .btn {
+    display: inline-block;
+    padding: 12px 26px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    margin: 4px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,0.18); }
+  .btn-tel { background: var(--accent); color: #ffffff; box-shadow: 0 3px 8px rgba(244,168,60,0.4); }
+  .btn-line { background: #06c755; color: #ffffff; }
+  .btn-wa { background: #25d366; color: #ffffff; }
+
+  /* 3ステップ */
+  .steps-wrap { background: #ffffff; }
+  .steps { counter-reset: step; max-width: 640px; margin: 0 auto; }
+  .step {
+    background: var(--bg);
+    border-radius: 14px;
+    padding: 20px 20px 20px 66px;
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .step::before {
+    counter-increment: step;
+    content: counter(step);
+    position: absolute;
+    left: 18px;
+    top: 20px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--main);
+    color: #ffffff;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .step h3 { font-size: 1.05rem; color: var(--main-dark); margin-bottom: 4px; }
+  .step p { font-size: 0.92rem; color: var(--muted); }
+
+  .disclaimer {
+    max-width: 640px;
+    margin: 0 auto;
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-align: center;
+  }
+
+  .final-cta {
+    background: linear-gradient(160deg, #e8f5ef 0%, #fdf3e0 100%);
+    text-align: center;
+  }
+  .final-cta .tel-big {
+    display: inline-block;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--main-dark);
+    text-decoration: none;
+    margin: 8px 0;
+  }
+  .final-cta .hours { color: var(--muted); font-size: 0.9rem; margin-bottom: 14px; }
+
+  footer {
+    background: var(--main-dark);
+    color: #ffffff;
+    text-align: center;
+    padding: 22px 16px;
+    font-size: 0.8rem;
+    line-height: 1.9;
+  }
+  footer a { color: #ffffff; }
+
+  .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="../" class="logo">🐘 しあわせぞうさん<small>居宅介護支援事業所（島根県出雲市）</small></a>
+    <a href="../" class="home-link">ホームページへ →</a>
+  </div>
+</header>
+
+<div class="hero">
+  <img class="zou" src="../images/zou_art.jpg" alt="しあわせぞうさんのゾウの絵">
+  <h1>親の介護、<br>何から始めればいいんだろう？</h1>
+  <p>そう思ったとき、最初に相談する相手がケアマネジャーです。<br>
+  よくある6つの状況をまとめました。<strong>あなたに近いものを選んでください。</strong></p>
+  <span class="free">ご相談・ケアプラン作成は 自己負担0円</span>
+</div>
+
+<section>
+  <div class="inner">
+    <h2>あなたはどのパターンですか？</h2>
+    <div class="picker">
+      <a href="#case1"><span class="icon">🏥</span><span class="t">①「退院してください」と言われた</span>家に帰ってくるまでに何を準備すれば？</a>
+      <a href="#case2"><span class="icon">🧠</span><span class="t">② 物忘れが増えてきた</span>認知症かも？ 本人は病院を嫌がる…</a>
+      <a href="#case3"><span class="icon">🦴</span><span class="t">③ 転んで骨折してから弱ってしまった</span>閉じこもりがちで、足腰がどんどん…</a>
+      <a href="#case4"><span class="icon">✈️</span><span class="t">④ 離れて暮らす親がひとり暮らし</span>遠方に住んでいて、様子が分からない</a>
+      <a href="#case5"><span class="icon">😮‍💨</span><span class="t">⑤ 介護に疲れてきた</span>仕事との両立で、自分の時間がない</a>
+      <a href="#case6"><span class="icon">🌏</span><span class="t">⑥ 日本語が得意でない家族の介護</span>Português OK / 翻訳ソフト対応</a>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0;">
+  <div class="inner">
+
+    <div class="case" id="case1">
+      <span class="tag">パターン①</span>
+      <h3>🏥「退院してください」と言われた</h3>
+      <div class="story">80代のお父さまが脳梗塞で入院。少し麻痺が残った状態で「来週には退院できます」と言われた娘さん。家のお風呂やトイレは使える？ ベッドは？ 何をどう準備すればいいのか分からない——実は、いちばん多いご相談です。</div>
+      <h4>しあわせぞうさんに相談すると</h4>
+      <ul>
+        <li><strong>入院中からの相談OK。</strong>病院の相談員さんと連携し、退院前の話し合いにも同席します</li>
+        <li>介護保険の申請を代行。退院までに間に合うよう段取りします</li>
+        <li>ご自宅の様子を確認し、必要な準備をリストにします</li>
+      </ul>
+      <h4>よく使うサービスの例</h4>
+      <ul>
+        <li>介護ベッド・手すりなどのレンタル（福祉用具貸与）</li>
+        <li>手すりの取り付け・段差の解消（住宅改修の補助制度）</li>
+        <li>訪問リハビリ・デイケアで体の回復を続ける</li>
+      </ul>
+      <div class="point">💡 ポイント：退院日が決まってからだと準備がバタバタします。<strong>「退院」という言葉が出た時点で</strong>ご連絡ください。</div>
+      <div class="cta"><a href="tel:050-8893-1122" class="btn btn-tel">📞 050-8893-1122</a><a href="https://works.do/R/ti/p/ishizakicorporation.hitoshi@works-459349" target="_blank" rel="noopener" class="btn btn-line">LINEで相談</a></div>
+    </div>
+
+    <div class="case" id="case2">
+      <span class="tag">パターン②</span>
+      <h3>🧠 物忘れが増えてきた</h3>
+      <div class="story">同居のお母さまが、同じことを何度も聞いてくる。鍋を焦がすことが増えた。「認知症かもしれない」と思うけれど、本人は「病院なんて行かない」と言い張る。家族としてどう動けばいいのか——。</div>
+      <h4>しあわせぞうさんに相談すると</h4>
+      <ul>
+        <li><strong>ご家族だけでの相談でOK。</strong>ご本人に内緒の段階でも大丈夫です</li>
+        <li>受診の進め方や、ご本人が嫌がらない声のかけ方を一緒に考えます</li>
+        <li>要介護認定の申請を代行。認知症でも住み慣れた家で暮らし続ける工夫を提案します</li>
+      </ul>
+      <h4>よく使うサービスの例</h4>
+      <ul>
+        <li>デイサービス（人との交流が何よりの脳への刺激になります）</li>
+        <li>ヘルパーによる見守り・お薬の声かけ</li>
+        <li>ご家族向け：認知症カフェ・家族会などの地域の集まりのご紹介</li>
+      </ul>
+      <div class="point">💡 ポイント：物忘れの相談は「早すぎる」ということがありません。<strong>「気のせいかな？」の段階が、実はいちばん良いタイミング</strong>です。</div>
+      <div class="cta"><a href="tel:050-8893-1122" class="btn btn-tel">📞 050-8893-1122</a><a href="https://works.do/R/ti/p/ishizakicorporation.hitoshi@works-459349" target="_blank" rel="noopener" class="btn btn-line">LINEで相談</a></div>
+    </div>
+
+    <div class="case" id="case3">
+      <span class="tag">パターン③</span>
+      <h3>🦴 転んで骨折してから弱ってしまった</h3>
+      <div class="story">庭で転んで大腿骨を骨折。手術とリハビリを経て家に戻れたけれど、「また転ぶのが怖い」と外に出なくなってしまった。動かないから、足腰はどんどん弱っていく——この悪循環、放っておくと進みます。</div>
+      <h4>しあわせぞうさんに相談すると</h4>
+      <ul>
+        <li>「怖い」という気持ちに寄り添いながら、安全に体を動かす機会をつくるプランを提案します</li>
+        <li>家の中の「転びやすい場所」をチェックします</li>
+      </ul>
+      <h4>よく使うサービスの例</h4>
+      <ul>
+        <li>訪問リハビリ・デイケア（専門職と一緒に少しずつ筋力を取り戻す）</li>
+        <li>歩行器・手すりなどのレンタル（福祉用具貸与）</li>
+        <li>手すりの取り付けなどの住宅改修（補助制度があります）</li>
+      </ul>
+      <div class="point">💡 ポイント：高齢の方の骨折後は<strong>最初の数か月が勝負</strong>です。「様子を見よう」の間に体力が落ちてしまう前に、ご相談ください。</div>
+      <div class="cta"><a href="tel:050-8893-1122" class="btn btn-tel">📞 050-8893-1122</a><a href="https://works.do/R/ti/p/ishizakicorporation.hitoshi@works-459349" target="_blank" rel="noopener" class="btn btn-line">LINEで相談</a></div>
+    </div>
+
+    <div class="case" id="case4">
+      <span class="tag">パターン④</span>
+      <h3>✈️ 離れて暮らす親がひとり暮らし</h3>
+      <div class="story">東京で働く息子さん。出雲でひとり暮らしの母に電話をすると、いつも「大丈夫」。でも久しぶりに帰省したら、冷蔵庫には同じ食材ばかり、部屋も以前より散らかっていた。次に帰れるのは半年後——。</div>
+      <h4>しあわせぞうさんに相談すると</h4>
+      <ul>
+        <li><strong>離れて暮らすご家族とは、LINE・電話・メールで連絡を取りながら進めます</strong></li>
+        <li>毎月ご自宅を訪問し、様子をご家族に報告します。「現地の目」ができます</li>
+        <li>もしものときの連絡体制を一緒に整理します</li>
+      </ul>
+      <h4>よく使うサービスの例</h4>
+      <ul>
+        <li>ヘルパー（買い物・調理・掃除のお手伝い）</li>
+        <li>配食サービス（栄養と安否確認を兼ねる）</li>
+        <li>デイサービス（人とのつながりを保つ）・緊急通報装置のご案内</li>
+      </ul>
+      <div class="point">💡 ポイント：<strong>帰省のタイミングに合わせて面談の日程を調整できます。</strong>「今度の連休に帰るので」というご連絡、大歓迎です。</div>
+      <div class="cta"><a href="tel:050-8893-1122" class="btn btn-tel">📞 050-8893-1122</a><a href="https://works.do/R/ti/p/ishizakicorporation.hitoshi@works-459349" target="_blank" rel="noopener" class="btn btn-line">LINEで相談</a></div>
+    </div>
+
+    <div class="case" id="case5">
+      <span class="tag">パターン⑤</span>
+      <h3>😮‍💨 介護に疲れてきた</h3>
+      <div class="story">お母さまを介護して3年になる娘さん。仕事から帰ればすぐ介護、休日も介護。最近よく眠れず、つい強い口調になってしまう自分に落ち込む。「私が頑張らなきゃ」と思うほど、苦しくなる——。</div>
+      <h4>しあわせぞうさんに相談すると</h4>
+      <ul>
+        <li><strong>介護する人の休息も、ケアプランの大切な目的です。</strong>罪悪感を持つ必要はまったくありません</li>
+        <li>今のサービスの組み合わせを見直し、ご家族の負担が減る形を一緒に探します</li>
+        <li>仕事と介護の両立に使える制度（介護休業など）の情報もお伝えします</li>
+      </ul>
+      <h4>よく使うサービスの例</h4>
+      <ul>
+        <li>ショートステイ（数日間の宿泊。ご家族がゆっくり休める時間をつくります）</li>
+        <li>デイサービスの回数を増やす・ヘルパーを組み合わせる</li>
+      </ul>
+      <div class="point">💡 ポイント：介護は長距離走です。<strong>倒れる前に休む仕組みをつくる</strong>のが、結果的にご本人のためにもなります。</div>
+      <div class="cta"><a href="tel:050-8893-1122" class="btn btn-tel">📞 050-8893-1122</a><a href="https://works.do/R/ti/p/ishizakicorporation.hitoshi@works-459349" target="_blank" rel="noopener" class="btn btn-line">LINEで相談</a></div>
+    </div>
+
+    <div class="case" id="case6">
+      <span class="tag">パターン⑥ / Padrão 6</span>
+      <h3>🌏 日本語が得意でない家族の介護</h3>
+      <div class="story">ブラジル出身のご家族。お父さまの介護が必要になったが、介護保険の仕組みが分からないし、役所の書類は難しい日本語ばかり。誰に聞けばいいのかも分からない——。<br><em>Sua família precisa de cuidados, mas o japonês é difícil? Podemos ajudar.</em></div>
+      <h4>しあわせぞうさんに相談すると / Como ajudamos</h4>
+      <ul>
+        <li><strong>翻訳ソフトを使って、母語のままご相談いただけます</strong>（Português OK）</li>
+        <li><strong>WhatsAppでの連絡に対応しています</strong> / Atendemos pelo WhatsApp</li>
+        <li>役所への申請手続きを代行・同行します</li>
+      </ul>
+      <div class="point">💡 介護保険は外国籍の方も日本人と同じように使えます。あきらめる前に、まず一度ご連絡ください。<br>O seguro de cuidados (kaigo hoken) também está disponível para estrangeiros.</div>
+      <div class="cta"><a href="https://wa.me/message/Q4KJPEWBH2D3F1" target="_blank" rel="noopener" class="btn btn-wa">WhatsApp</a><a href="tel:050-8893-1122" class="btn btn-tel">📞 050-8893-1122</a></div>
+    </div>
+
+    <p class="disclaimer">※掲載している事例は、よくあるご相談をもとにした架空のモデルケースです。実在の利用者さまの情報ではありません。</p>
+  </div>
+</section>
+
+<section class="steps-wrap">
+  <div class="inner">
+    <h2>どのパターンでも、流れは同じ3ステップ</h2>
+    <div class="steps">
+      <div class="step">
+        <h3>まず相談（無料）</h3>
+        <p>電話・LINE・WhatsAppでご連絡ください。「何を聞けばいいか分からない」状態で大丈夫です。</p>
+      </div>
+      <div class="step">
+        <h3>要介護認定の申請（代行します）</h3>
+        <p>市役所への申請はこちらで代行。調査と判定に1か月ほどかかります。急ぐ場合の進め方もあります。</p>
+      </div>
+      <div class="step">
+        <h3>ケアプラン作成 → サービス開始</h3>
+        <p>ご本人・ご家族と相談してプランを作ります。ケアプラン作成の自己負担は0円。開始後も毎月訪問して見直します。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="final-cta">
+  <div class="inner">
+    <h2>迷っている時間が、いちばんもったいない</h2>
+    <p>「まだ早いかな？」と思ったときが、相談のベストタイミングです。</p>
+    <a href="tel:050-8893-1122" class="tel-big">📞 050-8893-1122</a>
+    <p class="hours">受付：平日 9:00〜17:00　／　しあわせぞうさん（出雲市・大社町）</p>
+    <div>
+      <a href="https://works.do/R/ti/p/ishizakicorporation.hitoshi@works-459349" target="_blank" rel="noopener" class="btn btn-line">LINEで相談</a>
+      <a href="https://wa.me/message/Q4KJPEWBH2D3F1" target="_blank" rel="noopener" class="btn btn-wa">WhatsApp</a>
+      <a href="../" class="btn" style="background:#ffffff;color:var(--main-dark);border:2px solid var(--main);">事業所の詳しいご案内へ</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>居宅介護支援事業所 しあわせぞうさん（合同会社しあわせぞうさん）<br>
+  島根県出雲市大社町遙堪663-25　／　介護保険事業所番号：3270403482<br>
+  <a href="../">ホームページはこちら</a></p>
+</footer>
+
+<script>
+(function () {
+  var targets = document.querySelectorAll(".picker a, .case, .step, section h2");
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduced || !("IntersectionObserver" in window)) { return; }
+  var i;
+  for (i = 0; i < targets.length; i++) {
+    targets[i].classList.add("reveal");
+    targets[i].style.transitionDelay = ((i % 3) * 0.09) + "s";
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  for (i = 0; i < targets.length; i++) { io.observe(targets[i]); }
+})();
+</script>
+
+</body>
+</html>
