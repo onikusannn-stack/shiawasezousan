@@ -182,6 +182,52 @@
   }
   .hero .note { font-size: 0.85rem; margin-top: 10px; }
 
+  /* ===== ガイド誘導バナー ===== */
+  .guide-banner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    max-width: 540px;
+    margin: 28px auto 0;
+    background: #ffffff;
+    border: 2px solid var(--accent);
+    border-radius: 16px;
+    padding: 16px 20px;
+    text-decoration: none;
+    color: var(--text);
+    text-align: left;
+    box-shadow: 0 4px 14px rgba(244,168,60,0.25);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .guide-banner:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(244,168,60,0.35);
+  }
+  .guide-banner .gb-icon { font-size: 2rem; }
+  .guide-banner strong {
+    display: block;
+    color: var(--main-dark);
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+  .guide-banner .gb-sub {
+    font-size: 0.83rem;
+    color: var(--muted);
+  }
+  .guide-banner .gb-arrow {
+    margin-left: auto;
+    background: var(--accent);
+    color: #ffffff;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+
   /* ===== 共通セクション ===== */
   section { padding: 64px 16px; }
   .inner { max-width: 1000px; margin: 0 auto; }
@@ -468,6 +514,14 @@
     <a href="#contact" class="btn btn-line" data-i18n="hero_line_btn">LINE・WhatsAppでもご相談OK</a>
   </div>
   <p class="note" data-i18n="hero_note">受付：平日 9:00〜17:00　※ご相談・ケアプラン作成の自己負担は0円です</p>
+  <a href="guide/" class="guide-banner">
+    <span class="gb-icon">📖</span>
+    <span>
+      <strong data-i18n="guide_b_title">親の介護、何から始めればいい？</strong>
+      <span class="gb-sub" data-i18n="guide_b_sub">「退院と言われた」「物忘れが増えた」…よくある6つの状況別ガイドはこちら</span>
+    </span>
+    <span class="gb-arrow">→</span>
+  </a>
 </div>
 
 <section id="features">
@@ -614,6 +668,8 @@ var TRANSLATIONS = {
     _title: "Shiawase Zousan | Care Management Office in Izumo, Shimane (Care Manager)",
     logo_sub: "Care Management Office (Izumo, Shimane)",
     nav_guide: "First-time Care Guide (Japanese)",
+    guide_b_title: "Caring for a parent — where do I start?",
+    guide_b_sub: "A simple guide to 6 common situations (in Japanese)",
     nav_service: "Services",
     nav_flow: "How It Works",
     nav_about: "About Us",
@@ -691,6 +747,8 @@ var TRANSLATIONS = {
     _title: "Shiawase Zousan | Escritório de Gestão de Cuidados em Izumo, Shimane",
     logo_sub: "Gestão de Cuidados de Idosos (Izumo, Shimane)",
     nav_guide: "Guia para começar (em japonês)",
+    guide_b_title: "Cuidar de um familiar — por onde começar?",
+    guide_b_sub: "Guia simples com 6 situações comuns (em japonês)",
     nav_service: "Serviços",
     nav_flow: "Como Funciona",
     nav_about: "Sobre Nós",
