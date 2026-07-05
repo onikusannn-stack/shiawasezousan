@@ -302,7 +302,17 @@
   .service-box ul { padding-left: 1.3em; margin-top: 10px; }
   .service-box li { margin-bottom: 6px; }
 
-  /* ===== ご利用の流れ（4コマ漫画風） ===== */
+  /* ===== ご利用の流れ（4コマ漫画） ===== */
+  .flow-manga {
+    max-width: 640px;
+    margin: 0 auto 30px;
+  }
+  .flow-manga img {
+    display: block;
+    width: 100%;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+  }
   .steps {
     counter-reset: step;
     max-width: 640px;
@@ -340,14 +350,6 @@
   }
   .step h3 { font-size: 1.05rem; color: var(--main-dark); margin-bottom: 4px; }
   .step p { font-size: 0.92rem; color: var(--muted); }
-  .manga {
-    border: 2.5px solid #3a3a3a;
-    border-radius: 8px;
-    background: #fdfdfb;
-    margin: 0 0 12px -46px;
-    overflow: hidden;
-  }
-  .manga svg { display: block; width: 100%; height: auto; }
 
   /* ===== 事業所概要 ===== */
   .about { background: #ffffff; }
@@ -621,236 +623,23 @@
   <div class="inner">
     <h2 data-i18n="flow_h2">ご利用の流れ</h2>
     <p class="h2-sub">FLOW</p>
+    <div class="flow-manga">
+      <img src="images/flow_manga.jpg" alt="ご利用の流れの4コマ漫画：1.お電話・LINEでご連絡 2.ご訪問・聞き取り 3.ケアプランの作成 4.サービス開始・毎月のご訪問">
+    </div>
     <div class="steps">
       <div class="step">
-        <div class="manga"><svg viewBox="0 0 220 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="家族が電話で相談し、ぞうさんが応える場面">
-          <!-- 電話の分割画面 -->
-          <rect x="0" y="0" width="112" height="130" fill="#fdf3e0"/>
-          <rect x="112" y="0" width="108" height="130" fill="#e8f5ef"/>
-          <path d="M116 0 L106 130" stroke="#ffffff" stroke-width="5"/>
-          <!-- 娘（相談する家族） -->
-          <path d="M28 130 Q30 100 54 95 L76 95 Q98 100 94 130 Z" fill="#ef9f52" stroke="#4a4038" stroke-width="1.6"/>
-          <path d="M54 95 L65 110 L76 95 Z" fill="#fffaf2" stroke="#4a4038" stroke-width="1.2"/>
-          <rect x="58" y="82" width="14" height="14" rx="4" fill="#f6cfae" stroke="#4a4038" stroke-width="1.2"/>
-          <ellipse cx="46" cy="64" rx="4" ry="6" fill="#f6cfae" stroke="#4a4038" stroke-width="1.2"/>
-          <ellipse cx="65" cy="62" rx="20" ry="22" fill="#f6cfae" stroke="#4a4038" stroke-width="1.6"/>
-          <path d="M44 66 Q38 32 65 29 Q92 32 86 66 Q88 40 71 36 L69 44 Q59 37 52 46 Q46 53 46 66 Z" fill="#5a4232" stroke="#4a4038" stroke-width="1.3"/>
-          <path d="M84 50 Q91 64 85 80 L81 78 Q86 65 80 53 Z" fill="#5a4232"/>
-          <path d="M53 53 Q58 50 63 53" stroke="#4a4038" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-          <path d="M69 53 Q74 50 79 53" stroke="#4a4038" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-          <path d="M55 60 q4 -3.5 8 0 q-4 3.5 -8 0z" fill="#ffffff" stroke="#4a4038" stroke-width="1"/>
-          <path d="M69 60 q4 -3.5 8 0 q-4 3.5 -8 0z" fill="#ffffff" stroke="#4a4038" stroke-width="1"/>
-          <circle cx="59" cy="60" r="1.9" fill="#3d3126"/><circle cx="73" cy="60" r="1.9" fill="#3d3126"/>
-          <path d="M65 64 q2 3 0 5.5" stroke="#d8a377" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-          <ellipse cx="65" cy="75" rx="3.4" ry="4" fill="#b55f52"/>
-          <path d="M88 42 q4.5 6 0 10 q-4.5 -4 0 -10z" fill="#9ec9ec"/>
-          <path d="M92 128 L92 102 Q92 88 85 78 L78 84 Q85 92 84 104 L84 128 Z" fill="#ef9f52" stroke="#4a4038" stroke-width="1.4"/>
-          <ellipse cx="81" cy="76" rx="6" ry="7" fill="#f6cfae" stroke="#4a4038" stroke-width="1.2"/>
-          <rect x="72" y="48" width="13" height="26" rx="3.5" fill="#3b3b46" stroke="#4a4038" stroke-width="1.2" transform="rotate(-8 78 61)"/>
-          <path d="M76 53 l7 -1" stroke="#6d6d7c" stroke-width="1.4"/>
-          <!-- 電波 -->
-          <path d="M112 56 q4 -5 0 -10 M118 60 q7 -8 0 -18" stroke="#f4a83c" stroke-width="2.2" fill="none" stroke-linecap="round"/>
-          <!-- ぞうさん（受けるケアマネ） -->
-          <path d="M132 130 Q134 102 158 97 L176 97 Q200 102 198 130 Z" fill="#2e8b6f" stroke="#4a4038" stroke-width="1.6"/>
-          <rect x="146" y="106" width="13" height="9" rx="2" fill="#fffaf2" stroke="#4a4038" stroke-width="1"/>
-          <ellipse cx="138" cy="60" rx="13" ry="17" fill="#86a9cf" stroke="#4a4038" stroke-width="1.4"/>
-          <ellipse cx="139" cy="60" rx="7" ry="11" fill="#f6c9d4"/>
-          <ellipse cx="192" cy="60" rx="13" ry="17" fill="#86a9cf" stroke="#4a4038" stroke-width="1.4"/>
-          <ellipse cx="191" cy="60" rx="7" ry="11" fill="#f6c9d4"/>
-          <ellipse cx="165" cy="62" rx="27" ry="25" fill="#9fc0e2" stroke="#4a4038" stroke-width="1.6"/>
-          <path d="M150 48 Q155 45 160 48" stroke="#4a4038" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-          <path d="M170 48 Q175 45 180 48" stroke="#4a4038" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-          <ellipse cx="156" cy="55" rx="3.6" ry="4.6" fill="#ffffff" stroke="#4a4038" stroke-width="1"/>
-          <ellipse cx="175" cy="55" rx="3.6" ry="4.6" fill="#ffffff" stroke="#4a4038" stroke-width="1"/>
-          <circle cx="156" cy="56" r="2" fill="#3d3126"/><circle cx="175" cy="56" r="2" fill="#3d3126"/>
-          <ellipse cx="148" cy="68" rx="4.5" ry="3" fill="#f6b8c4"/><ellipse cx="182" cy="68" rx="4.5" ry="3" fill="#f6b8c4"/>
-          <path d="M160 66 Q159 82 148 88 Q141 91 139 85 Q138 81 144 79 Q152 76 154 65 Z" fill="#9fc0e2" stroke="#4a4038" stroke-width="1.4"/>
-          <path d="M153 72 q4 2 6 0 M149 78 q4 2 6 -1" stroke="#7e9cc0" stroke-width="1.2" fill="none"/>
-          <path d="M168 76 q6 4.5 12 -1" stroke="#4a4038" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-          <rect x="130" y="76" width="11" height="21" rx="3.5" fill="#3b3b46" stroke="#4a4038" stroke-width="1.2" transform="rotate(14 135 86)"/>
-        </svg></div>
         <h3 data-i18n="step1_h">お問い合わせ</h3>
         <p data-i18n="step1_p">お電話またはLINEでご連絡ください。介護保険が初めての方も大丈夫です。</p>
       </div>
       <div class="step">
-        <div class="manga"><svg viewBox="0 0 220 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="自宅でおばあさんの話をぞうさんがメモを取りながら聞く場面">
-          <!-- 部屋 -->
-          <rect x="0" y="0" width="220" height="130" fill="#f7efe2"/>
-          <rect x="150" y="12" width="54" height="40" rx="3" fill="#dff0fb" stroke="#b9a988" stroke-width="1.6"/>
-          <path d="M177 12 v40 M150 32 h54" stroke="#b9a988" stroke-width="1.4"/>
-          <path d="M150 12 Q160 32 152 52 L150 52 Z" fill="#f6d8a8" stroke="#b9a988" stroke-width="1.2"/>
-          <path d="M204 12 Q194 32 202 52 L204 52 Z" fill="#f6d8a8" stroke="#b9a988" stroke-width="1.2"/>
-          <!-- おばあさん -->
-          <path d="M26 112 Q28 84 50 80 L72 80 Q94 84 92 112 Z" fill="#a883c0" stroke="#4a4038" stroke-width="1.6"/>
-          <path d="M50 80 L61 92 L72 80 Z" fill="#fffaf2" stroke="#4a4038" stroke-width="1.2"/>
-          <rect x="54" y="68" width="13" height="12" rx="4" fill="#f6cfae" stroke="#4a4038" stroke-width="1.2"/>
-          <ellipse cx="43" cy="54" rx="4" ry="6" fill="#f6cfae" stroke="#4a4038" stroke-width="1.2"/>
-          <ellipse cx="60" cy="52" rx="18" ry="20" fill="#f6cfae" stroke="#4a4038" stroke-width="1.6"/>
-          <circle cx="60" cy="24" r="7" fill="#d8d8d8" stroke="#4a4038" stroke-width="1.3"/>
-          <path d="M42 54 Q38 28 60 26 Q82 28 78 54 Q80 36 60 32 Q40 36 42 54 Z" fill="#d8d8d8" stroke="#4a4038" stroke-width="1.3"/>
-          <path d="M52 30 q8 -3 16 0" stroke="#bcbcbc" stroke-width="1.2" fill="none"/>
-          <circle cx="52" cy="52" r="5.6" fill="none" stroke="#6b5a4a" stroke-width="1.5"/>
-          <circle cx="68" cy="52" r="5.6" fill="none" stroke="#6b5a4a" stroke-width="1.5"/>
-          <path d="M57.5 52 h5 M46.5 52 L43 51" stroke="#6b5a4a" stroke-width="1.5"/>
-          <path d="M49 52.5 q3 2.5 6 0 M65 52.5 q3 2.5 6 0" stroke="#4a4038" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-          <path d="M60 56 q1.6 2.6 0 4.6" stroke="#d8a377" stroke-width="1.3" fill="none" stroke-linecap="round"/>
-          <path d="M54 64 q6 4.5 12 0" stroke="#4a4038" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-          <path d="M45 60 q-2 2 -1.5 4 M75 60 q2 2 1.5 4" stroke="#c9a98c" stroke-width="1.1" fill="none"/>
-          <ellipse cx="47" cy="58" rx="3.6" ry="2.6" fill="#f6b8c4"/><ellipse cx="73" cy="58" rx="3.6" ry="2.6" fill="#f6b8c4"/>
-          <path d="M83 99 Q90 92 96 97 L94 102 L84 103 Z" fill="#f6cfae" stroke="#4a4038" stroke-width="1.2"/>
-          <!-- ぞうさん -->
-          <path d="M126 112 Q128 86 152 82 L172 82 Q196 86 194 112 Z" fill="#2e8b6f" stroke="#4a4038" stroke-width="1.6"/>
-          <rect x="140" y="90" width="12" height="9" rx="2" fill="#fffaf2" stroke="#4a4038" stroke-width="1"/>
-          <ellipse cx="136" cy="48" rx="12" ry="16" fill="#86a9cf" stroke="#4a4038" stroke-width="1.4"/>
-          <ellipse cx="137" cy="48" rx="6.5" ry="10" fill="#f6c9d4"/>
-          <ellipse cx="186" cy="48" rx="12" ry="16" fill="#86a9cf" stroke="#4a4038" stroke-width="1.4"/>
-          <ellipse cx="185" cy="48" rx="6.5" ry="10" fill="#f6c9d4"/>
-          <ellipse cx="161" cy="50" rx="25" ry="23" fill="#9fc0e2" stroke="#4a4038" stroke-width="1.6"/>
-          <path d="M146 38 Q151 35 156 38 M166 38 Q171 35 176 38" stroke="#4a4038" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-          <ellipse cx="151" cy="44" rx="3.4" ry="4.4" fill="#ffffff" stroke="#4a4038" stroke-width="1"/>
-          <ellipse cx="170" cy="44" rx="3.4" ry="4.4" fill="#ffffff" stroke="#4a4038" stroke-width="1"/>
-          <circle cx="149.7" cy="45" r="1.9" fill="#3d3126"/><circle cx="168.7" cy="45" r="1.9" fill="#3d3126"/>
-          <ellipse cx="144" cy="57" rx="4.2" ry="2.8" fill="#f6b8c4"/><ellipse cx="177" cy="57" rx="4.2" ry="2.8" fill="#f6b8c4"/>
-          <path d="M166 62 q6 4 11 -1" stroke="#4a4038" stroke-width="1.7" fill="none" stroke-linecap="round"/>
-          <!-- バインダーとペンを持つ鼻 -->
-          <rect x="103" y="58" width="31" height="44" rx="3" fill="#d9b489" stroke="#4a4038" stroke-width="1.4"/>
-          <rect x="113" y="54" width="11" height="7" rx="2" fill="#8f8f98" stroke="#4a4038" stroke-width="1"/>
-          <rect x="106" y="63" width="25" height="35" fill="#ffffff" stroke="#d4cbbb" stroke-width="1"/>
-          <path d="M109 70 h19 M109 77 h19 M109 84 h13" stroke="#c9c2b4" stroke-width="1.4"/>
-          <path d="M155 56 Q151 72 140 77 Q133 80 132 74 Q131 69 138 67 Q147 63 149 54 Z" fill="#9fc0e2" stroke="#4a4038" stroke-width="1.4"/>
-          <path d="M133 75 L126 86" stroke="#4a4038" stroke-width="2.4" stroke-linecap="round"/>
-          <path d="M147 62 q4 2 6 0" stroke="#7e9cc0" stroke-width="1.1" fill="none"/>
-          <!-- テーブル -->
-          <rect x="14" y="102" width="192" height="9" rx="3" fill="#c59a67" stroke="#4a4038" stroke-width="1.5"/>
-          <rect x="14" y="111" width="192" height="19" fill="#b98a5e"/>
-          <ellipse cx="104" cy="100" rx="7" ry="3" fill="#ffffff" stroke="#4a4038" stroke-width="1.1"/>
-          <path d="M100 96 q2 -5 -1 -8 M107 96 q2 -5 -1 -8" stroke="#bbbbbb" stroke-width="1.2" fill="none"/>
-          <!-- 会話マーク -->
-          <path d="M84 40 q3 -4 8 -4 M86 32 q4 -3 9 -2" stroke="#a883c0" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-        </svg></div>
         <h3 data-i18n="step2_h">ご訪問・聞き取り</h3>
         <p data-i18n="step2_p">ご自宅にお伺いし、お体の状態や生活のご様子、ご希望を丁寧にお聞きします。</p>
       </div>
       <div class="step">
-        <div class="manga"><svg viewBox="0 0 220 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ぞうさんがケアプランを見せて家族が喜ぶ場面">
-          <rect x="0" y="0" width="220" height="130" fill="#eef6f1"/>
-          <!-- ぞうさん -->
-          <path d="M26 130 Q28 106 52 101 L66 101 Q90 106 88 130 Z" fill="#2e8b6f" stroke="#4a4038" stroke-width="1.6"/>
-          <rect x="40" y="110" width="12" height="9" rx="2" fill="#fffaf2" stroke="#4a4038" stroke-width="1"/>
-          <ellipse cx="34" cy="56" rx="12" ry="16" fill="#86a9cf" stroke="#4a4038" stroke-width="1.4"/>
-          <ellipse cx="35" cy="56" rx="6.5" ry="10" fill="#f6c9d4"/>
-          <ellipse cx="82" cy="56" rx="12" ry="16" fill="#86a9cf" stroke="#4a4038" stroke-width="1.4"/>
-          <ellipse cx="81" cy="56" rx="6.5" ry="10" fill="#f6c9d4"/>
-          <ellipse cx="58" cy="58" rx="25" ry="23" fill="#9fc0e2" stroke="#4a4038" stroke-width="1.6"/>
-          <path d="M43 46 Q48 43 53 46 M63 46 Q68 43 73 46" stroke="#4a4038" stroke-width="1.4" fill="none" stroke-linecap="round"/>
-          <ellipse cx="49" cy="52" rx="3.4" ry="4.4" fill="#ffffff" stroke="#4a4038" stroke-width="1"/>
-          <ellipse cx="68" cy="52" rx="3.4" ry="4.4" fill="#ffffff" stroke="#4a4038" stroke-width="1"/>
-          <circle cx="50.3" cy="53" r="1.9" fill="#3d3126"/><circle cx="69.3" cy="53" r="1.9" fill="#3d3126"/>
-          <ellipse cx="42" cy="65" rx="4.2" ry="2.8" fill="#f6b8c4"/><ellipse cx="75" cy="65" rx="4.2" ry="2.8" fill="#f6b8c4"/>
-          <path d="M50 70 q6 4.5 12 -0.5" stroke="#4a4038" stroke-width="1.7" fill="none" stroke-linecap="round"/>
-          <path d="M64 64 Q78 70 90 62 Q95 58 92 53 Q89 49 84 53 Q76 60 66 56 Z" fill="#9fc0e2" stroke="#4a4038" stroke-width="1.4"/>
-          <path d="M78 62 q3 -3 3 -6 M85 60 q3 -3 2 -6" stroke="#7e9cc0" stroke-width="1.1" fill="none"/>
-          <!-- ケアプランの書類 -->
-          <rect x="98" y="20" width="64" height="94" rx="4" fill="#ffffff" stroke="#4a4038" stroke-width="1.7"/>
-          <rect x="98" y="20" width="64" height="17" rx="4" fill="#2e8b6f"/>
-          <rect x="98" y="30" width="64" height="7" fill="#2e8b6f"/>
-          <circle cx="107" cy="28.5" r="3.4" fill="#ffffff"/>
-          <rect x="114" y="26" width="40" height="4.5" rx="2" fill="#ffffff" opacity="0.9"/>
-          <rect x="104" y="46" width="11" height="11" rx="2.5" fill="#e8f5ef" stroke="#2e8b6f" stroke-width="1.5"/>
-          <path d="M106 51 l3 3.5 l5 -6" stroke="#2e8b6f" stroke-width="2" fill="none" stroke-linecap="round"/>
-          <path d="M121 50 h33 M121 55 h24" stroke="#c9c2b4" stroke-width="2"/>
-          <rect x="104" y="66" width="11" height="11" rx="2.5" fill="#e8f5ef" stroke="#2e8b6f" stroke-width="1.5"/>
-          <path d="M106 71 l3 3.5 l5 -6" stroke="#2e8b6f" stroke-width="2" fill="none" stroke-linecap="round"/>
-          <path d="M121 70 h33 M121 75 h28" stroke="#c9c2b4" stroke-width="2"/>
-          <rect x="104" y="86" width="11" height="11" rx="2.5" fill="#e8f5ef" stroke="#2e8b6f" stroke-width="1.5"/>
-          <path d="M106 91 l3 3.5 l5 -6" stroke="#2e8b6f" stroke-width="2" fill="none" stroke-linecap="round"/>
-          <path d="M121 90 h26" stroke="#c9c2b4" stroke-width="2"/>
-          <circle cx="150" cy="103" r="6.5" fill="none" stroke="#d05a5a" stroke-width="1.6"/>
-          <circle cx="150" cy="103" r="3.2" fill="none" stroke="#d05a5a" stroke-width="1"/>
-          <!-- 娘 -->
-          <path d="M166 130 Q168 108 188 103 L200 103 Q218 107 218 130 Z" fill="#ef9f52" stroke="#4a4038" stroke-width="1.6"/>
-          <path d="M188 103 L196 114 L204 103 Z" fill="#fffaf2" stroke="#4a4038" stroke-width="1.2"/>
-          <rect x="189" y="90" width="13" height="14" rx="4" fill="#f6cfae" stroke="#4a4038" stroke-width="1.2"/>
-          <ellipse cx="177" cy="66" rx="4" ry="6" fill="#f6cfae" stroke="#4a4038" stroke-width="1.2"/>
-          <ellipse cx="195" cy="64" rx="18" ry="20" fill="#f6cfae" stroke="#4a4038" stroke-width="1.6"/>
-          <path d="M177 68 Q171 36 195 33 Q219 36 213 68 Q215 44 200 40 L198 47 Q189 41 183 49 Q178 55 179 68 Z" fill="#5a4232" stroke="#4a4038" stroke-width="1.3"/>
-          <path d="M211 56 Q217 68 212 80 L208 78 Q213 67 208 57 Z" fill="#5a4232"/>
-          <path d="M184 56 Q189 53 193 56 M198 56 Q203 53 207 56" stroke="#4a4038" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-          <path d="M185 62 q3.5 -3 7 0 M199 62 q3.5 -3 7 0" stroke="#4a4038" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-          <path d="M195 66 q1.8 2.8 0 5" stroke="#d8a377" stroke-width="1.3" fill="none" stroke-linecap="round"/>
-          <path d="M190 77 q5 4.5 10 0" stroke="#4a4038" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-          <ellipse cx="182" cy="71" rx="3.6" ry="2.6" fill="#f6b8c4"/><ellipse cx="208" cy="71" rx="3.6" ry="2.6" fill="#f6b8c4"/>
-          <path d="M172 30 l2.2 5.6 5.6 2.2 -5.6 2.2 -2.2 5.6 -2.2 -5.6 -5.6 -2.2 5.6 -2.2z" fill="#f4a83c"/>
-          <path d="M186 20 l1.5 3.8 3.8 1.5 -3.8 1.5 -1.5 3.8 -1.5 -3.8 -3.8 -1.5 3.8 -1.5z" fill="#f6c05c"/>
-        </svg></div>
         <h3 data-i18n="step3_h">ケアプランの作成</h3>
         <p data-i18n="step3_p">ご本人・ご家族と相談しながら、必要なサービスを組み合わせたプランを作成します。</p>
       </div>
       <div class="step">
-        <div class="manga"><svg viewBox="0 0 220 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="サービスが始まり、おばあさんがヘルパーと散歩し、ぞうさんが見守る場面">
-          <!-- 空と地面 -->
-          <rect x="0" y="0" width="220" height="92" fill="#eaf4fb"/>
-          <path d="M0 92 Q60 84 110 88 Q170 92 220 86 L220 130 L0 130 Z" fill="#f2ead6"/>
-          <circle cx="198" cy="20" r="13" fill="#f7c05c" opacity="0.35"/>
-          <circle cx="198" cy="20" r="9" fill="#f7c05c"/>
-          <!-- 植え込みと花 -->
-          <ellipse cx="20" cy="86" rx="16" ry="9" fill="#a8cba4" stroke="#4a4038" stroke-width="1.2"/>
-          <ellipse cx="42" cy="90" rx="12" ry="7" fill="#93bd8f" stroke="#4a4038" stroke-width="1.2"/>
-          <g transform="translate(26,80)"><circle r="2.6" fill="#f4a83c"/><circle cx="0" cy="-4.6" r="2.6" fill="#f19bb4"/><circle cx="4.4" cy="-1.4" r="2.6" fill="#f19bb4"/><circle cx="2.7" cy="3.7" r="2.6" fill="#f19bb4"/><circle cx="-2.7" cy="3.7" r="2.6" fill="#f19bb4"/><circle cx="-4.4" cy="-1.4" r="2.6" fill="#f19bb4"/></g>
-          <!-- おばあさん（杖で散歩） -->
-          <ellipse cx="86" cy="120" rx="17" ry="3.5" fill="#4a4038" opacity="0.10"/>
-          <rect x="78" y="94" width="7" height="19" rx="3" fill="#d9d3c8" stroke="#4a4038" stroke-width="1.2"/>
-          <rect x="90" y="94" width="7" height="19" rx="3" fill="#d9d3c8" stroke="#4a4038" stroke-width="1.2"/>
-          <ellipse cx="80" cy="115" rx="6" ry="3" fill="#6b5a4a" stroke="#4a4038" stroke-width="1"/>
-          <ellipse cx="94" cy="115" rx="6" ry="3" fill="#6b5a4a" stroke="#4a4038" stroke-width="1"/>
-          <path d="M70 96 Q71 60 87 56 Q103 60 104 96 Q95 101 87 101 Q79 101 70 96 Z" fill="#8f6aa8" stroke="#4a4038" stroke-width="1.5"/>
-          <path d="M99 64 L110 78 L106 82 L96 68 Z" fill="#8f6aa8" stroke="#4a4038" stroke-width="1.2"/>
-          <circle cx="109" cy="80" r="4" fill="#f6cfae" stroke="#4a4038" stroke-width="1.1"/>
-          <path d="M111 83 L114 108" stroke="#7a5a3a" stroke-width="3" stroke-linecap="round"/>
-          <path d="M110 108 h8" stroke="#7a5a3a" stroke-width="2.4" stroke-linecap="round"/>
-          <rect x="82" y="48" width="10" height="10" rx="3.5" fill="#f6cfae" stroke="#4a4038" stroke-width="1.1"/>
-          <ellipse cx="87" cy="38" rx="13" ry="14" fill="#f6cfae" stroke="#4a4038" stroke-width="1.5"/>
-          <circle cx="87" cy="18" r="5.5" fill="#d8d8d8" stroke="#4a4038" stroke-width="1.2"/>
-          <path d="M74 40 Q71 20 87 19 Q103 20 100 40 Q101 26 87 23 Q73 26 74 40 Z" fill="#d8d8d8" stroke="#4a4038" stroke-width="1.2"/>
-          <path d="M79 38 q2.5 2.2 5 0 M90 38 q2.5 2.2 5 0" stroke="#4a4038" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-          <path d="M82 45 q5 4 10 0" stroke="#4a4038" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-          <ellipse cx="77" cy="42" rx="3" ry="2.2" fill="#f6b8c4"/><ellipse cx="97" cy="42" rx="3" ry="2.2" fill="#f6b8c4"/>
-          <!-- ヘルパー（寄り添う） -->
-          <ellipse cx="134" cy="120" rx="16" ry="3.5" fill="#4a4038" opacity="0.10"/>
-          <rect x="127" y="90" width="7" height="23" rx="3" fill="#4a5568" stroke="#4a4038" stroke-width="1.2"/>
-          <rect x="138" y="90" width="7" height="23" rx="3" fill="#4a5568" stroke="#4a4038" stroke-width="1.2"/>
-          <ellipse cx="129" cy="115" rx="6" ry="3" fill="#ffffff" stroke="#4a4038" stroke-width="1"/>
-          <ellipse cx="142" cy="115" rx="6" ry="3" fill="#ffffff" stroke="#4a4038" stroke-width="1"/>
-          <path d="M120 92 Q121 56 136 52 Q151 56 152 92 Q143 97 136 97 Q129 97 120 92 Z" fill="#2e8b6f" stroke="#4a4038" stroke-width="1.5"/>
-          <rect x="127" y="66" width="18" height="26" rx="3" fill="#f7f3e8" stroke="#4a4038" stroke-width="1.2"/>
-          <path d="M124 60 L106 70 L108 75 L126 66 Z" fill="#2e8b6f" stroke="#4a4038" stroke-width="1.2"/>
-          <circle cx="106" cy="72" r="4" fill="#f6cfae" stroke="#4a4038" stroke-width="1.1"/>
-          <rect x="131" y="44" width="10" height="10" rx="3.5" fill="#f6cfae" stroke="#4a4038" stroke-width="1.1"/>
-          <ellipse cx="136" cy="34" rx="12" ry="13" fill="#f6cfae" stroke="#4a4038" stroke-width="1.5"/>
-          <path d="M124 36 Q121 17 136 16 Q151 17 148 36 Q149 23 136 20 Q123 23 124 36 Z" fill="#3f342b" stroke="#4a4038" stroke-width="1.2"/>
-          <path d="M147 28 Q156 32 154 42 L150 40 Q152 33 146 31 Z" fill="#3f342b"/>
-          <path d="M129 34 q2.5 -2.2 5 0 M138 34 q2.5 -2.2 5 0" stroke="#4a4038" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-          <path d="M131 41 q5 3.5 10 0" stroke="#4a4038" stroke-width="1.6" fill="none" stroke-linecap="round"/>
-          <ellipse cx="127" cy="38" rx="2.8" ry="2" fill="#f6b8c4"/><ellipse cx="145" cy="38" rx="2.8" ry="2" fill="#f6b8c4"/>
-          <!-- 見守るぞうさん -->
-          <ellipse cx="185" cy="118" rx="17" ry="3.5" fill="#4a4038" opacity="0.10"/>
-          <ellipse cx="185" cy="98" rx="18" ry="15" fill="#9fc0e2" stroke="#4a4038" stroke-width="1.5"/>
-          <rect x="172" y="106" width="9" height="10" rx="4" fill="#9fc0e2" stroke="#4a4038" stroke-width="1.2"/>
-          <rect x="188" y="106" width="9" height="10" rx="4" fill="#9fc0e2" stroke="#4a4038" stroke-width="1.2"/>
-          <ellipse cx="167" cy="72" rx="10" ry="13" fill="#86a9cf" stroke="#4a4038" stroke-width="1.3"/>
-          <ellipse cx="168" cy="72" rx="5.5" ry="8" fill="#f6c9d4"/>
-          <ellipse cx="203" cy="72" rx="10" ry="13" fill="#86a9cf" stroke="#4a4038" stroke-width="1.3"/>
-          <ellipse cx="202" cy="72" rx="5.5" ry="8" fill="#f6c9d4"/>
-          <ellipse cx="185" cy="74" rx="20" ry="18" fill="#9fc0e2" stroke="#4a4038" stroke-width="1.5"/>
-          <path d="M173 64 Q177 61 181 64 M189 64 Q193 61 197 64" stroke="#4a4038" stroke-width="1.3" fill="none" stroke-linecap="round"/>
-          <ellipse cx="178" cy="70" rx="2.8" ry="3.6" fill="#ffffff" stroke="#4a4038" stroke-width="0.9"/>
-          <ellipse cx="192" cy="70" rx="2.8" ry="3.6" fill="#ffffff" stroke="#4a4038" stroke-width="0.9"/>
-          <circle cx="176.8" cy="70.8" r="1.6" fill="#3d3126"/><circle cx="190.8" cy="70.8" r="1.6" fill="#3d3126"/>
-          <ellipse cx="172" cy="80" rx="3.4" ry="2.3" fill="#f6b8c4"/><ellipse cx="198" cy="80" rx="3.4" ry="2.3" fill="#f6b8c4"/>
-          <path d="M179 84 q6 4 12 -0.5" stroke="#4a4038" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-          <path d="M190 78 Q200 70 200 58 Q200 52 194 53 Q190 54 191 60 Q191 68 184 72 Z" fill="#9fc0e2" stroke="#4a4038" stroke-width="1.3"/>
-          <path d="M203 50 q4 -4 3 -9 M208 56 q6 -4 7 -10" stroke="#9fc0e2" stroke-width="2" fill="none" stroke-linecap="round"/>
-        </svg></div>
         <h3 data-i18n="step4_h">サービス開始・毎月のご訪問</h3>
         <p data-i18n="step4_p">サービス開始後も毎月ご訪問し、状況の変化に合わせてプランを見直します。</p>
       </div>
