@@ -168,6 +168,7 @@
   .act-tel { background: var(--accent); color: #ffffff; }
   .act-hp { background: #ffffff; color: var(--main-dark); border: 1.5px solid var(--main); }
   .act-map { background: #ffffff; color: #4a6da7; border: 1.5px solid #9db8d9; }
+  .act-fee { background: #ffffff; color: #a06b12; border: 1.5px solid var(--accent); }
   .empty {
     text-align: center;
     color: var(--muted);
@@ -372,8 +373,9 @@ var DESCS = [
       ? "https://www.google.com/maps/search/?api=1&query=" + e.lat + "," + e.lng
       : "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(e.addr);
     var meta = [];
-    if (e.capacity && e.capacity !== "0") { meta.push("定員 " + e.capacity + "名"); }
-    if (e.days) { meta.push(e.days); }
+    // 訪問介護は定員という考え方がなじまないため表示しない
+    if (e.capacity && e.capacity !== "0" && e.type !== "訪問介護") { meta.push("定員 " + e.capacity + "名"); }
+    if (e.days) { meta.push("営業日：" + e.days.split(",").join("・")); }
     var h = '<div class="item">';
     h += '<div class="badges"><span class="badge">' + esc(e.type) + '</span><span class="badge area">' + esc(e.area) + 'エリア</span></div>';
     h += '<h3>' + esc(e.name) + '</h3>';
@@ -383,6 +385,7 @@ var DESCS = [
     h += '<div class="acts">';
     if (e.tel) { h += '<a class="act act-tel" href="tel:' + esc(e.tel) + '">📞 ' + esc(e.tel) + '</a>'; }
     if (e.url) { h += '<a class="act act-hp" href="' + esc(e.url) + '" target="_blank" rel="noopener nofollow">🌐 ホームページ</a>'; }
+    if (e.fee) { h += '<a class="act act-fee" href="' + esc(e.fee) + '" target="_blank" rel="noopener nofollow">💴 料金ページ</a>'; }
     h += '<a class="act act-map" href="' + map + '" target="_blank" rel="noopener">📍 地図</a>';
     h += '</div></div>';
     return h;
