@@ -182,13 +182,22 @@
   }
   .hero .note { font-size: 0.85rem; margin-top: 10px; }
 
-  /* ===== ガイド誘導バナー ===== */
+  /* ===== 誘導バナー（ガイド・事業所検索） ===== */
+  .hero-banners {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 14px;
+    max-width: 1000px;
+    margin: 28px auto 0;
+    padding: 0 4px;
+  }
   .guide-banner {
     display: flex;
     align-items: center;
     gap: 14px;
-    max-width: 540px;
-    margin: 28px auto 0;
+    flex: 1 1 340px;
+    max-width: 480px;
     background: #ffffff;
     border: 2px solid var(--accent);
     border-radius: 16px;
@@ -199,6 +208,12 @@
     box-shadow: 0 4px 14px rgba(244,168,60,0.25);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
+  .guide-banner.jig {
+    border-color: var(--main);
+    box-shadow: 0 4px 14px rgba(46,139,111,0.25);
+  }
+  .guide-banner.jig .gb-arrow { background: var(--main); }
+  .guide-banner.jig:hover { box-shadow: 0 8px 20px rgba(46,139,111,0.35); }
   .guide-banner:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 20px rgba(244,168,60,0.35);
@@ -287,13 +302,22 @@
   .service-box ul { padding-left: 1.3em; margin-top: 10px; }
   .service-box li { margin-bottom: 6px; }
 
-  /* ===== ご利用の流れ ===== */
-  .steps { counter-reset: step; max-width: 640px; margin: 0 auto; }
+  /* ===== ご利用の流れ（4コマ漫画風） ===== */
+  .steps {
+    counter-reset: step;
+    max-width: 640px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  @media (min-width: 800px) {
+    .steps { max-width: 860px; grid-template-columns: repeat(2, 1fr); }
+  }
   .step {
     background: #ffffff;
     border-radius: 14px;
     padding: 20px 20px 20px 66px;
-    margin-bottom: 16px;
     position: relative;
     box-shadow: 0 2px 10px rgba(0,0,0,0.06);
   }
@@ -312,9 +336,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1;
   }
   .step h3 { font-size: 1.05rem; color: var(--main-dark); margin-bottom: 4px; }
   .step p { font-size: 0.92rem; color: var(--muted); }
+  .manga {
+    border: 2.5px solid #3a3a3a;
+    border-radius: 8px;
+    background: #fdfdfb;
+    margin: 0 0 12px -46px;
+    overflow: hidden;
+  }
+  .manga svg { display: block; width: 100%; height: auto; }
 
   /* ===== 事業所概要 ===== */
   .about { background: #ffffff; }
@@ -515,14 +548,24 @@
     <a href="#contact" class="btn btn-line" data-i18n="hero_line_btn">LINE・WhatsAppでもご相談OK</a>
   </div>
   <p class="note" data-i18n="hero_note">受付：平日 9:00〜17:00　※ご相談・ケアプラン作成の自己負担は0円です</p>
-  <a href="guide/" class="guide-banner">
-    <span class="gb-icon">📖</span>
-    <span>
-      <strong data-i18n="guide_b_title">親の介護、何から始めればいい？</strong>
-      <span class="gb-sub" data-i18n="guide_b_sub">「退院と言われた」「物忘れが増えた」…よくある6つの状況別ガイドはこちら</span>
-    </span>
-    <span class="gb-arrow">→</span>
-  </a>
+  <div class="hero-banners">
+    <a href="guide/" class="guide-banner">
+      <span class="gb-icon">📖</span>
+      <span>
+        <strong data-i18n="guide_b_title">親の介護、何から始めればいい？</strong>
+        <span class="gb-sub" data-i18n="guide_b_sub">「退院と言われた」「物忘れが増えた」…よくある6つの状況別ガイドはこちら</span>
+      </span>
+      <span class="gb-arrow">→</span>
+    </a>
+    <a href="jigyosho/" class="guide-banner jig">
+      <span class="gb-icon">🔍</span>
+      <span>
+        <strong data-i18n="jig_b_title">出雲市の介護事業所をさがす</strong>
+        <span class="gb-sub" data-i18n="jig_b_sub">デイサービスなど市内439か所を、種類とエリアで絞り込めます</span>
+      </span>
+      <span class="gb-arrow">→</span>
+    </a>
+  </div>
 </div>
 
 <section id="features">
@@ -580,18 +623,133 @@
     <p class="h2-sub">FLOW</p>
     <div class="steps">
       <div class="step">
+        <div class="manga"><svg viewBox="0 0 220 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="家族が電話で相談し、ぞうさんが応える場面">
+          <!-- 相談する家族 -->
+          <path d="M38 52 a17 17 0 0 1 34 0 l-2 6 h-30 z" fill="#6b4a35"/>
+          <circle cx="55" cy="56" r="15" fill="#ffd9b8"/>
+          <path d="M40 50 q6 -10 18 -9 q10 1 12 8 l-3 3 q-3 -8 -11 -8 q-10 0 -13 8 z" fill="#6b4a35"/>
+          <circle cx="50" cy="56" r="2" fill="#3a3a3a"/><circle cx="61" cy="56" r="2" fill="#3a3a3a"/>
+          <path d="M47 49 l6 2 M64 51 l-6 1" stroke="#3a3a3a" stroke-width="1.5" stroke-linecap="round"/>
+          <ellipse cx="55" cy="64" rx="3" ry="2.4" fill="#c96b6b"/>
+          <path d="M73 38 q4 5 0 9 q-4 -4 0 -9z" fill="#9ec9ec"/>
+          <rect x="38" y="70" width="34" height="36" rx="13" fill="#f4a83c"/>
+          <rect x="63" y="52" width="8" height="14" rx="2.5" fill="#444444" transform="rotate(-14 67 59)"/>
+          <!-- 電波 -->
+          <path d="M92 66 q5 -6 0 -12 M100 70 q9 -10 0 -20 M108 74 q13 -14 0 -28" stroke="#f4a83c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <!-- ぞうさん -->
+          <circle cx="143" cy="66" r="12" fill="#8fb3d9"/><circle cx="143" cy="66" r="7" fill="#fbd3dc"/>
+          <circle cx="183" cy="66" r="12" fill="#8fb3d9"/><circle cx="183" cy="66" r="7" fill="#fbd3dc"/>
+          <circle cx="163" cy="72" r="21" fill="#a5c4e4"/>
+          <circle cx="156" cy="68" r="2.5" fill="#3a3a3a"/><circle cx="170" cy="68" r="2.5" fill="#3a3a3a"/>
+          <path d="M157 78 q6 5 12 0" stroke="#3a3a3a" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M163 82 q-2 12 -12 14" stroke="#8fb3d9" stroke-width="7" fill="none" stroke-linecap="round"/>
+          <rect x="141" y="92" width="8" height="13" rx="2.5" fill="#444444" transform="rotate(18 145 98)"/>
+          <!-- 吹き出し -->
+          <rect x="148" y="14" width="52" height="26" rx="13" fill="#ffffff" stroke="#cccccc"/>
+          <path d="M166 40 l4 8 l6 -8z" fill="#ffffff" stroke="#cccccc"/>
+          <text x="174" y="33" font-size="15" text-anchor="middle">😊❤</text>
+          <rect x="24" y="12" width="46" height="24" rx="12" fill="#ffffff" stroke="#cccccc"/>
+          <path d="M42 36 l3 7 l6 -7z" fill="#ffffff" stroke="#cccccc"/>
+          <text x="47" y="30" font-size="14" text-anchor="middle">📞💦</text>
+        </svg></div>
         <h3 data-i18n="step1_h">お問い合わせ</h3>
         <p data-i18n="step1_p">お電話またはLINEでご連絡ください。介護保険が初めての方も大丈夫です。</p>
       </div>
       <div class="step">
+        <div class="manga"><svg viewBox="0 0 220 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="自宅でおばあさんの話をぞうさんがメモを取りながら聞く場面">
+          <!-- 窓 -->
+          <rect x="88" y="14" width="40" height="30" rx="3" fill="#e8f5ef" stroke="#cccccc"/>
+          <path d="M108 14 v30 M88 29 h40" stroke="#cccccc"/>
+          <!-- テーブル -->
+          <rect x="52" y="96" width="116" height="9" rx="4" fill="#c9a06b"/>
+          <rect x="62" y="105" width="7" height="16" fill="#b58a55"/><rect x="151" y="105" width="7" height="16" fill="#b58a55"/>
+          <!-- おばあさん -->
+          <circle cx="58" cy="44" r="7" fill="#cfcfcf"/>
+          <path d="M42 58 a16 16 0 0 1 32 0 l-2 5 h-28 z" fill="#cfcfcf"/>
+          <circle cx="58" cy="62" r="14" fill="#ffd9b8"/>
+          <path d="M50 60 q3 3 6 0 M62 60 q3 3 6 0" stroke="#3a3a3a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M53 69 q5 4 10 0" stroke="#3a3a3a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <ellipse cx="47" cy="66" rx="3.5" ry="2.5" fill="#fbb8c8"/><ellipse cx="69" cy="66" rx="3.5" ry="2.5" fill="#fbb8c8"/>
+          <rect x="42" y="76" width="32" height="26" rx="12" fill="#b98bc6"/>
+          <!-- ぞうさん -->
+          <circle cx="142" cy="58" r="11" fill="#8fb3d9"/><circle cx="142" cy="58" r="6.5" fill="#fbd3dc"/>
+          <circle cx="180" cy="58" r="11" fill="#8fb3d9"/><circle cx="180" cy="58" r="6.5" fill="#fbd3dc"/>
+          <circle cx="161" cy="64" r="20" fill="#a5c4e4"/>
+          <circle cx="154" cy="60" r="2.5" fill="#3a3a3a"/><circle cx="168" cy="60" r="2.5" fill="#3a3a3a"/>
+          <path d="M155 70 q6 5 12 0" stroke="#3a3a3a" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M161 74 q-3 10 -13 11" stroke="#8fb3d9" stroke-width="6.5" fill="none" stroke-linecap="round"/>
+          <!-- メモ帳 -->
+          <rect x="130" y="82" width="26" height="20" rx="3" fill="#ffffff" stroke="#cccccc" transform="rotate(-8 143 92)"/>
+          <path d="M134 88 l16 -2 M135 93 l16 -2 M136 98 l10 -1.5" stroke="#bbbbbb" stroke-width="1.5" transform="rotate(-8 143 92)"/>
+          <!-- 吹き出し -->
+          <rect x="88" y="50" width="30" height="20" rx="10" fill="#ffffff" stroke="#cccccc"/>
+          <path d="M92 68 l-6 6 l10 -2z" fill="#ffffff" stroke="#cccccc"/>
+          <text x="103" y="65" font-size="12" text-anchor="middle">💬♪</text>
+        </svg></div>
         <h3 data-i18n="step2_h">ご訪問・聞き取り</h3>
         <p data-i18n="step2_p">ご自宅にお伺いし、お体の状態や生活のご様子、ご希望を丁寧にお聞きします。</p>
       </div>
       <div class="step">
+        <div class="manga"><svg viewBox="0 0 220 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ぞうさんがケアプランを見せて家族が喜ぶ場面">
+          <!-- ぞうさん -->
+          <circle cx="38" cy="56" r="11" fill="#8fb3d9"/><circle cx="38" cy="56" r="6.5" fill="#fbd3dc"/>
+          <circle cx="76" cy="56" r="11" fill="#8fb3d9"/><circle cx="76" cy="56" r="6.5" fill="#fbd3dc"/>
+          <circle cx="57" cy="62" r="20" fill="#a5c4e4"/>
+          <circle cx="50" cy="58" r="2.5" fill="#3a3a3a"/><circle cx="64" cy="58" r="2.5" fill="#3a3a3a"/>
+          <path d="M51 68 q6 5 12 0" stroke="#3a3a3a" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M57 72 q10 8 26 6" stroke="#8fb3d9" stroke-width="6.5" fill="none" stroke-linecap="round"/>
+          <!-- ケアプランの紙 -->
+          <rect x="92" y="28" width="58" height="76" rx="4" fill="#ffffff" stroke="#3a3a3a" stroke-width="1.5"/>
+          <rect x="92" y="28" width="58" height="14" rx="4" fill="#f4a83c"/>
+          <text x="121" y="39" font-size="9" text-anchor="middle" fill="#ffffff" font-weight="bold">ケアプラン</text>
+          <text x="100" y="58" font-size="11" fill="#2e8b6f">✓</text><path d="M110 54 h32" stroke="#bbbbbb" stroke-width="2"/>
+          <text x="100" y="74" font-size="11" fill="#2e8b6f">✓</text><path d="M110 70 h32" stroke="#bbbbbb" stroke-width="2"/>
+          <text x="100" y="90" font-size="11" fill="#2e8b6f">✓</text><path d="M110 86 h24" stroke="#bbbbbb" stroke-width="2"/>
+          <!-- 家族 -->
+          <path d="M168 52 a15 15 0 0 1 30 0 l-2 5 h-26 z" fill="#6b4a35"/>
+          <circle cx="183" cy="56" r="13" fill="#ffd9b8"/>
+          <path d="M170 50 q5 -9 16 -8 q9 1 10 7 l-3 3 q-2 -7 -10 -7 q-8 0 -10 7z" fill="#6b4a35"/>
+          <path d="M177 55 q2.5 3 5 0 M186 55 q2.5 3 5 0" stroke="#3a3a3a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M179 63 q4 4 9 0" stroke="#3a3a3a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <rect x="168" y="70" width="30" height="34" rx="12" fill="#2e8b6f"/>
+          <text x="205" y="34" font-size="15">✨</text>
+          <text x="164" y="26" font-size="13">😊</text>
+        </svg></div>
         <h3 data-i18n="step3_h">ケアプランの作成</h3>
         <p data-i18n="step3_p">ご本人・ご家族と相談しながら、必要なサービスを組み合わせたプランを作成します。</p>
       </div>
       <div class="step">
+        <div class="manga"><svg viewBox="0 0 220 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="サービスが始まり、おばあさんが元気に過ごし、ぞうさんが毎月見守る場面">
+          <!-- 太陽 -->
+          <circle cx="196" cy="20" r="9" fill="#f4a83c"/>
+          <path d="M196 6 v-4 M210 20 h4 M206 10 l3 -3 M206 30 l3 3" stroke="#f4a83c" stroke-width="2.5" stroke-linecap="round"/>
+          <!-- 花 -->
+          <g transform="translate(24,104)"><circle r="4" fill="#f4a83c"/><circle cx="0" cy="-7" r="4" fill="#f19bb4"/><circle cx="7" cy="-2" r="4" fill="#f19bb4"/><circle cx="4" cy="6" r="4" fill="#f19bb4"/><circle cx="-4" cy="6" r="4" fill="#f19bb4"/><circle cx="-7" cy="-2" r="4" fill="#f19bb4"/></g>
+          <g transform="translate(44,114)"><circle r="3" fill="#f4a83c"/><circle cx="0" cy="-5.5" r="3" fill="#f19bb4"/><circle cx="5.5" cy="-1.5" r="3" fill="#f19bb4"/><circle cx="3" cy="4.5" r="3" fill="#f19bb4"/><circle cx="-3" cy="4.5" r="3" fill="#f19bb4"/><circle cx="-5.5" cy="-1.5" r="3" fill="#f19bb4"/></g>
+          <!-- 元気なおばあさん -->
+          <circle cx="88" cy="36" r="6.5" fill="#cfcfcf"/>
+          <path d="M73 50 a15 15 0 0 1 30 0 l-2 5 h-26 z" fill="#cfcfcf"/>
+          <circle cx="88" cy="54" r="13" fill="#ffd9b8"/>
+          <path d="M81 52 q2.5 3 5 0 M92 52 q2.5 3 5 0" stroke="#3a3a3a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <path d="M82 60 q6 5 12 0" stroke="#3a3a3a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+          <ellipse cx="78" cy="58" rx="3.5" ry="2.5" fill="#fbb8c8"/><ellipse cx="98" cy="58" rx="3.5" ry="2.5" fill="#fbb8c8"/>
+          <rect x="72" y="68" width="32" height="34" rx="12" fill="#b98bc6"/>
+          <path d="M106 78 l8 26" stroke="#8a6a4a" stroke-width="3" stroke-linecap="round"/>
+          <path d="M64 74 q-8 6 -6 14" stroke="#ffd9b8" stroke-width="5" fill="none" stroke-linecap="round"/>
+          <text x="108" y="42" font-size="13">🎵</text>
+          <!-- ぞうさんとカレンダー -->
+          <circle cx="152" cy="76" r="9" fill="#8fb3d9"/><circle cx="152" cy="76" r="5.5" fill="#fbd3dc"/>
+          <circle cx="184" cy="76" r="9" fill="#8fb3d9"/><circle cx="184" cy="76" r="5.5" fill="#fbd3dc"/>
+          <circle cx="168" cy="81" r="17" fill="#a5c4e4"/>
+          <circle cx="162" cy="78" r="2.2" fill="#3a3a3a"/><circle cx="174" cy="78" r="2.2" fill="#3a3a3a"/>
+          <path d="M162 86 q6 5 12 0" stroke="#3a3a3a" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M168 90 q-3 9 -12 10" stroke="#8fb3d9" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <rect x="150" y="30" width="38" height="30" rx="3" fill="#ffffff" stroke="#3a3a3a" stroke-width="1.5"/>
+          <rect x="150" y="30" width="38" height="8" fill="#2e8b6f"/>
+          <path d="M150 46 h38 M163 38 v22 M176 38 v22" stroke="#cccccc"/>
+          <text x="156" y="57" font-size="8" fill="#e05a5a">❤</text>
+          <text x="180" y="45" font-size="8" fill="#e05a5a">❤</text>
+        </svg></div>
         <h3 data-i18n="step4_h">サービス開始・毎月のご訪問</h3>
         <p data-i18n="step4_p">サービス開始後も毎月ご訪問し、状況の変化に合わせてプランを見直します。</p>
       </div>
@@ -672,6 +830,8 @@ var TRANSLATIONS = {
     nav_jigyosho: "Find Care Providers (Japanese)",
     guide_b_title: "Caring for a parent — where do I start?",
     guide_b_sub: "A simple guide to 6 common situations (in Japanese)",
+    jig_b_title: "Find care providers in Izumo",
+    jig_b_sub: "Browse 439 local providers by service type and area (in Japanese)",
     nav_service: "Services",
     nav_flow: "How It Works",
     nav_about: "About Us",
@@ -752,6 +912,8 @@ var TRANSLATIONS = {
     nav_jigyosho: "Buscar serviços de cuidados (em japonês)",
     guide_b_title: "Cuidar de um familiar — por onde começar?",
     guide_b_sub: "Guia simples com 6 situações comuns (em japonês)",
+    jig_b_title: "Buscar serviços de cuidados em Izumo",
+    jig_b_sub: "439 estabelecimentos locais por tipo de serviço e região (em japonês)",
     nav_service: "Serviços",
     nav_flow: "Como Funciona",
     nav_about: "Sobre Nós",
