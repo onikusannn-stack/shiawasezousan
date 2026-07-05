@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>出雲市の介護サービス事業所をさがす｜しあわせぞうさん</title>
+<meta name="description" content="出雲市内の介護サービス事業所（デイサービス・ヘルパー・ショートステイ・施設など約440件）をサービス種別・エリアで検索できます。出雲市のケアマネジャー「しあわせぞうさん」が公的データをもとに作成。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --main: #2e8b6f;
+    --main-dark: #1f6b54;
+    --accent: #f4a83c;
+    --bg: #fdfaf4;
+    --text: #333333;
+    --muted: #666666;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "Zen Maru Gothic", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.8;
+    font-size: 16px;
+    letter-spacing: 0.02em;
+  }
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  }
+  .header-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 10px 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .logo {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--main-dark);
+    text-decoration: none;
+  }
+  .logo small { display: block; font-size: 0.68rem; font-weight: normal; color: var(--muted); }
+  .home-link {
+    font-size: 0.85rem;
+    color: var(--main-dark);
+    text-decoration: none;
+    border: 1px solid var(--main);
+    border-radius: 999px;
+    padding: 4px 14px;
+  }
+
+  .hero {
+    background: linear-gradient(160deg, #e8f5ef 0%, #fdf3e0 100%);
+    text-align: center;
+    padding: 34px 16px 26px;
+  }
+  .hero h1 { font-size: 1.45rem; color: var(--main-dark); line-height: 1.5; }
+  .hero p { max-width: 640px; margin: 8px auto 0; color: var(--muted); font-size: 0.92rem; }
+
+  .inner { max-width: 960px; margin: 0 auto; padding: 0 14px; }
+
+  /* ===== 絞り込み ===== */
+  .filters {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    padding: 18px 16px;
+    margin: 18px auto;
+  }
+  .filters label { font-size: 0.85rem; font-weight: bold; color: var(--main-dark); display: block; margin-bottom: 4px; }
+  .filters select, .filters input[type="text"] {
+    width: 100%;
+    font-family: inherit;
+    font-size: 1rem;
+    padding: 10px 12px;
+    border: 1.5px solid #d8d2c4;
+    border-radius: 10px;
+    background: #ffffff;
+    margin-bottom: 12px;
+  }
+  .type-desc {
+    font-size: 0.85rem;
+    background: #fdf3e0;
+    border-radius: 10px;
+    padding: 10px 14px;
+    margin: -6px 0 12px;
+    color: #7a5a1e;
+    display: none;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
+  .chips button {
+    font-family: inherit;
+    font-size: 0.88rem;
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1.5px solid var(--main);
+    background: #ffffff;
+    color: var(--main-dark);
+    cursor: pointer;
+  }
+  .chips button.on { background: var(--main); color: #ffffff; font-weight: bold; }
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .count { font-weight: bold; color: var(--main-dark); }
+  .count b { color: var(--accent); font-size: 1.25rem; }
+  .toolbar .spacer { flex: 1; }
+  .tool-btn {
+    font-family: inherit;
+    font-size: 0.82rem;
+    padding: 7px 14px;
+    border-radius: 999px;
+    border: 1.5px solid #d8d2c4;
+    background: #ffffff;
+    color: var(--muted);
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .tool-btn:hover { border-color: var(--main); color: var(--main-dark); }
+
+  /* ===== 一覧 ===== */
+  .list { display: grid; gap: 12px; padding-bottom: 30px; }
+  .item {
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 16px 18px;
+  }
+  .item .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+  .badge {
+    font-size: 0.72rem;
+    border-radius: 999px;
+    padding: 2px 10px;
+    background: #e8f5ef;
+    color: var(--main-dark);
+    font-weight: bold;
+  }
+  .badge.area { background: #fdf3e0; color: #a06b12; }
+  .item h3 { font-size: 1.05rem; color: var(--main-dark); line-height: 1.5; }
+  .item .corp { font-size: 0.78rem; color: var(--muted); }
+  .item .addr { font-size: 0.88rem; margin: 4px 0; }
+  .item .meta { font-size: 0.8rem; color: var(--muted); }
+  .item .acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .act {
+    font-size: 0.85rem;
+    text-decoration: none;
+    border-radius: 999px;
+    padding: 7px 16px;
+    font-weight: bold;
+  }
+  .act-tel { background: var(--accent); color: #ffffff; }
+  .act-hp { background: #ffffff; color: var(--main-dark); border: 1.5px solid var(--main); }
+  .act-map { background: #ffffff; color: #4a6da7; border: 1.5px solid #9db8d9; }
+  .empty {
+    text-align: center;
+    color: var(--muted);
+    padding: 40px 0;
+  }
+
+  /* ===== 相談CTA ===== */
+  .cta-box {
+    background: linear-gradient(160deg, #e8f5ef 0%, #fdf3e0 100%);
+    border-radius: 16px;
+    text-align: center;
+    padding: 26px 18px;
+    margin: 10px auto 30px;
+  }
+  .cta-box p { font-size: 0.95rem; margin-bottom: 10px; }
+  .cta-box .btn {
+    display: inline-block;
+    padding: 12px 26px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 4px;
+  }
+  .btn-tel { background: var(--accent); color: #ffffff; }
+  .btn-home { background: #ffffff; color: var(--main-dark); border: 2px solid var(--main); }
+
+  .source {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 16px 30px;
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+  .source a { color: var(--main-dark); }
+
+  footer {
+    background: var(--main-dark);
+    color: #ffffff;
+    text-align: center;
+    padding: 22px 16px;
+    font-size: 0.8rem;
+    line-height: 1.9;
+  }
+  footer a { color: #ffffff; }
+
+  /* ===== 印刷用 ===== */
+  @media print {
+    header, .hero p, .filters .chips, .filters select, .filters input, .filters label,
+    .type-desc, .tool-btn, .cta-box, .acts, footer { display: none !important; }
+    body { background: #ffffff; font-size: 12px; }
+    .item { box-shadow: none; border-bottom: 1px solid #cccccc; border-radius: 0; padding: 6px 0; }
+    .list { gap: 0; }
+    .hero { padding: 4px; background: none; }
+    .filters { box-shadow: none; padding: 0; margin: 4px 0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="../" class="logo">🐘 しあわせぞうさん<small>居宅介護支援事業所（島根県出雲市）</small></a>
+    <a href="../" class="home-link">ホームページへ →</a>
+  </div>
+</header>
+
+<div class="hero">
+  <h1>出雲市の介護サービス事業所をさがす</h1>
+  <p>市内の介護保険サービス事業所を、種類とエリアで絞り込めます。<br>
+  「どれを選べばいいか分からない」ときは、遠慮なくケアマネジャーにご相談ください。</p>
+</div>
+
+<div class="inner">
+  <div class="filters">
+    <label for="typeSel">サービスの種類</label>
+    <select id="typeSel"><option value="">すべての種類</option></select>
+    <div class="type-desc" id="typeDesc"></div>
+
+    <label>エリア（旧市町村）</label>
+    <div class="chips" id="areaChips"></div>
+
+    <label for="kw" style="margin-top:10px;">事業所名で検索</label>
+    <input type="text" id="kw" placeholder="例：ぞうさん">
+
+    <div class="toolbar">
+      <span class="count">該当 <b id="count">0</b> 件</span>
+      <button class="tool-btn" id="resetBtn" type="button">条件をクリア</button>
+      <span class="spacer"></span>
+      <button class="tool-btn" type="button" onclick="window.print()">🖨️ この一覧を印刷</button>
+      <a class="tool-btn" href="izumo_kaigo_list.xlsx" download>📥 Excelでダウンロード</a>
+    </div>
+  </div>
+
+  <div class="list" id="list"></div>
+
+  <div class="cta-box">
+    <p><strong>どの事業所を選べばいいか、迷っていませんか？</strong><br>
+    ケアマネジャーが、あなたの状況に合わせて一緒に選びます。相談は無料です。</p>
+    <a href="tel:050-8893-1122" class="btn btn-tel">📞 050-8893-1122</a>
+    <a href="../" class="btn btn-home">しあわせぞうさんについて</a>
+  </div>
+</div>
+
+<div class="source">
+  出典：<a href="https://www.mhlw.go.jp/stf/kaigo-kouhyou_opendata.html" target="_blank" rel="noopener">厚生労働省 介護サービス情報公表システム オープンデータ</a>（<span id="dataDate"></span>／CC BY 4.0）をもとに作成。<br>
+  掲載内容は公的データの時点情報です。最新の空き状況・受入可否・料金などは、必ず各事業所に直接ご確認ください。掲載順はデータの並び順で、当事業所による優劣の評価ではありません。
+</div>
+
+<footer>
+  <p>居宅介護支援事業所 しあわせぞうさん（合同会社しあわせぞうさん）<br>
+  島根県出雲市大社町遙堪663-25　／　<a href="../">ホームページはこちら</a></p>
+</footer>
+
+<script src="data.js"></script>
+<script>
+// サービス種別のやさしい説明（部分一致・上から順に判定）
+var DESCS = [
+  ["地域密着型通所介護", "定員18人以下の小さなデイサービス。日帰りで食事・入浴・レクリエーションを。アットホームな雰囲気が特徴です。"],
+  ["認知症対応型通所介護", "認知症の方専門のデイサービス。少人数で、専門的なケアを受けられます。"],
+  ["通所介護", "いわゆる「デイサービス」。日帰りで施設に通い、食事・入浴・体操・レクリエーションを楽しめます。"],
+  ["通所リハビリテーション", "いわゆる「デイケア」。日帰りで施設に通い、リハビリを中心に行います。"],
+  ["訪問介護", "ホームヘルパーが自宅に来て、入浴・トイレ・食事の介助や、掃除・調理などを手伝ってくれます。"],
+  ["訪問入浴介護", "浴槽を積んだ車で自宅に来て、寝たままでもお風呂に入れてくれます。"],
+  ["訪問看護", "看護師が自宅に来て、健康チェック・お薬の管理・医療的なケアをしてくれます。"],
+  ["訪問リハビリテーション", "リハビリの専門職が自宅に来て、体を動かす練習や生活の工夫を教えてくれます。"],
+  ["居宅療養管理指導", "医師・歯科医師・薬剤師・栄養士などが自宅に来て、療養のアドバイスをしてくれます。"],
+  ["短期入所生活介護", "いわゆる「ショートステイ」。数日間施設に泊まれます。ご家族の休息や冠婚葬祭のときに。"],
+  ["短期入所療養介護", "医療的なケアつきのショートステイです。"],
+  ["特定施設入居者生活介護", "介護サービスつきの有料老人ホームなど。入居して介護を受けられます。"],
+  ["福祉用具貸与", "介護ベッド・車いす・歩行器・手すりなどをレンタルできます。"],
+  ["特定福祉用具販売", "ポータブルトイレや入浴用いすなど、レンタルになじまない用具を購入できます（購入費の補助あり）。"],
+  ["居宅介護支援", "ケアマネジャーの事業所。介護の相談とケアプラン作成を行います（自己負担0円）。"],
+  ["地域密着型介護老人福祉施設", "定員29人以下の小さな特別養護老人ホームです。"],
+  ["介護老人福祉施設", "特別養護老人ホーム（特養）。常に介護が必要な方が入所して暮らす施設です。"],
+  ["介護老人保健施設", "「老健」。リハビリをして自宅に戻ることを目指す入所施設です。"],
+  ["介護医療院", "長期にわたって医療と介護の両方が必要な方のための入所施設です。"],
+  ["認知症対応型共同生活介護", "「グループホーム」。認知症の方が少人数（9人程度）で共同生活する住まいです。"],
+  ["看護小規模多機能型居宅介護", "「通い」「泊まり」「訪問介護」に訪問看護もついた、医療ニーズに強いサービスです。"],
+  ["小規模多機能型居宅介護", "「通い」を中心に、「泊まり」「訪問」を自由に組み合わせられるサービスです。"],
+  ["定期巡回・随時対応型訪問介護看護", "24時間365日、定期的な訪問と、呼び出しにも対応してくれるサービスです。"],
+  ["夜間対応型訪問介護", "夜間にヘルパーが定期訪問・呼び出し対応してくれるサービスです。"]
+];
+
+(function () {
+  var data = JIGYOSHO_DATA;
+  var areas = ["出雲", "平田", "大社", "斐川", "湖陵", "多伎", "佐田"];
+  var state = { type: "", area: "", kw: "" };
+
+  document.getElementById("dataDate").textContent = JIGYOSHO_META.dataDate;
+
+  // 種別プルダウン（データの登場順＝公的データのコード順）
+  var typeSel = document.getElementById("typeSel");
+  var types = [];
+  var typeCount = {};
+  data.forEach(function (e) {
+    if (types.indexOf(e.type) < 0) { types.push(e.type); }
+    typeCount[e.type] = (typeCount[e.type] || 0) + 1;
+  });
+  types.forEach(function (t) {
+    var o = document.createElement("option");
+    o.value = t;
+    o.textContent = t + "（" + typeCount[t] + "件）";
+    typeSel.appendChild(o);
+  });
+
+  // エリアチップ
+  var chipsBox = document.getElementById("areaChips");
+  var areaCount = {};
+  data.forEach(function (e) { areaCount[e.area] = (areaCount[e.area] || 0) + 1; });
+  function makeChip(label, value) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.textContent = label;
+    b.dataset.value = value;
+    b.addEventListener("click", function () {
+      state.area = (state.area === value) ? "" : value;
+      update();
+    });
+    chipsBox.appendChild(b);
+    return b;
+  }
+  makeChip("すべて", "");
+  areas.forEach(function (a) { makeChip(a + "（" + (areaCount[a] || 0) + "）", a); });
+
+  var kw = document.getElementById("kw");
+  kw.addEventListener("input", function () { state.kw = kw.value.trim(); update(); });
+  typeSel.addEventListener("change", function () { state.type = typeSel.value; update(); });
+  document.getElementById("resetBtn").addEventListener("click", function () {
+    state = { type: "", area: "", kw: "" };
+    typeSel.value = "";
+    kw.value = "";
+    update();
+  });
+
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function card(e) {
+    var addr = e.addr.replace(/^島根県/, "");
+    var map = e.lat && e.lng
+      ? "https://www.google.com/maps/search/?api=1&query=" + e.lat + "," + e.lng
+      : "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(e.addr);
+    var meta = [];
+    if (e.capacity && e.capacity !== "0") { meta.push("定員 " + e.capacity + "名"); }
+    if (e.days) { meta.push(e.days); }
+    var h = '<div class="item">';
+    h += '<div class="badges"><span class="badge">' + esc(e.type) + '</span><span class="badge area">' + esc(e.area) + 'エリア</span></div>';
+    h += '<h3>' + esc(e.name) + '</h3>';
+    if (e.corp) { h += '<div class="corp">' + esc(e.corp) + '</div>'; }
+    h += '<div class="addr">' + esc(addr) + '</div>';
+    if (meta.length) { h += '<div class="meta">' + esc(meta.join("　／　")) + '</div>'; }
+    h += '<div class="acts">';
+    if (e.tel) { h += '<a class="act act-tel" href="tel:' + esc(e.tel) + '">📞 ' + esc(e.tel) + '</a>'; }
+    if (e.url) { h += '<a class="act act-hp" href="' + esc(e.url) + '" target="_blank" rel="noopener nofollow">🌐 ホームページ</a>'; }
+    h += '<a class="act act-map" href="' + map + '" target="_blank" rel="noopener">📍 地図</a>';
+    h += '</div></div>';
+    return h;
+  }
+
+  function update() {
+    // チップの見た目
+    var btns = chipsBox.querySelectorAll("button");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].className = (btns[i].dataset.value === state.area) ? "on" : "";
+    }
+    // 種別説明
+    var descBox = document.getElementById("typeDesc");
+    descBox.style.display = "none";
+    if (state.type) {
+      for (var d = 0; d < DESCS.length; d++) {
+        if (state.type.indexOf(DESCS[d][0]) >= 0) {
+          descBox.textContent = "💡 " + DESCS[d][1];
+          descBox.style.display = "block";
+          break;
+        }
+      }
+    }
+    // 絞り込み
+    var rows = data.filter(function (e) {
+      if (state.type && e.type !== state.type) { return false; }
+      if (state.area && e.area !== state.area) { return false; }
+      if (state.kw) {
+        var t = state.kw.toLowerCase();
+        if ((e.name + e.kana + e.corp).toLowerCase().indexOf(t) < 0) { return false; }
+      }
+      return true;
+    });
+    document.getElementById("count").textContent = rows.length;
+    var list = document.getElementById("list");
+    if (!rows.length) {
+      list.innerHTML = '<div class="empty">条件に合う事業所が見つかりませんでした。<br>条件を減らすか、お電話でご相談ください。</div>';
+      return;
+    }
+    list.innerHTML = rows.map(card).join("");
+  }
+
+  update();
+})();
+</script>
+
+</body>
+</html>
