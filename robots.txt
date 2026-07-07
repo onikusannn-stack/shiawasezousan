@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://onikusannn-stack.github.io/shiawasezousan/sitemap.xml
