@@ -431,6 +431,13 @@ var DESCS = [
       }
       return true;
     });
+    // 並び順を常に統一：しあわせぞうさんを先頭に固定し、あとは五十音（ふりがな）順
+    var OWN = "3270403482"; // しあわせぞうさんの事業所番号
+    rows.sort(function (a, b) {
+      if (a.no === OWN) { return -1; }
+      if (b.no === OWN) { return 1; }
+      return (a.kana || a.name).localeCompare(b.kana || b.name, "ja");
+    });
     document.getElementById("count").textContent = rows.length;
     var list = document.getElementById("list");
     if (!rows.length) {
