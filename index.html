@@ -549,9 +549,39 @@
   @media (min-width: 1000px) {
     .cards { grid-template-columns: repeat(4, 1fr); }
   }
+  /* ===== 各セクションの終わりに置く控えめなボタン ===== */
+  .sec-cta {
+    text-align: center;
+    margin-top: 30px;
+  }
+  .sec-cta a {
+    display: inline-block;
+    border: 2px solid var(--main);
+    color: var(--main-dark);
+    background: #ffffff;
+    border-radius: 999px;
+    padding: 10px 26px;
+    font-size: 0.92rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .sec-cta a:hover {
+    background: var(--main);
+    color: #ffffff;
+  }
+  /* 軽い入口であることを伝える一言（LINE・WhatsApp） */
+  .msg-note {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 6px;
+    line-height: 1.7;
+  }
+
   @media (max-width: 600px) {
     html { scroll-padding-top: 185px; }
     .hero h1 { font-size: 1.3rem; }
+    .sec-cta a { font-size: 0.85rem; padding: 10px 18px; }
     nav a { font-size: 0.78rem; }
     .tel-big { font-size: 1.6rem; }
     .cards { grid-template-columns: 1fr; }
@@ -603,7 +633,7 @@
       <span class="gb-icon">📖</span>
       <span>
         <strong data-i18n="guide_b_title">親の介護、何から始めればいい？</strong>
-        <span class="gb-sub" data-i18n="guide_b_sub">「退院と言われた」「物忘れが増えた」…よくある6つの状況別ガイドはこちら</span>
+        <span class="gb-sub" data-i18n="guide_b_sub">まだ相談するか決めていない方へ。名前を伝えなくても読める、6つの状況別ガイドです</span>
       </span>
       <span class="gb-arrow">→</span>
     </a>
@@ -644,6 +674,7 @@
         <p data-i18n="card4_p">翻訳ソフトを使って、日本語での会話が難しい方やご家族のご相談にも対応できます。WhatsAppでのご連絡もOK。外国籍の方もどうぞ安心してご連絡ください。</p>
       </div>
     </div>
+    <p class="sec-cta"><a href="#contact" data-i18n="cta_features">まずは聞いてみる（相談だけでも大丈夫です）</a></p>
   </div>
 </section>
 
@@ -664,6 +695,7 @@
       </ul>
       <p style="margin-top:14px;" data-i18n="service_outro">「何から始めればいいか分からない」という段階のご相談も歓迎です。ご本人・ご家族の意思を尊重し、一緒に考えます。</p>
     </div>
+    <p class="sec-cta"><a href="#contact" data-i18n="cta_service">うちの場合はどうか、聞いてみる</a></p>
   </div>
 </section>
 
@@ -692,6 +724,7 @@
         <p data-i18n="step4_p">サービス開始後も毎月ご訪問し、状況の変化に合わせてプランを見直します。</p>
       </div>
     </div>
+    <p class="sec-cta"><a href="#contact" data-i18n="cta_flow">まずは1つめの「お問い合わせ」から</a></p>
   </div>
 </section>
 
@@ -710,6 +743,7 @@
       <tr><th data-i18n="about_th_area">サービス<br>提供地域</th><td data-i18n="about_td_area">出雲市（旧出雲市）、大社町　※その他の地域も提供実績があります。ご相談ください</td></tr>
       <tr><th data-i18n="about_th_mgr">管理者</th><td data-i18n="about_td_mgr">石﨑 仁久（主任介護支援専門員）</td></tr>
     </table>
+    <p class="sec-cta"><a href="#contact" data-i18n="cta_about">お近くか分からない方も、ご相談ください</a></p>
   </div>
 </section>
 
@@ -739,12 +773,14 @@
         <img src="images/line_qr.png" alt="LINE QR code" style="width:200px;max-width:100%;margin:10px 0;">
         <p style="font-size:0.85rem;color:var(--muted);" data-i18n="line_scan">スマホのカメラまたはLINEアプリで<br>QRコードを読み取ってください</p>
         <a href="https://works.do/R/ti/p/ishizakicorporation.hitoshi@works-459349" target="_blank" rel="noopener" class="msg-btn msg-btn-line" data-i18n="line_btn">タップして友だち追加</a>
+        <p class="msg-note" data-i18n="msg_note">「まだ申し込むか決めていない」という段階の質問だけでも大丈夫です。こちらから営業の連絡はしません。</p>
       </div>
       <div class="msg-box">
         <p style="font-weight:bold;color:#25d366;" data-i18n="wa_title">WhatsAppでのご相談はこちら</p>
         <img src="images/whatsapp_qr.png" alt="WhatsApp QR code" style="width:200px;max-width:100%;margin:10px 0;">
         <p style="font-size:0.85rem;color:var(--muted);" data-i18n="wa_scan">スマホのカメラまたはWhatsAppアプリで<br>QRコードを読み取ってください</p>
         <a href="https://wa.me/message/Q4KJPEWBH2D3F1" target="_blank" rel="noopener" class="msg-btn msg-btn-wa" data-i18n="wa_btn">タップしてチャットを開く</a>
+        <p class="msg-note" data-i18n="msg_note">「まだ申し込むか決めていない」という段階の質問だけでも大丈夫です。こちらから営業の連絡はしません。</p>
       </div>
     </div>
     <p class="addr" data-i18n="contact_addr">〒699-0731 島根県出雲市大社町遙堪663-25</p>
@@ -767,7 +803,7 @@ var TRANSLATIONS = {
     nav_guide: "First-time Care Guide (Japanese)",
     nav_jigyosho: "Find Care Providers (Japanese)",
     guide_b_title: "Caring for a parent — where do I start?",
-    guide_b_sub: "A simple guide to 6 common situations (in Japanese)",
+    guide_b_sub: "Not sure yet whether to contact us? Read first — no name needed. A guide to 6 common situations (in Japanese)",
     jig_b_title: "Find care providers in Izumo",
     jig_b_sub: "Browse local care providers by service type and area (in Japanese)",
     nav_service: "Services",
@@ -832,6 +868,11 @@ var TRANSLATIONS = {
     contact_h2: "Contact",
     contact_intro: "Worried about care for a family member? Contact us anytime.",
     contact_hours: "Office hours: weekdays 9:00–17:00 / FAX: 050-1799-0234",
+    cta_features: "Ask us first — a question is enough",
+    cta_service: "Ask what this would look like for your family",
+    cta_flow: "Start with step 1: get in touch",
+    cta_about: "Not sure if you are in our area? Ask us anyway",
+    msg_note: "A question at the \"we haven't decided anything yet\" stage is perfectly fine. We will never send you sales messages.",
     line_title: "Reach us on LINE",
     line_scan: "Scan this QR code with your phone camera<br>or the LINE app",
     wa_title: "Reach us on WhatsApp",
@@ -849,7 +890,7 @@ var TRANSLATIONS = {
     nav_guide: "Guia para começar (em japonês)",
     nav_jigyosho: "Buscar serviços de cuidados (em japonês)",
     guide_b_title: "Cuidar de um familiar — por onde começar?",
-    guide_b_sub: "Guia simples com 6 situações comuns (em japonês)",
+    guide_b_sub: "Ainda não decidiu se vai entrar em contato? Leia primeiro — sem precisar dizer seu nome. Guia com 6 situações comuns (em japonês)",
     jig_b_title: "Buscar serviços de cuidados em Izumo",
     jig_b_sub: "Estabelecimentos locais por tipo de serviço e região (em japonês)",
     nav_service: "Serviços",
@@ -914,6 +955,11 @@ var TRANSLATIONS = {
     contact_h2: "Contato",
     contact_intro: "Preocupado com o cuidado de um familiar? Fale conosco.",
     contact_hours: "Horário: dias úteis, 9h–17h / FAX: 050-1799-0234",
+    cta_features: "Pergunte primeiro — só uma dúvida já basta",
+    cta_service: "Pergunte como seria no caso da sua família",
+    cta_flow: "Comece pelo passo 1: entre em contato",
+    cta_about: "Não sabe se está na nossa região? Pergunte mesmo assim",
+    msg_note: "Uma pergunta na fase \"ainda não decidimos nada\" é totalmente bem-vinda. Nunca enviamos mensagens de venda.",
     line_title: "Fale conosco pelo LINE",
     line_scan: "Escaneie o código QR com a câmera do celular<br>ou com o aplicativo LINE",
     wa_title: "Fale conosco pelo WhatsApp",
