@@ -14,81 +14,65 @@
 <meta property="og:title" content="出雲市の介護サービス事業所をさがす｜しあわせぞうさん">
 <meta property="og:description" content="出雲市内の介護事業所約440件を、サービス種別・エリアで検索。ケアマネジャーが公的データをもとに作成。">
 <meta property="og:url" content="https://onikusannn-stack.github.io/shiawasezousan/jigyosho/">
-<meta property="og:image" content="https://onikusannn-stack.github.io/shiawasezousan/images/zou_art.jpg">
+<meta property="og:image" content="https://onikusannn-stack.github.io/shiawasezousan/images/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <meta property="og:locale" content="ja_JP">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/brand.css">
 <style>
   :root {
-    --main: #2e8b6f;
-    --main-dark: #1f6b54;
-    --accent: #f4a83c;
-    --bg: #fdfaf4;
-    --text: #333333;
-    --muted: #666666;
+    --main: #315b4d;
+    --main-dark: #24473d;
+    --accent: #8a5a2b;
+    --bg: #f8f2e9;
+    --text: #24342e;
+    --muted: #55605b;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: 70px; }
   body {
-    font-family: "Zen Maru Gothic", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+    font-family: var(--font-base);
     color: var(--text);
     background: var(--bg);
     line-height: 1.8;
     font-size: 16px;
     letter-spacing: 0.02em;
   }
-  header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  }
-  .header-inner {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 10px 16px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-  }
-  .logo {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: var(--main-dark);
-    text-decoration: none;
-  }
-  .logo small { display: block; font-size: 0.68rem; font-weight: normal; color: var(--muted); }
-  .home-link {
-    font-size: 0.85rem;
-    color: var(--main-dark);
-    text-decoration: none;
-    border: 1px solid var(--main);
-    border-radius: 999px;
-    padding: 4px 14px;
-  }
+  .sz-logo small { display: none; }
 
   .hero {
-    background: linear-gradient(160deg, #e8f5ef 0%, #fdf3e0 100%);
+    background: linear-gradient(180deg,#eef3ef 0%,#f8f2e9 100%);
     text-align: center;
-    padding: 34px 16px 26px;
+    padding: 44px 16px;
   }
-  .hero h1 { font-size: 1.45rem; color: var(--main-dark); line-height: 1.5; }
+  .hero img.zou {
+    width: 190px;
+    max-width: 60%;
+    height: auto;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    transform: scaleX(-1);
+    filter: drop-shadow(0 14px 14px rgba(44,53,49,.16));
+  }
+  .hero h1 { font-size: clamp(30px, 3.2vw, 44px); color: var(--main-dark); line-height: 1.4; margin: 18px 0 10px; }
   .hero p { max-width: 640px; margin: 8px auto 0; color: var(--muted); font-size: 0.92rem; }
+  .sp { display: none; }
+  .nw { white-space: nowrap; } /* スマホで語の途中で折れないように */
+  @media (max-width: 600px) {
+    .sp { display: inline; }
+  }
 
   .inner { max-width: 960px; margin: 0 auto; padding: 0 14px; }
 
   /* ===== 絞り込み ===== */
   .filters {
-    background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-    padding: 18px 16px;
+    background: rgba(255,255,255,.86);
+    border: 1px solid rgba(49,91,77,.10);
+    border-radius: 22px;
+    box-shadow: var(--shadow-soft);
+    padding: 22px 20px;
     margin: 18px auto;
   }
   .filters label { font-size: 0.85rem; font-weight: bold; color: var(--main-dark); display: block; margin-bottom: 4px; }
@@ -97,18 +81,23 @@
     font-family: inherit;
     font-size: 1rem;
     padding: 10px 12px;
-    border: 1.5px solid #d8d2c4;
-    border-radius: 10px;
+    border: 1.5px solid rgba(49,91,77,.25);
+    border-radius: 14px;
     background: #ffffff;
+    color: var(--text);
     margin-bottom: 12px;
+  }
+  .filters select:focus, .filters input[type="text"]:focus {
+    outline: 3px solid var(--sand);
+    outline-offset: 2px;
   }
   .type-desc {
     font-size: 0.85rem;
-    background: #fdf3e0;
-    border-radius: 10px;
+    background: var(--pale-green);
+    border-radius: 14px;
     padding: 10px 14px;
     margin: -6px 0 12px;
-    color: #7a5a1e;
+    color: var(--main-dark);
     display: none;
   }
   .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; }
@@ -117,12 +106,13 @@
     font-size: 0.88rem;
     padding: 6px 14px;
     border-radius: 999px;
-    border: 1.5px solid var(--main);
-    background: #ffffff;
+    border: 1.5px solid rgba(49,91,77,.45);
+    background: rgba(255,255,255,.7);
     color: var(--main-dark);
     cursor: pointer;
+    min-height: 36px;
   }
-  .chips button.on { background: var(--main); color: #ffffff; font-weight: bold; }
+  .chips button.on { background: var(--main); color: #ffffff; font-weight: bold; border-color: var(--main); }
   .toolbar {
     display: flex;
     flex-wrap: wrap;
@@ -131,40 +121,45 @@
     margin-top: 12px;
   }
   .count { font-weight: bold; color: var(--main-dark); }
-  .count b { color: var(--accent); font-size: 1.25rem; }
+  .count b { color: var(--main); font-size: 1.25rem; }
   .toolbar .spacer { flex: 1; }
   .tool-btn {
     font-family: inherit;
     font-size: 0.82rem;
     padding: 7px 14px;
     border-radius: 999px;
-    border: 1.5px solid #d8d2c4;
-    background: #ffffff;
-    color: var(--muted);
+    border: 1.5px solid rgba(49,91,77,.35);
+    background: rgba(255,255,255,.7);
+    color: var(--main-dark);
     cursor: pointer;
     text-decoration: none;
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
   }
   .tool-btn:hover { border-color: var(--main); color: var(--main-dark); }
 
   /* ===== 一覧 ===== */
   .list { display: grid; gap: 12px; padding-bottom: 30px; }
   .item {
-    background: #ffffff;
-    border-radius: 14px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    padding: 16px 18px;
+    background: rgba(255,255,255,.86);
+    border: 1px solid rgba(49,91,77,.10);
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(37,49,44,.06);
+    padding: 18px 20px;
   }
   .item .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
   .badge {
     font-size: 0.72rem;
     border-radius: 999px;
     padding: 2px 10px;
-    background: #e8f5ef;
+    background: var(--pale-green);
     color: var(--main-dark);
     font-weight: bold;
   }
-  .badge.area { background: #fdf3e0; color: #a06b12; }
-  .item h3 { font-size: 1.05rem; color: var(--main-dark); line-height: 1.5; }
+  .badge.area { background: var(--cream); color: var(--accent); }
+  .item h3 { font-size: 1.08rem; color: var(--main-dark); line-height: 1.5; }
   .item .corp { font-size: 0.78rem; color: var(--muted); }
   .item .addr { font-size: 0.88rem; margin: 4px 0; }
   .item .meta { font-size: 0.8rem; color: var(--muted); }
@@ -173,13 +168,17 @@
     font-size: 0.85rem;
     text-decoration: none;
     border-radius: 999px;
-    padding: 7px 16px;
+    padding: 6px 16px;
     font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 38px;
   }
-  .act-tel { background: var(--accent); color: #ffffff; }
-  .act-hp { background: #ffffff; color: var(--main-dark); border: 1.5px solid var(--main); }
-  .act-map { background: #ffffff; color: #4a6da7; border: 1.5px solid #9db8d9; }
-  .act-fee { background: #ffffff; color: #a06b12; border: 1.5px solid var(--accent); }
+  .act-tel { background: var(--main); color: #ffffff; border: 1px solid var(--main); }
+  .act-hp { background: rgba(255,255,255,.8); color: var(--main-dark); border: 1.5px solid rgba(49,91,77,.45); }
+  .act-map { background: rgba(255,255,255,.8); color: var(--main-dark); border: 1.5px solid rgba(49,91,77,.45); }
+  .act-fee { background: rgba(255,255,255,.8); color: var(--accent); border: 1.5px solid var(--sand); }
   .empty {
     text-align: center;
     color: var(--muted);
@@ -188,23 +187,15 @@
 
   /* ===== 相談CTA ===== */
   .cta-box {
-    background: linear-gradient(160deg, #e8f5ef 0%, #fdf3e0 100%);
-    border-radius: 16px;
+    background: var(--pale-green);
+    border: 1px solid rgba(49,91,77,.10);
+    border-radius: 22px;
     text-align: center;
     padding: 26px 18px;
     margin: 10px auto 30px;
   }
   .cta-box p { font-size: 0.95rem; margin-bottom: 10px; }
-  .cta-box .btn {
-    display: inline-block;
-    padding: 12px 26px;
-    border-radius: 999px;
-    text-decoration: none;
-    font-weight: bold;
-    margin: 4px;
-  }
-  .btn-tel { background: var(--accent); color: #ffffff; }
-  .btn-home { background: #ffffff; color: var(--main-dark); border: 2px solid var(--main); }
+  .cta-box .sz-btn { margin: 4px; }
 
   .source {
     max-width: 960px;
@@ -215,20 +206,10 @@
   }
   .source a { color: var(--main-dark); }
 
-  footer {
-    background: var(--main-dark);
-    color: #ffffff;
-    text-align: center;
-    padding: 22px 16px;
-    font-size: 0.8rem;
-    line-height: 1.9;
-  }
-  footer a { color: #ffffff; }
-
   /* ===== 印刷用 ===== */
   @media print {
-    header, .hero p, .filters .chips, .filters select, .filters input, .filters label,
-    .type-desc, .tool-btn, .cta-box, .acts, footer { display: none !important; }
+    .sz-header, .hero img.zou, .hero p, .filters .chips, .filters select, .filters input, .filters label,
+    .type-desc, .tool-btn, .cta-box, .acts, .sz-footer { display: none !important; }
     body { background: #ffffff; font-size: 12px; }
     .item { box-shadow: none; border-bottom: 1px solid #cccccc; border-radius: 0; padding: 6px 0; }
     .list { gap: 0; }
@@ -269,17 +250,23 @@
 </head>
 <body>
 
-<header>
-  <div class="header-inner">
-    <a href="../" class="logo">🐘 しあわせぞうさん<small>居宅介護支援事業所（島根県出雲市）</small></a>
-    <a href="../" class="home-link">ホームページへ →</a>
+<header class="sz-header">
+  <a href="../" class="sz-logo">🐘 しあわせぞうさん<small>居宅介護支援事業所（島根県出雲市）</small></a>
+  <nav class="sz-nav" aria-label="メインナビゲーション">
+    <a href="../">ホームページへ →</a>
+    <a href="../guide/">はじめての介護ガイド</a>
+    <a href="./" aria-current="page">事業所をさがす</a>
+  </nav>
+  <div class="sz-header-actions">
+    <a href="#contact" class="sz-btn sz-btn--small">相談する</a>
   </div>
 </header>
 
 <div class="hero">
-  <h1>出雲市の介護サービス事業所をさがす</h1>
-  <p>市内の介護保険サービス事業所を、種類とエリアで絞り込めます。<br>
-  「どれを選べばいいか分からない」ときは、遠慮なくケアマネジャーにご相談ください。</p>
+  <img class="zou" src="../assets/images/zou_walk_01.webp" alt="しあわせぞうさんのゾウ" width="480" height="335">
+  <h1>出雲市の介護サービス<br class="sp">事業所をさがす</h1>
+  <p>市内の介護保険サービス事業所を、種類と<span class="nw">エリア</span>で絞り込めます。<br>
+  「どれを選べばいいか分からない」ときは、<span class="nw">遠慮なく</span>ケアマネジャーにご相談ください。</p>
 </div>
 
 <div class="inner">
@@ -298,18 +285,18 @@
       <span class="count">該当 <b id="count">0</b> 件</span>
       <button class="tool-btn" id="resetBtn" type="button">条件をクリア</button>
       <span class="spacer"></span>
-      <button class="tool-btn" type="button" onclick="window.print()">🖨️ この一覧を印刷</button>
-      <a class="tool-btn" href="izumo_kaigo_list.xlsx" download>📥 Excelでダウンロード</a>
+      <button class="tool-btn" type="button" onclick="window.print()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg> この一覧を印刷</button>
+      <a class="tool-btn" href="izumo_kaigo_list.xlsx" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg> Excelでダウンロード</a>
     </div>
   </div>
 
   <div class="list" id="list"></div>
 
-  <div class="cta-box">
-    <p><strong>どの事業所を選べばいいか、迷っていませんか？</strong><br>
-    ケアマネジャーが、あなたの状況に合わせて一緒に選びます。相談は無料です。</p>
-    <a href="tel:050-8893-1122" class="btn btn-tel">📞 050-8893-1122</a>
-    <a href="../" class="btn btn-home">しあわせぞうさんについて</a>
+  <div class="cta-box" id="contact">
+    <p><strong>どの事業所を選べばいいか、<span class="nw">迷っていませんか？</span></strong><br>
+    ケアマネジャーが、あなたの状況に<span class="nw">合わせて</span>一緒に選びます。<span class="nw">相談は無料です。</span></p>
+    <a href="tel:050-8893-1122" class="sz-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> 050-8893-1122</a>
+    <a href="../" class="sz-btn sz-btn--ghost">しあわせぞうさんについて</a>
   </div>
 </div>
 
@@ -318,9 +305,12 @@
   掲載内容は公的データの時点情報です。最新の空き状況・受入可否・料金などは、必ず各事業所に直接ご確認ください。掲載順はデータの並び順で、当事業所による優劣の評価ではありません。
 </div>
 
-<footer>
-  <p>居宅介護支援事業所 しあわせぞうさん（合同会社しあわせぞうさん）<br>
-  島根県出雲市大社町遙堪663-25　／　<a href="../">ホームページはこちら</a></p>
+<footer class="sz-footer">
+  <!-- .sz-footer-info は縦並びの箱（flex column）なので、1行＝1つの span にまとめる -->
+  <p class="sz-footer-info"><span>居宅介護支援事業所 しあわせぞうさん<span class="nw">（合同会社しあわせぞうさん）</span></span>
+  <span>島根県出雲市大社町遙堪663-25　／　<span class="nw">介護保険事業所番号：3270403482</span></span>
+  <a href="../">ホームページはこちら</a></p>
+  <span>© 2026 Shiawase Zousan</span>
 </footer>
 
 <script src="data.js"></script>
@@ -408,6 +398,14 @@ var DESCS = [
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
 
+  var ICON = {
+    tel: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>',
+    hp: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>',
+    fee: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="8" y1="10" x2="12" y2="14"></line><line x1="16" y1="10" x2="12" y2="14"></line><line x1="12" y1="14" x2="12" y2="18"></line><line x1="9" y1="13.5" x2="15" y2="13.5"></line></svg>',
+    map: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>',
+    hint: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"></path></svg>'
+  };
+
   function card(e) {
     var addr = e.addr.replace(/^島根県/, "");
     var map = e.lat && e.lng
@@ -425,10 +423,10 @@ var DESCS = [
     h += '<div class="addr">' + esc(addr) + '</div>';
     if (meta.length) { h += '<div class="meta">' + esc(meta.join("　／　")) + '</div>'; }
     h += '<div class="acts">';
-    if (e.tel) { h += '<a class="act act-tel" href="tel:' + esc(e.tel) + '">📞 ' + esc(e.tel) + '</a>'; }
-    if (e.url) { h += '<a class="act act-hp" href="' + esc(e.url) + '" target="_blank" rel="noopener nofollow">🌐 ホームページ</a>'; }
-    if (e.fee) { h += '<a class="act act-fee" href="' + esc(e.fee) + '" target="_blank" rel="noopener nofollow">💴 料金ページ</a>'; }
-    h += '<a class="act act-map" href="' + map + '" target="_blank" rel="noopener">📍 地図</a>';
+    if (e.tel) { h += '<a class="act act-tel" href="tel:' + esc(e.tel) + '">' + ICON.tel + ' ' + esc(e.tel) + '</a>'; }
+    if (e.url) { h += '<a class="act act-hp" href="' + esc(e.url) + '" target="_blank" rel="noopener nofollow">' + ICON.hp + ' ホームページ</a>'; }
+    if (e.fee) { h += '<a class="act act-fee" href="' + esc(e.fee) + '" target="_blank" rel="noopener nofollow">' + ICON.fee + ' 料金ページ</a>'; }
+    h += '<a class="act act-map" href="' + map + '" target="_blank" rel="noopener">' + ICON.map + ' 地図</a>';
     h += '</div></div>';
     return h;
   }
@@ -445,7 +443,7 @@ var DESCS = [
     if (state.type) {
       for (var d = 0; d < DESCS.length; d++) {
         if (state.type.indexOf(DESCS[d][0]) >= 0) {
-          descBox.textContent = "💡 " + DESCS[d][1];
+          descBox.innerHTML = ICON.hint + " " + esc(DESCS[d][1]);
           descBox.style.display = "block";
           break;
         }

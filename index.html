@@ -1,1041 +1,257 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>【公式】しあわせぞうさん｜出雲市・大社町の居宅介護支援事業所</title>
-<meta name="description" content="【公式】居宅介護支援事業所「しあわせぞうさん」（島根県出雲市大社町）。主任ケアマネジャーが介護のご相談・ケアプラン作成を自己負担0円でお手伝い。LINE・WhatsApp・多言語（English / Português）対応。">
-<meta name="google-site-verification" content="3sEpeiVj2z-VmNhbQyXMXJqc86LtkkU1R68NKRKZLaQ" />
-<link rel="canonical" href="https://onikusannn-stack.github.io/shiawasezousan/">
-<link rel="icon" href="favicon.ico" sizes="any">
-<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
-<link rel="icon" type="image/png" sizes="32x32" href="images/favicon32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="images/icon192.png">
-<link rel="apple-touch-icon" href="images/apple_icon.png">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="しあわせぞうさん（居宅介護支援事業所）">
-<meta property="og:title" content="【公式】しあわせぞうさん｜出雲市・大社町の居宅介護支援事業所">
-<meta property="og:description" content="主任ケアマネジャーが介護のご相談・ケアプラン作成を自己負担0円でお手伝い。LINE・WhatsApp・多言語対応。">
-<meta property="og:url" content="https://onikusannn-stack.github.io/shiawasezousan/">
-<meta property="og:image" content="https://onikusannn-stack.github.io/shiawasezousan/images/zou_art.jpg">
-<meta property="og:locale" content="ja_JP">
-<meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": "居宅介護支援事業所 しあわせぞうさん",
-  "alternateName": "しあわせぞうさん",
-  "description": "島根県出雲市の居宅介護支援事業所。主任介護支援専門員が介護のご相談・ケアプラン作成を自己負担0円で行います。LINE・WhatsApp・翻訳ソフトによる多言語対応。",
-  "url": "https://onikusannn-stack.github.io/shiawasezousan/",
-  "image": "https://onikusannn-stack.github.io/shiawasezousan/images/zou_art.jpg",
-  "logo": "https://onikusannn-stack.github.io/shiawasezousan/images/icon192.png",
-  "telephone": "+81-50-8893-1122",
-  "faxNumber": "+81-50-1799-0234",
-  "address": {
-    "@type": "PostalAddress",
-    "postalCode": "699-0731",
-    "addressRegion": "島根県",
-    "addressLocality": "出雲市",
-    "streetAddress": "大社町遙堪663-25",
-    "addressCountry": "JP"
-  },
-  "geo": { "@type": "GeoCoordinates", "latitude": 35.3884562, "longitude": 132.7232564 },
-  "openingHoursSpecification": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-    "opens": "09:00",
-    "closes": "17:00"
-  },
-  "areaServed": "島根県出雲市",
-  "priceRange": "ご相談・ケアプラン作成は自己負担0円",
-  "parentOrganization": { "@type": "Organization", "name": "合同会社しあわせぞうさん" },
-  "knowsLanguage": ["ja", "en", "pt"]
-}
-</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --main: #2e8b6f;      /* やさしい緑 */
-    --main-dark: #1f6b54;
-    --accent: #f4a83c;    /* あたたかいオレンジ */
-    --bg: #fdfaf4;
-    --text: #333333;
-    --muted: #666666;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
-  body {
-    font-family: "Zen Maru Gothic", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
-    color: var(--text);
-    background: var(--bg);
-    line-height: 1.9;
-    font-size: 16px;
-    letter-spacing: 0.02em;
-  }
-
-  /* ===== ヘッダー ===== */
-  header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  }
-  .header-inner {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 10px 16px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-  }
-  .logo {
-    font-size: 1.25rem;
-    font-weight: bold;
-    color: var(--main-dark);
-    text-decoration: none;
-  }
-  .logo small {
-    display: block;
-    font-size: 0.7rem;
-    font-weight: normal;
-    color: var(--muted);
-  }
-  .lang-switch {
-    display: flex;
-    gap: 6px;
-    order: 2;
-  }
-  .lang-switch button {
-    border: 1px solid var(--main);
-    background: #ffffff;
-    color: var(--main-dark);
-    border-radius: 999px;
-    padding: 3px 12px;
-    font-size: 0.78rem;
-    cursor: pointer;
-  }
-  .lang-switch button.active {
-    background: var(--main);
-    color: #ffffff;
-    font-weight: bold;
-  }
-  nav { order: 3; width: 100%; }
-  nav ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px 14px;
-    list-style: none;
-  }
-  nav a {
-    color: var(--text);
-    text-decoration: none;
-    font-size: 0.85rem;
-    padding: 4px 2px;
-  }
-  nav a:hover { color: var(--main); }
-  @media (min-width: 800px) {
-    nav { width: auto; }
-  }
-
-  /* ===== ヒーロー ===== */
-  .hero {
-    background: linear-gradient(160deg, #e8f5ef 0%, #fdf3e0 100%);
-    text-align: center;
-    padding: 40px 16px 48px;
-  }
-  .hero .zou { margin-bottom: 4px; }
-  .hero .zou img {
-    width: 250px;
-    max-width: 80%;
-    border: 8px solid #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
-    transform: rotate(-2deg);
-    animation: zouFloat 6s ease-in-out infinite;
-  }
-  @keyframes zouFloat {
-    0%, 100% { transform: rotate(-2deg) translateY(0); }
-    50%      { transform: rotate(-2deg) translateY(-9px); }
-  }
-  .zou-caption {
-    font-size: 0.8rem;
-    color: var(--muted);
-    margin: 12px 0 4px;
-  }
-  .name-origin {
-    max-width: 560px;
-    margin: 0 auto 24px;
-    background: #ffffff;
-    border-radius: 12px;
-    padding: 14px 20px;
-    font-size: 0.9rem;
-    color: var(--muted);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-  }
-  .name-origin strong { color: var(--accent); }
-  .hero h1 {
-    font-size: 1.6rem;
-    color: var(--main-dark);
-    margin: 12px 0;
-    line-height: 1.5;
-  }
-  .hero p.lead {
-    max-width: 600px;
-    margin: 0 auto 24px;
-    color: var(--muted);
-  }
-  /*
-    ▼ 写真を追加するときは、下の1行のコメントを外して
-      images フォルダに hero.jpg（半角英数字名）を入れてください
-  <img src="images/hero.jpg" alt="事業所の写真" style="max-width:90%;border-radius:12px;margin-bottom:20px;">
-  */
-  .cta-buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-  }
-  .btn {
-    display: inline-block;
-    padding: 14px 28px;
-    border-radius: 999px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.05rem;
-  }
-  .btn-tel {
-    background: var(--accent);
-    color: #ffffff;
-    box-shadow: 0 3px 8px rgba(244,168,60,0.4);
-  }
-  .btn-line {
-    background: #ffffff;
-    color: var(--main-dark);
-    border: 2px solid var(--main);
-  }
-  .btn {
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-  }
-  .btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 16px rgba(0,0,0,0.18);
-  }
-  .hero .note { font-size: 0.85rem; margin-top: 10px; }
-
-  /* ===== 誘導バナー（ガイド・事業所検索） ===== */
-  .hero-banners {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 14px;
-    max-width: 1000px;
-    margin: 28px auto 0;
-    padding: 0 4px;
-  }
-  .guide-banner {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    flex: 1 1 340px;
-    max-width: 480px;
-    background: #ffffff;
-    border: 2px solid var(--accent);
-    border-radius: 16px;
-    padding: 16px 20px;
-    text-decoration: none;
-    color: var(--text);
-    text-align: left;
-    box-shadow: 0 4px 14px rgba(244,168,60,0.25);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-  }
-  .guide-banner.jig {
-    border-color: var(--main);
-    box-shadow: 0 4px 14px rgba(46,139,111,0.25);
-  }
-  .guide-banner.jig .gb-arrow { background: var(--main); }
-  .guide-banner.jig:hover { box-shadow: 0 8px 20px rgba(46,139,111,0.35); }
-  .guide-banner:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(244,168,60,0.35);
-  }
-  .guide-banner .gb-icon { font-size: 2rem; }
-  .guide-banner strong {
-    display: block;
-    color: var(--main-dark);
-    font-size: 1.05rem;
-    line-height: 1.5;
-  }
-  .guide-banner .gb-sub {
-    font-size: 0.83rem;
-    color: var(--muted);
-  }
-  .guide-banner .gb-arrow {
-    margin-left: auto;
-    background: var(--accent);
-    color: #ffffff;
-    border-radius: 50%;
-    width: 36px;
-    height: 36px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-  }
-
-  /* ===== 共通セクション ===== */
-  section { padding: 64px 16px; }
-  .inner { max-width: 1000px; margin: 0 auto; }
-  h2 {
-    text-align: center;
-    color: var(--main-dark);
-    font-size: 1.5rem;
-    margin-bottom: 8px;
-  }
-  .h2-sub {
-    text-align: center;
-    color: var(--accent);
-    font-size: 0.8rem;
-    letter-spacing: 2px;
-    margin-bottom: 32px;
-  }
-
-  /* ===== 特徴カード ===== */
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-  .card {
-    background: #ffffff;
-    border-radius: 14px;
-    padding: 26px 22px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-  .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 24px rgba(0,0,0,0.10);
-  }
-  .card .icon { font-size: 2.2rem; }
-  .card h3 {
-    color: var(--main-dark);
-    font-size: 1.1rem;
-    margin: 10px 0;
-  }
-  .card p { font-size: 0.92rem; color: var(--muted); text-align: left; }
-  .zero {
-    color: var(--accent);
-    font-size: 1.3rem;
-    font-weight: bold;
-  }
-
-  /* ===== サービス案内 ===== */
-  .service { background: #ffffff; }
-  .service-box {
-    background: var(--bg);
-    border-radius: 14px;
-    padding: 26px 22px;
-    margin-top: 8px;
-  }
-  .service-box ul { padding-left: 1.3em; margin-top: 10px; }
-  .service-box li { margin-bottom: 6px; }
-
-  /* ===== ご利用の流れ（4コマ漫画） ===== */
-  .flow-manga {
-    max-width: 640px;
-    margin: 0 auto 30px;
-  }
-  .flow-manga img {
-    display: block;
-    width: 100%;
-    border-radius: 14px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.13);
-  }
-  .steps {
-    counter-reset: step;
-    max-width: 640px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  @media (min-width: 800px) {
-    .steps { max-width: 860px; grid-template-columns: repeat(2, 1fr); }
-  }
-  .step {
-    background: #ffffff;
-    border-radius: 14px;
-    padding: 20px 20px 20px 66px;
-    position: relative;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-  }
-  .step::before {
-    counter-increment: step;
-    content: counter(step);
-    position: absolute;
-    left: 18px;
-    top: 20px;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    background: var(--main);
-    color: #ffffff;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-  }
-  .step h3 { font-size: 1.05rem; color: var(--main-dark); margin-bottom: 4px; }
-  .step p { font-size: 0.92rem; color: var(--muted); }
-
-  /* ===== 事業所概要 ===== */
-  .about { background: #ffffff; }
-  .about table {
-    width: 100%;
-    max-width: 720px;
-    margin: 0 auto;
-    border-collapse: collapse;
-  }
-  .about th, .about td {
-    border-bottom: 1px solid #e5e0d5;
-    padding: 14px 10px;
-    text-align: left;
-    vertical-align: top;
-    font-size: 0.95rem;
-  }
-  .about th {
-    color: var(--main-dark);
-    white-space: nowrap;
-    width: 9em;
-    font-weight: bold;
-  }
-  /*
-    ▼ 管理者の写真を追加するときは、下のコメントを外して
-      images フォルダに ishizaki.jpg を入れてください
-  <div style="text-align:center;margin:24px 0;">
-    <img src="images/ishizaki.jpg" alt="管理者 石﨑仁久" style="width:160px;border-radius:50%;">
-    <p style="font-size:0.9rem;color:#666;">管理者・主任介護支援専門員　石﨑仁久</p>
-  </div>
-  */
-
-  /* ===== 重要事項 ===== */
-  .docs-list {
-    max-width: 640px;
-    margin: 0 auto;
-    list-style: none;
-  }
-  .docs-list li {
-    background: #ffffff;
-    border-radius: 10px;
-    padding: 16px 20px;
-    margin-bottom: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    gap: 8px;
-  }
-  .docs-list .status {
-    font-size: 0.8rem;
-    color: var(--muted);
-    background: #f0ece2;
-    border-radius: 999px;
-    padding: 3px 12px;
-  }
-  .docs-list a {
-    color: var(--main-dark);
-    font-weight: bold;
-  }
-  .docs-note {
-    max-width: 640px;
-    margin: 18px auto 0;
-    font-size: 0.85rem;
-    color: var(--muted);
-  }
-  .docs-note a { color: var(--main-dark); }
-  /*
-    ▼ PDFを掲載するときの書きかえ例（ファイル名は半角英数字で）:
-    <li><a href="docs/juyojiko.pdf">重要事項説明書（PDF）</a></li>
-    <li><a href="docs/unei_kitei.pdf">運営規程（PDF）</a></li>
-  */
-
-  /* ===== お問い合わせ ===== */
-  .contact { background: linear-gradient(160deg, #e8f5ef 0%, #fdf3e0 100%); text-align: center; }
-  .tel-big {
-    display: inline-block;
-    font-size: 1.9rem;
-    font-weight: bold;
-    color: var(--main-dark);
-    text-decoration: none;
-    margin: 8px 0;
-  }
-  .contact .hours { color: var(--muted); font-size: 0.95rem; margin-bottom: 18px; }
-  .contact .addr { font-size: 0.95rem; margin-top: 18px; }
-  .map-link {
-    display: inline-block;
-    margin-top: 8px;
-    color: var(--main-dark);
-    font-weight: bold;
-  }
-  .msg-boxes {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    margin-top: 18px;
-  }
-  .msg-box {
-    background: #ffffff;
-    border-radius: 14px;
-    padding: 22px;
-    width: 300px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-  }
-  .msg-btn {
-    display: inline-block;
-    margin-top: 12px;
-    padding: 10px 22px;
-    border-radius: 999px;
-    color: #ffffff;
-    font-weight: bold;
-    font-size: 0.95rem;
-    text-decoration: none;
-  }
-  .msg-btn { transition: transform 0.25s ease, box-shadow 0.25s ease; }
-  .msg-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 14px rgba(0,0,0,0.18);
-  }
-  .msg-btn-line { background: #06c755; }
-  .msg-btn-wa { background: #25d366; }
-
-  footer {
-    background: var(--main-dark);
-    color: #ffffff;
-    text-align: center;
-    padding: 24px 16px;
-    font-size: 0.8rem;
-    line-height: 1.9;
-  }
-
-  /* ===== ふわっと表示（スクロール連動） ===== */
-  .reveal {
-    opacity: 0;
-    transform: translateY(26px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: none;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .reveal { opacity: 1; transform: none; transition: none; }
-    .hero .zou img { animation: none; }
-    html { scroll-behavior: auto; }
-  }
-
-  @media (min-width: 1000px) {
-    .cards { grid-template-columns: repeat(4, 1fr); }
-  }
-  /* ===== 各セクションの終わりに置く控えめなボタン ===== */
-  .sec-cta {
-    text-align: center;
-    margin-top: 30px;
-  }
-  .sec-cta a {
-    display: inline-block;
-    border: 2px solid var(--main);
-    color: var(--main-dark);
-    background: #ffffff;
-    border-radius: 999px;
-    padding: 10px 26px;
-    font-size: 0.92rem;
-    font-weight: bold;
-    text-decoration: none;
-    transition: background 0.2s, color 0.2s;
-  }
-  .sec-cta a:hover {
-    background: var(--main);
-    color: #ffffff;
-  }
-  /* 軽い入口であることを伝える一言（LINE・WhatsApp） */
-  .msg-note {
-    font-size: 0.85rem;
-    color: var(--muted);
-    margin-top: 6px;
-    line-height: 1.7;
-  }
-
-  @media (max-width: 600px) {
-    html { scroll-padding-top: 185px; }
-    .hero h1 { font-size: 1.3rem; }
-    .sec-cta a { font-size: 0.85rem; padding: 10px 18px; }
-    nav a { font-size: 0.78rem; }
-    .tel-big { font-size: 1.6rem; }
-    .cards { grid-template-columns: 1fr; }
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>【公式】しあわせぞうさん｜出雲市・大社町の居宅介護支援事業所</title>
+  <meta name="description" content="島根県出雲市（大社町）の居宅介護支援事業所 しあわせぞうさん。ケアマネジャーがケアプランの作成とご相談をお手伝いします。介護のこと、何から始めればいいか分からない段階からご相談ください。" />
+  <link rel="canonical" href="https://onikusannn-stack.github.io/shiawasezousan/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="しあわせぞうさん（居宅介護支援事業所）" />
+  <meta property="og:title" content="しあわせぞうさん｜出雲市・大社町の居宅介護支援事業所" />
+  <meta property="og:description" content="暮らしのそばを、いっしょに歩く。介護のこと、何から始めればいいか分からない段階からご相談ください。出雲市のケアマネジャーがケアプランの作成とご相談をお手伝いします。" />
+  <meta property="og:url" content="https://onikusannn-stack.github.io/shiawasezousan/" />
+  <meta property="og:image" content="https://onikusannn-stack.github.io/shiawasezousan/images/og.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "居宅介護支援事業所 しあわせぞうさん",
+    "alternateName": "しあわせぞうさん",
+    "description": "島根県出雲市の居宅介護支援事業所。主任介護支援専門員が介護のご相談・ケアプラン作成を自己負担0円で行います。LINE・WhatsApp・翻訳ソフトによる多言語対応。",
+    "url": "https://onikusannn-stack.github.io/shiawasezousan/",
+    "image": "https://onikusannn-stack.github.io/shiawasezousan/images/og.png",
+    "logo": "https://onikusannn-stack.github.io/shiawasezousan/images/icon192.png",
+    "telephone": "+81-50-8893-1122",
+    "faxNumber": "+81-50-1799-0234",
+    "address": {
+      "@type": "PostalAddress",
+      "postalCode": "699-0731",
+      "addressRegion": "島根県",
+      "addressLocality": "出雲市",
+      "streetAddress": "大社町遙堪663-25",
+      "addressCountry": "JP"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 35.3884562, "longitude": 132.7232564 },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "09:00",
+      "closes": "17:00"
+    },
+    "areaServed": "島根県出雲市",
+    "priceRange": "ご相談・ケアプラン作成は自己負担0円",
+    "parentOrganization": { "@type": "Organization", "name": "合同会社しあわせぞうさん" },
+    "knowsLanguage": ["ja", "en", "pt"]
+  }
+  </script>
+  <link rel="preload" as="image" href="assets/images/zou_walk_01.webp" type="image/webp" />
+  <link rel="stylesheet" href="assets/css/brand.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <script src="assets/js/i18n.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
 </head>
 <body>
+  <div id="progress" aria-hidden="true"></div>
 
-<header>
-  <div class="header-inner">
-    <a href="#" class="logo">🐘 しあわせぞうさん<small data-i18n="logo_sub">居宅介護支援事業所（島根県出雲市）</small></a>
-    <div class="lang-switch" aria-label="Language">
-      <button type="button" data-lang="ja">日本語</button>
-      <button type="button" data-lang="en">English</button>
-      <button type="button" data-lang="pt">Português</button>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="guide/" data-i18n="nav_guide" style="color:var(--accent);font-weight:bold;">はじめての介護ガイド</a></li>
-        <li><a href="jigyosho/" data-i18n="nav_jigyosho" style="color:var(--main);font-weight:bold;">事業所をさがす</a></li>
-        <li><a href="#service" data-i18n="nav_service">サービス案内</a></li>
-        <li><a href="#flow" data-i18n="nav_flow">ご利用の流れ</a></li>
-        <li><a href="#about" data-i18n="nav_about">事業所概要</a></li>
-        <li><a href="#docs" data-i18n="nav_docs">重要事項</a></li>
-        <li><a href="#contact" data-i18n="nav_contact">お問い合わせ</a></li>
-      </ul>
+  <header class="site-header" id="siteHeader">
+    <a href="#top" class="logo"><span class="logo-mark">🐘</span><span data-i18n="logo_name">しあわせぞうさん</span></a>
+    <nav aria-label="メインナビゲーション">
+      <a class="nav-ext" href="guide/" data-i18n="nav_guide">介護ガイド</a>
+      <a class="nav-ext" href="jigyosho/" data-i18n="nav_jigyosho">事業所をさがす</a>
+      <a class="nav-inpage" href="#journey" data-i18n="nav_about">私たちについて</a>
+      <a class="nav-inpage" href="#features" data-i18n="nav_features">特徴</a>
+      <a class="nav-inpage" href="#story" data-i18n="nav_role">私たちの役割</a>
+      <a class="nav-inpage" href="#flow" data-i18n="nav_flow">ご利用の流れ</a>
     </nav>
-  </div>
-</header>
-
-<div class="hero">
-  <div class="zou">
-    <img src="images/zou_art.jpg" alt="しあわせぞうさんのゾウの絵">
-  </div>
-  <h1 data-i18n="hero_h1">「そろそろ限界かも」と思った日が、<br>相談していい日です。</h1>
-  <p class="lead" data-i18n="hero_lead">「病院から退院と言われた」「物忘れが増えた」「仕事と介護で自分がもたない」——<br>
-  ご連絡をいただいた日から動きます。出雲市・大社町の主任ケアマネジャーが、要介護認定の申請からサービスの手配まで、ご家族の代わりに走ります。</p>
-  <div class="cta-buttons">
-    <a href="tel:050-8893-1122" class="btn btn-tel">📞 050-8893-1122</a>
-    <a href="#contact" class="btn btn-line" data-i18n="hero_line_btn">LINE・WhatsAppでもご相談OK</a>
-  </div>
-  <p class="note" data-i18n="hero_note">受付：平日 9:00〜17:00　※ご相談・ケアプラン作成の自己負担は0円です</p>
-  <div class="name-origin" data-i18n="name_origin">
-    <strong>「しあわせぞうさん」の名前の由来</strong><br>
-    ゾウが大好きな代表の想いと、みなさまの<strong>幸せを増産（ぞうさん）</strong>したいという願いを込めました。
-  </div>
-  <div class="hero-banners">
-    <a href="guide/" class="guide-banner">
-      <span class="gb-icon">📖</span>
-      <span>
-        <strong data-i18n="guide_b_title">親の介護、何から始めればいい？</strong>
-        <span class="gb-sub" data-i18n="guide_b_sub">まだ相談するか決めていない方へ。名前を伝えなくても読める、6つの状況別ガイドです</span>
-      </span>
-      <span class="gb-arrow">→</span>
-    </a>
-    <a href="jigyosho/" class="guide-banner jig">
-      <span class="gb-icon">🔍</span>
-      <span>
-        <strong data-i18n="jig_b_title">出雲市の介護事業所をさがす</strong>
-        <span class="gb-sub" data-i18n="jig_b_sub">デイサービスなど市内の約440か所を、種類とエリアで絞り込めます</span>
-      </span>
-      <span class="gb-arrow">→</span>
-    </a>
-  </div>
-</div>
-
-<section id="features">
-  <div class="inner">
-    <h2 data-i18n="features_h2">しあわせぞうさんの特徴</h2>
-    <p class="h2-sub">FEATURES</p>
-    <div class="cards">
-      <div class="card">
-        <div class="icon">💰</div>
-        <h3 data-i18n="card1_h">ご相談・ケアプラン作成は<br><span class="zero">自己負担0円</span></h3>
-        <p data-i18n="card1_p">居宅介護支援の費用は全額介護保険から給付されるため、ご利用者さまの自己負担はありません。安心してご相談ください。</p>
+    <div class="header-actions">
+      <div class="lang-switch" aria-label="Language">
+        <button type="button" data-lang="ja" aria-label="日本語"><span class="ls-long">日本語</span><span class="ls-short">JA</span></button>
+        <button type="button" data-lang="en" aria-label="English"><span class="ls-long">English</span><span class="ls-short">EN</span></button>
+        <button type="button" data-lang="pt" aria-label="Português"><span class="ls-long">Português</span><span class="ls-short">PT</span></button>
       </div>
-      <div class="card">
-        <div class="icon">🎓</div>
-        <h3 data-i18n="card2_h">主任ケアマネジャーが担当</h3>
-        <p data-i18n="card2_p">管理者は上級資格である「主任介護支援専門員」。豊富な経験をもとに、医療・介護の関係機関と連携しながら最適なプランをご提案します。</p>
-      </div>
-      <div class="card">
-        <div class="icon">🤝</div>
-        <h3 data-i18n="card3_h">公正中立・LINE対応</h3>
-        <p data-i18n="card3_p">特定の事業者にかたよらない公正中立なケアプラン作成が方針です。お忙しいご家族のために、LINEでのご連絡にも対応しています。</p>
-      </div>
-      <div class="card">
-        <div class="icon">🌏</div>
-        <h3 data-i18n="card4_h">多言語対応可能</h3>
-        <p data-i18n="card4_p">翻訳ソフトを使って、日本語での会話が難しい方やご家族のご相談にも対応できます。WhatsAppでのご連絡もOK。外国籍の方もどうぞ安心してご連絡ください。</p>
-      </div>
+      <a href="#contact" class="header-cta" data-i18n="header_cta">相談する</a>
     </div>
-    <p class="sec-cta"><a href="#contact" data-i18n="cta_features">まずは聞いてみる（相談だけでも大丈夫です）</a></p>
-  </div>
-</section>
+  </header>
 
-<section id="service" class="service">
-  <div class="inner">
-    <h2 data-i18n="service_h2">サービス案内</h2>
-    <p class="h2-sub">SERVICE</p>
-    <div class="service-box">
-      <p data-i18n="service_intro"><strong>居宅介護支援（ケアマネジャー）とは？</strong><br>
-      介護が必要になった方が、住み慣れたご自宅で安心して暮らし続けられるように支援する仕事です。次のようなお手伝いをします。</p>
-      <ul>
-        <li data-i18n="service_li1">介護保険についてのご相談、要介護認定の申請代行</li>
-        <li data-i18n="service_li2">心身の状態やご希望に合わせたケアプラン（介護サービス計画）の作成</li>
-        <li data-i18n="service_li3">デイサービス・ヘルパー・福祉用具など、サービス事業者との連絡調整</li>
-        <li data-i18n="service_li4">毎月のご訪問による状況確認と、プランの見直し</li>
-        <li data-i18n="service_li5">入退院時の病院との連携、施設入所のご相談</li>
-        <li data-i18n="service_li6">翻訳ソフトを使用した多言語でのご相談（日本語が苦手な方もご安心ください）</li>
-      </ul>
-      <p style="margin-top:14px;" data-i18n="service_outro">「何から始めればいいか分からない」という段階のご相談も歓迎です。ご本人・ご家族の意思を尊重し、一緒に考えます。</p>
+  <!-- 6枚の歩行フレームをスクロール量に直接同期 -->
+  <div class="walker" id="walker" aria-hidden="true" data-walk-frames="6" data-frame-path="assets/images/zou_walk_{n}.webp">
+    <div class="walker-body">
+      <img class="walker-img" src="assets/images/zou_walk_01.webp" alt="" width="480" height="335" />
     </div>
-    <p class="sec-cta"><a href="#contact" data-i18n="cta_service">うちの場合はどうか、聞いてみる</a></p>
+    <div class="walker-shadow"></div>
   </div>
-</section>
 
-<section id="flow">
-  <div class="inner">
-    <h2 data-i18n="flow_h2">ご利用の流れ</h2>
-    <p class="h2-sub">FLOW</p>
-    <div class="flow-manga">
-      <img src="images/flow_manga.jpg" alt="ご利用の流れの4コマ漫画：1.お電話・LINEでご連絡 2.ご訪問・聞き取り 3.ケアプランの作成 4.サービス開始・毎月のご訪問">
-    </div>
-    <div class="steps">
-      <div class="step">
-        <h3 data-i18n="step1_h">お問い合わせ</h3>
-        <p data-i18n="step1_p">お電話またはLINEでご連絡ください。介護保険が初めての方も大丈夫です。</p>
+  <main>
+    <section class="hero" id="top">
+      <div class="hero-noise" aria-hidden="true"></div>
+      <div class="hero-copy">
+        <div class="eyebrow">Care Management · Izumo</div>
+        <h1><span class="h1-line" data-i18n="h1_l1">暮らしのそばを、</span><br><span class="h1-line" data-i18n="h1_l2">いっしょに歩く。</span></h1>
+        <p data-i18n="hero_lead">「介護のこと、何から始めればいいか分からない。」そんな段階からご相談ください。しあわせぞうさんは、ご本人とご家族の暮らしを一緒に考える居宅介護支援事業所です。</p>
+        <div class="hero-buttons">
+          <a href="tel:05088931122" class="button">📞 050-8893-1122</a>
+        </div>
+        <div class="hero-links">
+          <a class="hero-link" href="guide/">
+            <span class="hl-text"><strong data-i18n="guide_b_title">はじめての介護ガイド</strong><small data-i18n="guide_b_sub">何から始めればいいか、6つの状況別に読めます</small></span>
+            <span class="hl-arrow" aria-hidden="true">→</span>
+          </a>
+          <a class="hero-link" href="jigyosho/">
+            <span class="hl-text"><strong data-i18n="jig_b_title">出雲市の介護事業所をさがす</strong><small data-i18n="jig_b_sub">種類とエリアで、市内の約440か所から絞り込めます</small></span>
+            <span class="hl-arrow" aria-hidden="true">→</span>
+          </a>
+        </div>
       </div>
-      <div class="step">
-        <h3 data-i18n="step2_h">ご訪問・聞き取り</h3>
-        <p data-i18n="step2_p">ご自宅にお伺いし、お体の状態や生活のご様子、ご希望を丁寧にお聞きします。</p>
+
+      <div class="hero-visual" aria-hidden="true">
+        <div class="sun-orbit"></div>
+        <div class="hero-circle"></div>
+        <div class="hero-cloud cloud-a"></div>
+        <div class="hero-cloud cloud-b"></div>
+        <img class="hero-zou" src="assets/images/zou_walk_01.webp" alt="" width="480" height="335" fetchpriority="high" decoding="async" />
       </div>
-      <div class="step">
-        <h3 data-i18n="step3_h">ケアプランの作成</h3>
-        <p data-i18n="step3_p">ご本人・ご家族と相談しながら、必要なサービスを組み合わせたプランを作成します。</p>
+    </section>
+
+    <!-- Astra風の主役区間：スクロール位置そのものがシーン進行度 -->
+    <section class="journey" id="journey">
+      <div class="journey-sticky">
+        <div class="scene-bg" aria-hidden="true">
+          <div class="sky-night"></div>
+          <div class="sky-dawn"></div>
+          <div class="sky-stars"></div>
+          <div class="sky-glow"></div>
+          <div class="hill hill-1"></div>
+          <div class="hill hill-2"></div>
+          <div class="road-line"></div>
+          <div class="scene-object house">
+            <div class="roof"></div><div class="house-body"><i></i><i></i></div>
+            <span>HOME</span>
+          </div>
+          <div class="scene-object hospital connect">
+            <img class="connect-pot" src="assets/images/connect_pot.webp" alt="" width="480" height="533" decoding="async" />
+            <span>CONNECT</span>
+          </div>
+          <div class="scene-object support-sign"><strong data-i18n="sign_title">ケア</strong><span data-i18n="sign_text">必要な支援を<br>ひとつずつ整理</span></div>
+          <div class="scene-spark spark-1">✦</div>
+          <div class="scene-spark spark-2">✦</div>
+          <div class="scene-spark spark-3">✦</div>
+        </div>
+
+        <div class="journey-number" aria-hidden="true">01</div>
+        <div class="journey-headline">
+          <div class="eyebrow">Walk together</div>
+          <h2><span class="h2-line" data-i18n="j_h2_l1">一人で抱えなくて、</span><br><span class="h2-line" data-i18n="j_h2_l2">大丈夫です。</span></h2>
+        </div>
+
+        <article class="journey-card journey-card-a">
+          <span>01 / WORRY</span>
+          <h3 data-i18n="jc_a_h3">「どうしたらいい？」から始める</h3>
+          <p data-i18n="jc_a_p">退院、物忘れ、仕事との両立。まだ介護保険のことが分からなくても、そのままの言葉で相談できます。</p>
+        </article>
+        <article class="journey-card journey-card-b">
+          <span>02 / CONNECT</span>
+          <h3 data-i18n="jc_b_h3">必要な人・制度につなぐ</h3>
+          <p data-i18n="jc_b_p">病院、役所、デイサービス、訪問介護、福祉用具。必要な支援を整理し、関係機関と連携します。</p>
+        </article>
+        <article class="journey-card journey-card-c">
+          <span>03 / TOGETHER</span>
+          <h3 data-i18n="jc_c_h3">暮らしながら、また考える</h3>
+          <p data-i18n="jc_c_p">一度決めて終わりではありません。状況が変われば、立ち止まり、戻り、また一緒に組み立て直します。</p>
+        </article>
+
+        <div class="journey-copy journey-copy-a" data-i18n="jcopy_a">困りごとを<br><strong>言葉にする</strong></div>
+        <div class="journey-copy journey-copy-b" data-i18n="jcopy_b">必要な支援を<br><strong>つなげる</strong></div>
+        <div class="journey-copy journey-copy-c" data-i18n="jcopy_c">安心できる暮らしへ<br><strong>いっしょに進む</strong></div>
       </div>
-      <div class="step">
-        <h3 data-i18n="step4_h">サービス開始・毎月のご訪問</h3>
-        <p data-i18n="step4_p">サービス開始後も毎月ご訪問し、状況の変化に合わせてプランを見直します。</p>
+    </section>
+
+    <section class="features" id="features">
+      <div class="features-deco" aria-hidden="true"><img class="deco-leaf deco-tl" src="assets/images/deco_leaf.webp" alt="" width="89" height="97" /><img class="deco-heart deco-tl2" src="assets/images/deco_heart.webp" alt="" width="37" height="33" /><img class="deco-leaf deco-br" src="assets/images/deco_leaf.webp" alt="" width="89" height="97" /><img class="deco-heart deco-br2" src="assets/images/deco_heart.webp" alt="" width="37" height="33" /></div>
+      <div class="section-heading reveal">
+        <div class="eyebrow">What we value</div>
+        <h2 data-i18n="feat_h2">「相談してよかった」と<br>思ってもらえるために。</h2>
+        <p class="lead" data-i18n="feat_lead">制度の説明だけではなく、ご本人とご家族がどう暮らしたいかを起点に、一緒に考えます。</p>
       </div>
-    </div>
-    <p class="sec-cta"><a href="#contact" data-i18n="cta_flow">まずは1つめの「お問い合わせ」から</a></p>
-  </div>
-</section>
-
-<section id="about" class="about">
-  <div class="inner">
-    <h2 data-i18n="about_h2">事業所概要</h2>
-    <p class="h2-sub">ABOUT</p>
-    <table>
-      <tr><th data-i18n="about_th_name">事業所名</th><td data-i18n="about_td_name">居宅介護支援事業所 しあわせぞうさん</td></tr>
-      <tr><th data-i18n="about_th_corp">運営法人</th><td data-i18n="about_td_corp">合同会社しあわせぞうさん</td></tr>
-      <tr><th data-i18n="about_th_no">介護保険<br>事業所番号</th><td>3270403482</td></tr>
-      <tr><th data-i18n="about_th_addr">所在地</th><td data-i18n="about_td_addr">〒699-0731 島根県出雲市大社町遙堪663-25</td></tr>
-      <tr><th data-i18n="about_th_tel">電話</th><td><a href="tel:050-8893-1122" style="color:var(--main-dark);">050-8893-1122</a></td></tr>
-      <tr><th>FAX</th><td>050-1799-0234</td></tr>
-      <tr><th data-i18n="about_th_hours">営業時間</th><td data-i18n="about_td_hours">平日 9:00〜17:00（土・日・祝日はお休み）</td></tr>
-      <tr><th data-i18n="about_th_area">サービス<br>提供地域</th><td data-i18n="about_td_area">出雲市（旧出雲市）、大社町　※その他の地域も提供実績があります。ご相談ください</td></tr>
-      <tr><th data-i18n="about_th_mgr">管理者</th><td data-i18n="about_td_mgr">石﨑 仁久（主任介護支援専門員）</td></tr>
-    </table>
-    <p class="sec-cta"><a href="#contact" data-i18n="cta_about">お近くか分からない方も、ご相談ください</a></p>
-  </div>
-</section>
-
-<section id="docs">
-  <div class="inner">
-    <h2 data-i18n="docs_h2">重要事項説明書・運営規程</h2>
-    <p class="h2-sub">DOCUMENTS</p>
-    <ul class="docs-list">
-      <li><span data-i18n="docs_item1">重要事項説明書</span><span class="status" data-i18n="docs_status1">準備中（近日掲載）</span></li>
-      <li><span data-i18n="docs_item2">運営規程</span><span class="status" data-i18n="docs_status2">準備中（近日掲載）</span></li>
-    </ul>
-    <p class="docs-note"><span data-i18n="docs_note">当事業所の詳しい情報は、厚生労働省「介護サービス情報公表システム」でもご覧いただけます。</span><br>
-    → <a href="https://www.kaigokensaku.mhlw.go.jp/32/index.php?action_kouhyou_detail_023_kihon=true&amp;JigyosyoCd=3270403482-00&amp;ServiceCd=430" target="_blank" rel="noopener" data-i18n="docs_link">介護サービス情報公表システム（しあわせぞうさんのページ）</a></p>
-  </div>
-</section>
-
-<section id="contact" class="contact">
-  <div class="inner">
-    <h2 data-i18n="contact_h2">お問い合わせ</h2>
-    <p class="h2-sub">CONTACT</p>
-    <p data-i18n="contact_intro">介護のお悩み、お気軽にご相談ください。</p>
-    <a href="tel:050-8893-1122" class="tel-big">📞 050-8893-1122</a>
-    <p class="hours" data-i18n="contact_hours">受付時間：平日 9:00〜17:00　／　FAX：050-1799-0234</p>
-    <div class="msg-boxes">
-      <div class="msg-box">
-        <p style="font-weight:bold;color:#06c755;" data-i18n="line_title">LINEでのご相談はこちら</p>
-        <img src="images/line_qr.png" alt="LINE QR code" style="width:200px;max-width:100%;margin:10px 0;">
-        <p style="font-size:0.85rem;color:var(--muted);" data-i18n="line_scan">スマホのカメラまたはLINEアプリで<br>QRコードを読み取ってください</p>
-        <a href="https://works.do/R/ti/p/ishizakicorporation.hitoshi@works-459349" target="_blank" rel="noopener" class="msg-btn msg-btn-line" data-i18n="line_btn">タップして友だち追加</a>
-        <p class="msg-note" data-i18n="msg_note">「まだ申し込むか決めていない」という段階の質問だけでも大丈夫です。こちらから営業の連絡はしません。</p>
+      <div class="cards">
+        <article class="card">
+          <div class="card-no">01</div>
+          <div class="card-icon card-icon-img" aria-hidden="true"><img src="assets/images/card_icon_01.webp" alt="" width="260" height="242" loading="lazy" decoding="async" /></div>
+          <h3 data-i18n="card1_h3">相談・ケアプラン<br>自己負担0円</h3>
+          <p data-i18n="card1_p">ケアプランの作成やご相談の費用は、介護保険から全額給付されるため、原則として自己負担はありません。（デイサービスなど各サービスの利用料は、別途1〜3割のご負担があります。）</p>
+        </article>
+        <article class="card">
+          <div class="card-no">02</div>
+          <div class="card-icon card-icon-img" aria-hidden="true"><img src="assets/images/card_icon_02.webp" alt="" width="260" height="242" loading="lazy" decoding="async" /></div>
+          <h3 data-i18n="card2_h3">主任ケアマネジャーが<br>担当</h3>
+          <p data-i18n="card2_p">医療・介護の関係機関と連携しながら、状況に応じた支援を一緒に考えます。</p>
+        </article>
+        <article class="card">
+          <div class="card-no">03</div>
+          <div class="card-icon card-icon-img" aria-hidden="true"><img src="assets/images/card_icon_03.webp" alt="" width="260" height="242" loading="lazy" decoding="async" /></div>
+          <h3 data-i18n="card3_h3">公正中立な<br>サービス調整</h3>
+          <p data-i18n="card3_p">特定の事業者に偏らず、ご本人・ご家族に合うサービスを一緒に選びます。</p>
+        </article>
+        <article class="card">
+          <div class="card-no">04</div>
+          <div class="card-icon card-icon-img" aria-hidden="true"><img src="assets/images/card_icon_04.webp" alt="" width="260" height="242" loading="lazy" decoding="async" /></div>
+          <h3 data-i18n="card4_h3">ICT・多言語を<br>活用した相談</h3>
+          <p data-i18n="card4_p">翻訳アプリやビデオ通話も活用しながら、より相談しやすい環境を目指します。</p>
+        </article>
       </div>
-      <div class="msg-box">
-        <p style="font-weight:bold;color:#25d366;" data-i18n="wa_title">WhatsAppでのご相談はこちら</p>
-        <img src="images/whatsapp_qr.png" alt="WhatsApp QR code" style="width:200px;max-width:100%;margin:10px 0;">
-        <p style="font-size:0.85rem;color:var(--muted);" data-i18n="wa_scan">スマホのカメラまたはWhatsAppアプリで<br>QRコードを読み取ってください</p>
-        <a href="https://wa.me/message/Q4KJPEWBH2D3F1" target="_blank" rel="noopener" class="msg-btn msg-btn-wa" data-i18n="wa_btn">タップしてチャットを開く</a>
-        <p class="msg-note" data-i18n="msg_note">「まだ申し込むか決めていない」という段階の質問だけでも大丈夫です。こちらから営業の連絡はしません。</p>
+    </section>
+
+    <section class="story" id="story">
+      <div class="story-image reveal">
+        <img src="assets/images/flow_manga.webp" alt="ご利用の流れを描いた4コマ漫画" data-i18n-alt="manga_alt" width="1254" height="1254" loading="lazy" decoding="async" />
+        <div class="story-caption" data-i18n="story_caption">「そろそろ限界かも。」<br>そう思った日が、相談していい日です。</div>
       </div>
-    </div>
-    <p class="addr" data-i18n="contact_addr">〒699-0731 島根県出雲市大社町遙堪663-25</p>
-    <a class="map-link" href="https://www.google.com/maps/search/?api=1&amp;query=%E5%B3%B6%E6%A0%B9%E7%9C%8C%E5%87%BA%E9%9B%B2%E5%B8%82%E5%A4%A7%E7%A4%BE%E7%94%BA%E9%81%99%E5%A0%AA663-25" target="_blank" rel="noopener" data-i18n="contact_map">📍 Googleマップで地図を見る</a>
-  </div>
-</section>
+      <div class="story-copy reveal">
+        <div class="eyebrow">Our role</div>
+        <h2 data-i18n="story_h2">暮らしに合わせて、<br>支援を組み立てる。</h2>
+        <p class="lead" data-i18n="story_lead">介護保険の申請、ケアプランの作成、デイサービス、訪問介護、福祉用具、医療機関との連携。必要なサービスを一つずつ整理して、ご本人とご家族に合う暮らし方を一緒に考えます。</p>
+        <a href="#flow" class="text-link"><span data-i18n="story_link">ご利用の流れを見る</span> <span>→</span></a>
+      </div>
+    </section>
 
-<footer>
-  <p><span data-i18n="footer_line1">居宅介護支援事業所 しあわせぞうさん（合同会社しあわせぞうさん）</span><br>
-  <span data-i18n="footer_line2">島根県出雲市大社町遙堪663-25　／　介護保険事業所番号：3270403482</span><br>
-  &copy; 2026 Shiawase Zousan LLC</p>
-</footer>
+    <section class="flow" id="flow">
+      <div class="section-heading reveal">
+        <div class="eyebrow">Four steps</div>
+        <h2 data-i18n="flow_h2">相談から始まる、<br>4つのステップ。</h2>
+      </div>
+      <div class="flow-grid">
+        <article class="flow-item reveal"><span>01 / CONTACT</span><h3 data-i18n="flow1_h3">お問い合わせ</h3><p data-i18n="flow1_p">まずはお電話かLINEでご相談ください。介護保険が初めてでも大丈夫です。</p></article>
+        <article class="flow-item reveal"><span>02 / VISIT</span><h3 data-i18n="flow2_h3">ご訪問・聞き取り</h3><p data-i18n="flow2_p">ご本人・ご家族の生活状況や希望を丁寧に確認します。</p></article>
+        <article class="flow-item reveal"><span>03 / PLAN</span><h3 data-i18n="flow3_h3">ケアプラン作成</h3><p data-i18n="flow3_p">介護保険の申請がまだの方は、その手続きからお手伝いします。必要な支援や介護サービスを一緒に整理し、ケアプラン（どのサービスをどう使うかの計画）にまとめます。</p></article>
+        <article class="flow-item reveal"><span>04 / SUPPORT</span><h3 data-i18n="flow4_h3">サービス開始</h3><p data-i18n="flow4_p">開始後も状況を確認し、必要に応じてケアプランを見直します。</p></article>
+      </div>
+    </section>
 
-<script>
-// ===== 言語切り替え（日本語はHTML本文がそのまま使われます） =====
-var TRANSLATIONS = {
-  en: {
-    _title: "Shiawase Zousan | Care Management Office in Izumo, Shimane (Care Manager)",
-    logo_sub: "Care Management Office (Izumo, Shimane)",
-    nav_guide: "First-time Care Guide (Japanese)",
-    nav_jigyosho: "Find Care Providers (Japanese)",
-    guide_b_title: "Caring for a parent — where do I start?",
-    guide_b_sub: "Not sure yet whether to contact us? Read first — no name needed. A guide to 6 common situations (in Japanese)",
-    jig_b_title: "Find care providers in Izumo",
-    jig_b_sub: "Browse local care providers by service type and area (in Japanese)",
-    nav_service: "Services",
-    nav_flow: "How It Works",
-    nav_about: "About Us",
-    nav_docs: "Documents",
-    nav_contact: "Contact",
-    hero_h1: "The day you think \"I can't keep this up\"<br>is the day to talk to us.",
-    hero_lead: "\"The hospital says it's time for discharge.\" \"The forgetfulness is getting worse.\" \"Work and caregiving are wearing me down.\"<br>We start working on it from the day you contact us. Our senior care manager in Izumo City and Taisha handles everything from the care-level certification application to arranging services, on your family's behalf.",
-    name_origin: "<strong>Why \"Shiawase Zousan\"?</strong><br>Our founder loves elephants (\"zou-san\" in Japanese). The name is also a play on words meaning <strong>\"producing more happiness\"</strong> (shiawase zousan).",
-    hero_line_btn: "We're also on LINE &amp; WhatsApp",
-    hero_note: "Office hours: weekdays 9:00–17:00. Consultations and care plans cost you nothing.",
-    features_h2: "Why Choose Us",
-    card1_h: "Consultations &amp; care plans<br><span class=\"zero\">Free of charge</span>",
-    card1_p: "Care management fees are fully covered by long-term care insurance, so there is no out-of-pocket cost for you. Feel free to reach out.",
-    card2_h: "Senior-certified care manager",
-    card2_p: "Our manager holds the advanced \"Chief Care Manager\" certification and works closely with medical and care providers to build the best plan for you.",
-    card3_h: "Fair, neutral &amp; on LINE",
-    card3_p: "We create care plans fairly and neutrally, never favoring specific providers. For busy families, we also communicate via LINE.",
-    card4_h: "Multilingual support",
-    card4_p: "Using translation tools, we can assist you and your family even if Japanese is difficult. You can also reach us on WhatsApp. Foreign residents are very welcome.",
-    service_h2: "Our Services",
-    service_intro: "<strong>What does a care manager do?</strong><br>We help people who need care continue living safely in the home they love. Here is what we can do for you:",
-    service_li1: "Consultations about long-term care insurance; we can apply for care-level certification on your behalf",
-    service_li2: "Care plans tailored to your health, lifestyle and wishes",
-    service_li3: "Coordination with day services, home helpers, welfare equipment providers and more",
-    service_li4: "Monthly home visits to check how things are going and adjust the plan",
-    service_li5: "Support during hospital admission and discharge, and advice on care facilities",
-    service_li6: "Multilingual consultations using translation tools — don't worry if Japanese is difficult",
-    service_outro: "Not sure where to start? That is completely fine — we will think it through together, always respecting your and your family's wishes.",
-    flow_h2: "How It Works",
-    step1_h: "Contact us",
-    step1_p: "Call us or message us on LINE. First time dealing with care insurance? No problem.",
-    step2_h: "Home visit &amp; interview",
-    step2_p: "We visit your home and listen carefully about health, daily life and your wishes.",
-    step3_h: "Creating your care plan",
-    step3_p: "Together with you and your family, we build a plan combining the services you need.",
-    step4_h: "Services begin + monthly visits",
-    step4_p: "After services start, we visit every month and adjust the plan as things change.",
-    about_h2: "About Us",
-    about_th_name: "Office name",
-    about_td_name: "Shiawase Zousan Care Management Office",
-    about_th_corp: "Company",
-    about_td_corp: "Shiawase Zousan LLC",
-    about_th_no: "Care insurance<br>office number",
-    about_th_addr: "Address",
-    about_td_addr: "663-25 Yokan, Taisha-cho, Izumo City, Shimane 699-0731, Japan",
-    about_th_tel: "Phone",
-    about_th_hours: "Office hours",
-    about_td_hours: "Weekdays 9:00–17:00 (closed Sat, Sun &amp; holidays)",
-    about_th_area: "Service area",
-    about_td_area: "Izumo City (former Izumo area) and Taisha. We also have experience serving other areas — please ask.",
-    about_th_mgr: "Manager",
-    about_td_mgr: "Yoshihisa Ishizaki 石﨑仁久 (Chief Care Manager)",
-    docs_h2: "Important Documents",
-    docs_item1: "Important terms of service (Juyo Jiko Setsumeisho)",
-    docs_status1: "Coming soon",
-    docs_item2: "Operating rules (Unei Kitei)",
-    docs_status2: "Coming soon",
-    docs_note: "More details about our office are available on the official government database (Japanese):",
-    docs_link: "Long-Term Care Service Information System — our page",
-    contact_h2: "Contact",
-    contact_intro: "Worried about care for a family member? Contact us anytime.",
-    contact_hours: "Office hours: weekdays 9:00–17:00 / FAX: 050-1799-0234",
-    cta_features: "Ask us first — a question is enough",
-    cta_service: "Ask what this would look like for your family",
-    cta_flow: "Start with step 1: get in touch",
-    cta_about: "Not sure if you are in our area? Ask us anyway",
-    msg_note: "A question at the \"we haven't decided anything yet\" stage is perfectly fine. We will never send you sales messages.",
-    line_title: "Reach us on LINE",
-    line_scan: "Scan this QR code with your phone camera<br>or the LINE app",
-    wa_title: "Reach us on WhatsApp",
-    wa_scan: "Scan this QR code with your phone camera<br>or the WhatsApp app",
-    line_btn: "Tap to add us on LINE",
-    wa_btn: "Tap to chat on WhatsApp",
-    contact_addr: "663-25 Yokan, Taisha-cho, Izumo City, Shimane 699-0731, Japan",
-    contact_map: "📍 View on Google Maps",
-    footer_line1: "Shiawase Zousan Care Management Office (Shiawase Zousan LLC)",
-    footer_line2: "663-25 Yokan, Taisha-cho, Izumo, Shimane / Care insurance office no. 3270403482"
-  },
-  pt: {
-    _title: "Shiawase Zousan | Escritório de Gestão de Cuidados em Izumo, Shimane",
-    logo_sub: "Gestão de Cuidados de Idosos (Izumo, Shimane)",
-    nav_guide: "Guia para começar (em japonês)",
-    nav_jigyosho: "Buscar serviços de cuidados (em japonês)",
-    guide_b_title: "Cuidar de um familiar — por onde começar?",
-    guide_b_sub: "Ainda não decidiu se vai entrar em contato? Leia primeiro — sem precisar dizer seu nome. Guia com 6 situações comuns (em japonês)",
-    jig_b_title: "Buscar serviços de cuidados em Izumo",
-    jig_b_sub: "Estabelecimentos locais por tipo de serviço e região (em japonês)",
-    nav_service: "Serviços",
-    nav_flow: "Como Funciona",
-    nav_about: "Sobre Nós",
-    nav_docs: "Documentos",
-    nav_contact: "Contato",
-    hero_h1: "O dia em que você pensa \"não aguento mais\"<br>é o dia de falar conosco.",
-    hero_lead: "\"O hospital falou em alta.\" \"O esquecimento está piorando.\" \"Trabalho e cuidados estão me esgotando.\"<br>Começamos a agir a partir do dia em que você entra em contato. Nosso gestor de cuidados sênior em Izumo e Taisha cuida de tudo, da solicitação da avaliação de dependência (yōkaigo nintei) à organização dos serviços, no lugar da família.",
-    name_origin: "<strong>Por que \"Shiawase Zousan\"?</strong><br>Nosso fundador adora elefantes (\"zou-san\" em japonês). O nome também é um trocadilho que significa <strong>\"produzir mais felicidade\"</strong> (shiawase zousan).",
-    hero_line_btn: "Também atendemos pelo LINE e WhatsApp",
-    hero_note: "Horário: dias úteis, das 9h às 17h. Consultas e planos de cuidados sem custo para você.",
-    features_h2: "Nossos Diferenciais",
-    card1_h: "Consultas e planos de cuidados<br><span class=\"zero\">Custo zero</span>",
-    card1_p: "Os custos da gestão de cuidados são totalmente cobertos pelo seguro de cuidados de longa duração (kaigo hoken). Você não paga nada. Fale conosco sem compromisso.",
-    card2_h: "Gestor de cuidados sênior certificado",
-    card2_p: "Nosso responsável possui a certificação avançada de \"Gestor de Cuidados Chefe\" e trabalha em conjunto com médicos e prestadores de serviços para montar o melhor plano para você.",
-    card3_h: "Imparcial, neutro e no LINE",
-    card3_p: "Elaboramos os planos de forma imparcial e neutra, sem favorecer empresas específicas. Para famílias ocupadas, também atendemos pelo LINE.",
-    card4_h: "Atendimento multilíngue",
-    card4_p: "Com aplicativos de tradução, atendemos você e sua família mesmo que o japonês seja difícil. Você também pode falar conosco pelo WhatsApp. Estrangeiros são muito bem-vindos.",
-    service_h2: "Serviços",
-    service_intro: "<strong>O que faz um gestor de cuidados (care manager)?</strong><br>Ajudamos pessoas que precisam de cuidados a continuar vivendo com segurança na casa que amam. Veja como podemos ajudar:",
-    service_li1: "Consultas sobre o seguro de cuidados (kaigo hoken); fazemos a solicitação do nível de cuidado por você",
-    service_li2: "Planos de cuidados adaptados à sua saúde, rotina e desejos",
-    service_li3: "Coordenação com day service, cuidadores domiciliares, equipamentos de bem-estar e outros serviços",
-    service_li4: "Visitas mensais à sua casa para acompanhar e ajustar o plano",
-    service_li5: "Apoio em internações e altas hospitalares, e orientação sobre casas de repouso",
-    service_li6: "Consultas multilíngues com aplicativos de tradução — não se preocupe se o japonês for difícil",
-    service_outro: "Não sabe por onde começar? Tudo bem — pensamos juntos, sempre respeitando a vontade sua e da sua família.",
-    flow_h2: "Como Funciona",
-    step1_h: "Entre em contato",
-    step1_p: "Ligue ou mande mensagem pelo LINE. Primeira vez com o seguro de cuidados? Sem problema.",
-    step2_h: "Visita e conversa",
-    step2_p: "Visitamos sua casa e ouvimos com atenção sobre saúde, rotina diária e desejos.",
-    step3_h: "Elaboração do plano de cuidados",
-    step3_p: "Junto com você e sua família, montamos um plano combinando os serviços necessários.",
-    step4_h: "Início dos serviços + visitas mensais",
-    step4_p: "Depois do início, visitamos todo mês e ajustamos o plano conforme as mudanças.",
-    about_h2: "Sobre Nós",
-    about_th_name: "Nome",
-    about_td_name: "Shiawase Zousan — Escritório de Gestão de Cuidados",
-    about_th_corp: "Empresa",
-    about_td_corp: "Shiawase Zousan LLC",
-    about_th_no: "Nº de registro<br>(seguro de cuidados)",
-    about_th_addr: "Endereço",
-    about_td_addr: "663-25 Yokan, Taisha-cho, Izumo, Shimane 699-0731, Japão",
-    about_th_tel: "Telefone",
-    about_th_hours: "Horário",
-    about_td_hours: "Dias úteis, 9h–17h (fechado sáb., dom. e feriados)",
-    about_th_area: "Área de atendimento",
-    about_td_area: "Cidade de Izumo (área antiga) e Taisha. Também temos experiência em outras áreas — consulte-nos.",
-    about_th_mgr: "Responsável",
-    about_td_mgr: "Yoshihisa Ishizaki 石﨑仁久 (Gestor de Cuidados Chefe)",
-    docs_h2: "Documentos Importantes",
-    docs_item1: "Termo de informações importantes (Juyo Jiko Setsumeisho)",
-    docs_status1: "Em breve",
-    docs_item2: "Regulamento de funcionamento (Unei Kitei)",
-    docs_status2: "Em breve",
-    docs_note: "Mais informações sobre nosso escritório no banco de dados oficial do governo (em japonês):",
-    docs_link: "Sistema de Informações de Serviços de Cuidados — nossa página",
-    contact_h2: "Contato",
-    contact_intro: "Preocupado com o cuidado de um familiar? Fale conosco.",
-    contact_hours: "Horário: dias úteis, 9h–17h / FAX: 050-1799-0234",
-    cta_features: "Pergunte primeiro — só uma dúvida já basta",
-    cta_service: "Pergunte como seria no caso da sua família",
-    cta_flow: "Comece pelo passo 1: entre em contato",
-    cta_about: "Não sabe se está na nossa região? Pergunte mesmo assim",
-    msg_note: "Uma pergunta na fase \"ainda não decidimos nada\" é totalmente bem-vinda. Nunca enviamos mensagens de venda.",
-    line_title: "Fale conosco pelo LINE",
-    line_scan: "Escaneie o código QR com a câmera do celular<br>ou com o aplicativo LINE",
-    wa_title: "Fale conosco pelo WhatsApp",
-    wa_scan: "Escaneie o código QR com a câmera do celular<br>ou com o aplicativo WhatsApp",
-    line_btn: "Toque para adicionar no LINE",
-    wa_btn: "Toque para conversar no WhatsApp",
-    contact_addr: "663-25 Yokan, Taisha-cho, Izumo, Shimane 699-0731, Japão",
-    contact_map: "📍 Ver no Google Maps",
-    footer_line1: "Shiawase Zousan — Escritório de Gestão de Cuidados (Shiawase Zousan LLC)",
-    footer_line2: "663-25 Yokan, Taisha-cho, Izumo, Shimane / Registro nº 3270403482"
-  }
-};
+    <section class="contact" id="contact">
+      <div class="contact-orbit" aria-hidden="true"></div>
+      <div class="contact-inner reveal">
+        <div class="eyebrow">First step</div>
+        <h2 data-i18n="contact_h2">相談していい日です。</h2>
+        <p data-i18n="contact_p">まだサービスを使うか決めていなくても大丈夫です。<br>まずは今困っていることを聞かせてください。</p>
+        <a href="tel:05088931122" class="button contact-button">📞 050-8893-1122</a>
+        <div class="contact-msg"><a class="msg-link" href="https://works.do/R/ti/p/ishizakicorporation.hitoshi@works-459349" target="_blank" rel="noopener" data-i18n="contact_line">LINEで相談する</a><a class="msg-link" href="https://wa.me/message/Q4KJPEWBH2D3F1" target="_blank" rel="noopener" data-i18n="contact_wa">WhatsAppで相談する</a></div>
+        <div class="contact-qr">
+          <figure><img src="images/line_qr.png" alt="LINE 友だち追加のQRコード" width="200" height="200" loading="lazy"><figcaption>LINE</figcaption></figure>
+          <figure><img src="images/whatsapp_qr.png" alt="WhatsApp チャットのQRコード" width="200" height="200" loading="lazy"><figcaption>WhatsApp</figcaption></figure>
+        </div>
+        <small class="contact-qr-note" data-i18n="contact_qr_note">パソコンでご覧の方は、スマホでQRコードを読み取ってください</small>
+        <small data-i18n="contact_hours">受付：平日 9:00〜17:00（訪問中で出られないときは、折り返しご連絡します）</small>
+        <small class="contact-area" data-i18n="contact_area">対応エリア：旧出雲市、大社町（そのほかの地域の方も対応しておりますのでご相談ください）</small>
+      </div>
+    </section>
+  </main>
 
-(function () {
-  var japanese = {};   // 日本語はページに書かれている文をそのまま保存しておく
-  var nodes = document.querySelectorAll("[data-i18n]");
-  var i;
-  for (i = 0; i < nodes.length; i++) {
-    japanese[nodes[i].getAttribute("data-i18n")] = nodes[i].innerHTML;
-  }
-  japanese._title = document.title;
-  TRANSLATIONS.ja = japanese;
+  <footer><div class="footer-info"><strong data-i18n="footer_name">居宅介護支援事業所 しあわせぞうさん（合同会社しあわせぞうさん）</strong><span data-i18n="footer_addr">〒699-0731 島根県出雲市大社町遙堪663-25</span><span data-i18n="footer_no">介護保険事業所番号：3270403482</span></div><span class="footer-copy">© 2026 Shiawase Zousan</span></footer>
 
-  function setLang(lang) {
-    if (!TRANSLATIONS[lang]) { lang = "ja"; }
-    var dict = TRANSLATIONS[lang];
-    var els = document.querySelectorAll("[data-i18n]");
-    for (var j = 0; j < els.length; j++) {
-      var key = els[j].getAttribute("data-i18n");
-      if (dict[key]) { els[j].innerHTML = dict[key]; }
-    }
-    if (dict._title) { document.title = dict._title; }
-    document.documentElement.lang = (lang === "pt") ? "pt-BR" : lang;
-    var btns = document.querySelectorAll(".lang-switch button");
-    for (var k = 0; k < btns.length; k++) {
-      btns[k].className = (btns[k].getAttribute("data-lang") === lang) ? "active" : "";
-    }
-    try { localStorage.setItem("szLang", lang); } catch (e) {}
-  }
-
-  var btns = document.querySelectorAll(".lang-switch button");
-  for (i = 0; i < btns.length; i++) {
-    btns[i].addEventListener("click", function () {
-      setLang(this.getAttribute("data-lang"));
-    });
-  }
-
-  var saved = "ja";
-  try { saved = localStorage.getItem("szLang") || "ja"; } catch (e) {}
-  setLang(saved);
-})();
-
-// ===== スクロールでふわっと表示 =====
-(function () {
-  var targets = document.querySelectorAll(
-    "section h2, section .h2-sub, .card, .service-box, .step, .about table, .docs-list li, .docs-note, .msg-box, .contact .inner > p, .tel-big, .map-link"
-  );
-  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (reduced || !("IntersectionObserver" in window)) { return; }
-  var i;
-  for (i = 0; i < targets.length; i++) {
-    targets[i].classList.add("reveal");
-    // 並んだ要素は少しずつ時間差をつける
-    targets[i].style.transitionDelay = ((i % 4) * 0.09) + "s";
-  }
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("visible");
-        io.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.15 });
-  for (i = 0; i < targets.length; i++) { io.observe(targets[i]); }
-})();
-</script>
-
+  <div class="mobile-cta"><a href="tel:05088931122" data-i18n="mcta_tel">📞 電話で相談</a><a href="#contact" data-i18n="mcta_contact">相談窓口を見る</a></div>
 </body>
 </html>

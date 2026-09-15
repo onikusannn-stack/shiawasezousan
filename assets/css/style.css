@@ -1,0 +1,230 @@
+:root {
+  --green:#315b4d; --green-deep:#24473d; --sage:#8da99d; --cream:#f6efe4;
+  --cream-light:#fffaf3; --sand:#ddb676; --ink:#24342e; --muted:#66716c;
+  --line:rgba(36,52,46,.13); --walker-width:clamp(108px,12vw,176px); --walker-top:73vh;
+  --scene-p:0; --scene-wave:0;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;color:var(--ink);font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",system-ui,sans-serif;background:#f8f2e9;overflow-x:hidden} img{max-width:100%;height:auto} a{color:inherit}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.13;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E");mix-blend-mode:multiply}
+#progress{position:fixed;z-index:300;top:0;left:0;width:100%;height:3px;background:#2f7a62;transform:scaleX(0);transform-origin:left center;will-change:transform}
+.site-header{position:fixed;z-index:200;top:0;left:0;right:0;height:76px;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;background:rgba(250,246,238,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(36,52,46,.06);transition:transform .35s ease,background .35s ease}.site-header.scrolled{background:rgba(250,246,238,.9)}
+.logo{display:flex;align-items:center;gap:8px;font-weight:900;letter-spacing:.04em;text-decoration:none}.logo-mark{font-size:22px}nav{display:flex;gap:28px;font-size:13px;font-weight:800}nav a{text-decoration:none;opacity:.68;transition:.25s}nav a:hover{opacity:1}.header-cta,.button{display:inline-flex;align-items:center;justify-content:center;padding:14px 22px;border-radius:999px;background:var(--green);color:#fff;text-decoration:none;font-weight:900;box-shadow:0 13px 34px rgba(49,91,77,.16);transition:transform .25s ease,box-shadow .25s ease}.header-cta:hover,.button:hover{transform:translateY(-2px);box-shadow:0 17px 40px rgba(49,91,77,.23)}
+section{position:relative;padding:120px 7vw}.eyebrow{color:var(--green);font-size:11px;font-weight:900;letter-spacing:.22em;text-transform:uppercase}h1,h2,h3,p{margin-top:0}h2{font-size:clamp(40px,5.2vw,74px);line-height:1.08;letter-spacing:-.055em;margin-bottom:28px}.lead{font-size:clamp(17px,1.5vw,21px);line-height:2;color:#52605a}.reveal{opacity:0;transform:translateY(42px);transition:opacity .9s ease,transform 1s cubic-bezier(.2,.8,.2,1)}.reveal.visible{opacity:1;transform:none}
+.hero{min-height:100svh;display:grid;grid-template-columns:1.02fr .98fr;align-items:center;gap:5vw;padding-top:130px;overflow:hidden;background:radial-gradient(circle at 18% 15%,#fff 0,rgba(255,255,255,.68) 17%,transparent 44%),linear-gradient(135deg,#fbf7f0 0%,#f4eadb 66%,#f1e2cb 100%)}.hero-copy{position:relative;z-index:3}.hero h1{font-size:clamp(54px,7.3vw,112px);line-height:.98;letter-spacing:-.07em;margin:18px 0 34px}.hero h1 span{color:var(--green)}.hero p{max-width:660px;font-size:clamp(17px,1.55vw,22px);line-height:2;color:#52605a}.hero-buttons{display:flex;gap:13px;flex-wrap:wrap;margin-top:34px}.button-secondary{background:rgba(255,255,255,.55);border:1px solid var(--line);color:var(--ink);box-shadow:none}.hero-visual{position:relative;height:72vh;min-height:500px}.hero-circle{position:absolute;width:min(43vw,575px);aspect-ratio:1;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%);background:radial-gradient(circle at 35% 30%,#fff 0 7%,#f5dea7 35%,#e2b875 69%,rgba(226,184,117,.06) 70%);box-shadow:0 0 120px rgba(204,155,89,.2)}.sun-orbit{position:absolute;width:min(49vw,650px);aspect-ratio:1;border-radius:50%;left:50%;top:50%;transform:translate(-50%,-50%);border:1px dashed rgba(49,91,77,.18);animation:spin 28s linear infinite}.sun-orbit::before{content:"✦";position:absolute;top:12%;right:11%;font-size:27px;color:#b98244}.hero-zou{position:absolute;z-index:3;width:min(39vw,520px);left:50%;top:53%;transform:translate(-50%,-50%) scaleX(-1) rotate(2deg);filter:drop-shadow(0 30px 25px rgba(44,53,49,.16))}.hero-cloud{position:absolute;width:130px;height:35px;border-radius:999px;background:rgba(255,255,255,.72);filter:blur(.2px)}.hero-cloud::before,.hero-cloud::after{content:"";position:absolute;border-radius:50%;background:inherit}.hero-cloud::before{width:55px;height:55px;left:24px;bottom:5px}.hero-cloud::after{width:70px;height:70px;right:16px;bottom:2px}.cloud-a{left:0;top:22%;transform:scale(.72)}.cloud-b{right:-2%;bottom:23%;transform:scale(.52)}.hero-badge{position:absolute;z-index:4;right:2%;bottom:10%;width:116px;aspect-ratio:1;border-radius:50%;display:grid;place-items:center;text-align:center;background:var(--green);color:white;font-size:11px;line-height:1.5;font-weight:900;letter-spacing:.16em;box-shadow:0 18px 48px rgba(49,91,77,.25);animation:float 4s ease-in-out infinite}.scroll-guide{position:absolute;left:7vw;bottom:34px;display:flex;align-items:center;gap:15px;font-size:10px;font-weight:900;letter-spacing:.2em;color:#6c746f}.scroll-guide i{display:block;width:60px;height:1px;background:#747d78;animation:pulseLine 1.8s ease-in-out infinite}
+.walker{position:fixed;z-index:110;left:0;top:var(--walker-top);width:var(--walker-width);pointer-events:none;opacity:0;visibility:hidden;will-change:transform;transition:opacity .2s ease}.walker.active{opacity:1;visibility:visible}.walker-body{position:relative;z-index:2;transform-origin:50% 100%;will-change:transform}.walker-img{display:block;width:100%;height:auto;transform:scaleX(-1);user-select:none;-webkit-user-drag:none}.walker-shadow{width:66%;height:11px;margin:-6px auto 0;border-radius:50%;background:rgba(29,44,38,.14);filter:blur(4px);will-change:transform,opacity}
+.journey{height:400vh;padding:0;background:linear-gradient(180deg,#eaf1ec 0%,#eef3ef 45%,#f6efe4 100%)}.journey-sticky{position:sticky;top:0;height:100svh;overflow:hidden}.scene-bg{position:absolute;inset:0}.sky-glow{position:absolute;width:45vw;aspect-ratio:1;border-radius:50%;right:-6vw;top:-12vw;background:radial-gradient(circle,#fff2c9 0,#f0d9a4 30%,rgba(240,217,164,0) 70%);transform:translate3d(calc((var(--scene-p) - .5)*-5vw),calc((var(--scene-p) - .5)*4vh),0)}.hill{position:absolute;left:-8%;right:-8%;bottom:-17%;height:46%;border-radius:50% 50% 0 0/100% 100% 0 0}.hill-1{background:#b9cfc2;transform:translate3d(calc(var(--scene-p)*-5vw),calc(var(--scene-p)*2vh),0)}.hill-2{bottom:-28%;height:53%;background:#7f9f90;opacity:.8;transform:translate3d(calc(var(--scene-p)*4vw),0,0)}.road-line{position:absolute;left:4vw;right:4vw;top:78%;height:90px;border-bottom:3px dashed rgba(36,71,61,.34);border-radius:0 0 50% 50%}.scene-object{position:absolute;transition:opacity .15s linear;will-change:transform,opacity}.scene-object span{display:block;margin-top:7px;font-size:9px;letter-spacing:.16em;font-weight:900;color:rgba(36,71,61,.56);text-align:center}.house{left:70%;top:57%;transform:translate3d(calc((var(--scene-p) - .15)*-32vw),calc((var(--scene-p) - .2)*-2vh),0);opacity:var(--opa-a,0)}.roof{width:100px;height:65px;background:#b17650;clip-path:polygon(50% 0,100% 100%,0 100%)}.house-body{width:88px;height:72px;margin:-1px auto 0;background:#fff8eb;border:3px solid #315b4d;border-radius:2px 2px 8px 8px;display:flex;gap:12px;align-items:flex-end;justify-content:center;padding-bottom:11px}.house-body i{display:block;width:20px;height:31px;background:#d7e5dc;border:2px solid #315b4d}.hospital{left:76%;top:53%;transform:translate3d(calc((var(--scene-p) - .52)*-36vw),0,0);opacity:var(--opa-b,0)}.hospital-body{width:116px;height:118px;border-radius:10px;background:#fff;border:3px solid #315b4d;display:grid;place-items:center;box-shadow:0 18px 40px rgba(49,91,77,.11)}.hospital-body b{display:grid;place-items:center;width:48px;aspect-ratio:1;border-radius:50%;background:#d66c67;color:#fff;font-size:34px}.support-sign{left:74%;top:52%;width:160px;padding:24px 18px;border-radius:26px;background:#315b4d;color:#fff;text-align:center;transform:translate3d(calc((var(--scene-p) - .84)*-31vw),0,0);opacity:var(--opa-c,0);box-shadow:0 24px 60px rgba(36,71,61,.18)}.support-sign strong{display:block;font-size:27px;letter-spacing:.05em}.support-sign span{color:#dfeae5;font-size:12px;letter-spacing:0;line-height:1.7}.scene-spark{position:absolute;color:#b47745;font-size:28px;opacity:.6}.spark-1{left:27%;top:22%;transform:rotate(calc(var(--scene-p)*120deg))}.spark-2{right:18%;top:30%;transform:rotate(calc(var(--scene-p)*-180deg)) scale(.7)}.spark-3{left:53%;bottom:20%;transform:rotate(calc(var(--scene-p)*220deg)) scale(.55)}
+.journey-number{position:absolute;right:5vw;top:7vh;font:700 clamp(110px,19vw,280px)/1 Georgia,serif;color:rgba(49,91,77,.07)}.journey-headline{position:absolute;left:7vw;top:15vh;z-index:5;max-width:720px;transform:translateY(calc(var(--scene-p)*-10vh));opacity:var(--opa-head,1)}.journey-headline h2{font-size:clamp(45px,6vw,86px);margin-top:12px}.journey-card{position:absolute;z-index:6;width:min(360px,34vw);padding:24px 25px 26px;border:1px solid rgba(49,91,77,.13);border-radius:28px;background:rgba(255,250,243,.83);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 28px 80px rgba(45,74,62,.12);will-change:transform,opacity}.journey-card span{font-size:10px;font-weight:900;letter-spacing:.15em;color:#507364}.journey-card h3{font-size:23px;line-height:1.45;margin:14px 0 12px}.journey-card p{margin:0;color:#607069;line-height:1.85;font-size:14px}.journey-card-a{left:8vw;bottom:30vh;transform:translate3d(calc((var(--scene-p) - .20)*-4vw),calc((var(--scene-p) - .20)*-18vh),0);opacity:var(--opa-a,0)}.journey-card-b{left:38vw;bottom:30vh;transform:translate3d(calc((var(--scene-p) - .53)*-3vw),calc((var(--scene-p) - .53)*-18vh),0);opacity:var(--opa-b,0)}.journey-card-c{right:7vw;bottom:30vh;transform:translate3d(calc((var(--scene-p) - .84)*4vw),calc((var(--scene-p) - .84)*-18vh),0);opacity:var(--opa-c,0)}.journey-copy{position:absolute;z-index:4;font-size:clamp(24px,3vw,46px);line-height:1.35;letter-spacing:-.04em;color:rgba(36,52,46,.36);font-weight:700;pointer-events:none}.journey-copy strong{color:var(--green)}.journey-copy-a{left:8vw;top:34%;opacity:var(--opa-a,0)}.journey-copy-b{left:40%;top:28%;opacity:var(--opa-b,0)}.journey-copy-c{right:7vw;top:30%;text-align:right;opacity:var(--opa-c,0)}
+.features{min-height:110vh;background:#f8f2e9}.section-heading{max-width:900px}.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px;margin-top:60px}.card{position:relative;min-height:360px;padding:30px;border:1px solid var(--line);border-radius:32px;background:rgba(255,255,255,.54);box-shadow:0 24px 75px rgba(37,49,44,.08);overflow:hidden}.card::before{content:"";position:absolute;width:170px;aspect-ratio:1;border-radius:50%;right:-75px;top:-80px;background:rgba(221,182,118,.17)}.card-no{position:absolute;right:26px;top:24px;font:700 44px/1 Georgia,serif;color:rgba(49,91,77,.12)}.card-icon{font-size:42px;margin:4px 0 62px}.card h3{font-size:24px;line-height:1.42}.card p{color:#5d6863;line-height:1.9;margin:0}
+.story{display:grid;grid-template-columns:.92fr 1.08fr;gap:8vw;align-items:center;min-height:110vh;background:#fffaf3}.story-image{position:relative;min-height:620px;overflow:hidden;border-radius:40px;background:#ded0b6;box-shadow:0 30px 90px rgba(43,51,47,.13)}.story-image img{width:100%;height:100%;min-height:620px;object-fit:cover;display:block}.story-image::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(24,36,31,.68))}.story-caption{position:absolute;z-index:2;left:32px;right:32px;bottom:30px;color:#fff;font-size:18px;line-height:1.8;font-weight:900}.text-link{display:inline-flex;gap:14px;align-items:center;margin-top:20px;font-weight:900;text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:7px}.text-link span{transition:transform .25s}.text-link:hover span{transform:translateX(5px)}
+.flow{min-height:105vh;background:#f8f2e9}.flow-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:68px}.flow-item{min-height:285px;padding:26px 18px;border-top:2px solid var(--green)}.flow-item span{font-size:10px;font-weight:900;letter-spacing:.16em;color:var(--green)}.flow-item h3{font-size:25px;margin:55px 0 15px}.flow-item p{line-height:1.9;color:#5d6963}
+.contact{min-height:100svh;display:flex;align-items:center;justify-content:center;text-align:center;color:#fff;background:var(--green-deep);border-radius:72px 72px 0 0;overflow:hidden}.contact-orbit{position:absolute;width:70vw;aspect-ratio:1;border-radius:50%;border:1px solid rgba(255,255,255,.12);box-shadow:0 0 0 80px rgba(255,255,255,.02),0 0 0 160px rgba(255,255,255,.015)}.contact-inner{position:relative;z-index:2;max-width:920px}.contact .eyebrow{color:#c8ddd4}.contact h2{font-size:clamp(54px,8vw,110px);margin-bottom:30px}.contact p{font-size:18px;line-height:2;color:#d9e7e1}.contact-button{background:#fff;color:var(--green-deep);font-size:18px;padding:17px 27px;margin-top:18px}.contact small{display:block;margin-top:17px;color:#b9cec5}footer{padding:35px 7vw;background:var(--green-deep);color:#d7e5df;display:flex;justify-content:space-between;font-size:12px}.mobile-cta{display:none}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}@keyframes float{50%{transform:translateY(-10px) rotate(2deg)}}@keyframes pulseLine{50%{transform:scaleX(.45);transform-origin:left}}
+@media(max-width:900px){body::before{display:none}:root{--walker-width:88px;--walker-top:76vh}.site-header{padding:0 22px}.site-header nav{display:none}.hero{grid-template-columns:1fr;padding:128px 22px 95px}.hero h1{font-size:clamp(50px,11vw,82px)}.hero-visual{height:48vh;min-height:360px}.hero-circle{width:min(78vw,520px)}.sun-orbit{width:min(88vw,590px)}.hero-zou{width:min(74vw,500px)}section{padding:100px 22px}.journey{height:360vh}.journey-headline{left:22px;right:22px;top:13vh}.journey-card{width:min(330px,72vw);top:40vh;bottom:auto}.journey-card-a{left:22px}.journey-card-b{left:calc(50% - 165px)}.journey-card-c{right:22px}.journey-copy{display:none}.house,.hospital,.support-sign{transform:scale(.82) translate3d(calc((var(--scene-p) - .5)*-22vw),0,0)}.cards{grid-template-columns:1fr 1fr}.story{grid-template-columns:1fr}.story-image,.story-image img{min-height:470px}.flow-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){:root{--walker-width:74px;--walker-top:72vh}.site-header{height:68px}.logo{font-size:13px}.header-cta{font-size:11px;padding:10px 13px}.hero{padding-top:112px}.hero h1{font-size:48px}.hero p{font-size:16px}.hero-badge{width:92px;font-size:9px;right:0}.scroll-guide{left:22px}.journey{height:330vh}.journey-sticky{height:100svh}.journey-number{right:12px;top:10vh}.journey-headline{top:14vh}.journey-headline h2{font-size:42px}.journey-card{width:calc(100vw - 44px);padding:20px}.journey-card-a,.journey-card-b,.journey-card-c{left:22px;right:auto;top:39vh;bottom:auto}.journey-card h3{font-size:20px}.house{left:65%;top:57%;transform:scale(.64) translate3d(calc((var(--scene-p) - .2)*-55vw),0,0)}.hospital{left:65%;top:55%;transform:scale(.65) translate3d(calc((var(--scene-p) - .55)*-55vw),0,0)}.support-sign{left:60%;top:54%;transform:scale(.73) translate3d(calc((var(--scene-p) - .84)*-55vw),0,0)}.road-line{top:74%}.cards,.flow-grid{grid-template-columns:1fr}.card{min-height:310px}.story-image,.story-image img{min-height:430px}.contact{border-radius:44px 44px 0 0;padding-bottom:140px}.contact h2{font-size:49px}footer{padding-bottom:105px}.mobile-cta{position:fixed;display:grid;grid-template-columns:1fr 1fr;z-index:220;left:10px;right:10px;bottom:10px;gap:8px;padding:7px;border-radius:18px;background:rgba(255,255,255,.9);backdrop-filter:blur(18px);box-shadow:0 14px 40px rgba(28,44,38,.22)}.mobile-cta a{display:grid;place-items:center;min-height:48px;border-radius:12px;text-decoration:none;font-size:12px;font-weight:900;color:var(--green-deep)}.mobile-cta a:first-child{background:var(--green);color:#fff}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.walker{display:none}.reveal,.card{opacity:1;transform:none;transition:none}.sun-orbit,.hero-badge,.scroll-guide i{animation:none}}
+
+/* v2.2 minimal layout fixes: keep the scroll math / bell timing / walk cycle unchanged. */
+@media (min-width:901px){
+  /* Keep the forced first line intact and lift the headline just enough to clear card A. */
+  .journey-headline{max-width:900px;transform:translateY(calc(var(--scene-p)*-24vh))}
+  /* Move the decorative CARE sign out of card C's footprint without changing its timing. */
+  .support-sign{left:54%}
+  /* The cropped WebP made the hero elephant appear ~10% larger than v2; restore the visual scale. */
+  .hero-zou{width:min(35vw,468px)}
+}
+@media (min-width:901px) and (max-height:1100px){
+  /* Decorative copy repeats the card message and competes for the same vertical space on common laptop/desktop heights. */
+  .journey-copy{display:none}
+}
+@media (max-width:900px){
+  /* There is no safe horizontal lane beside the full-width card; remove only this decorative sign on smaller screens. */
+  .support-sign{display:none}
+  /* Match the pre-crop apparent hero-elephant size as closely as possible. */
+  .hero-zou{width:min(67vw,450px)}
+}
+
+/* ---- v2.2.1 icon refinement: replace emoji/symbol icons with service-matched line icons ---- */
+.card-icon-svg{display:grid;place-items:center;width:58px;height:58px;border-radius:18px;background:rgba(241,232,217,.92);color:var(--green-deep);margin:2px 0 46px;box-shadow:inset 0 0 0 1px rgba(49,91,77,.08)}
+.card-icon-svg svg{width:40px;height:40px;display:block;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;fill:none;overflow:visible}
+.card-icon-svg svg circle,.card-icon-svg svg rect{vector-effect:non-scaling-stroke}
+@media(max-width:600px){.card-icon-svg{width:54px;height:54px;margin-bottom:38px}.card-icon-svg svg{width:37px;height:37px}}
+
+/* ---- v2.2.2 (Claude): cute illustrated cards + new 4-panel manga. Journey / walker CSS untouched. ---- */
+/* Cards: soft white surface, pale green numbers, large illustration (reference image 1) */
+.features{overflow:hidden}
+.card{background:rgba(255,255,255,.86);border:1px solid rgba(49,91,77,.10);border-radius:28px;box-shadow:0 18px 50px rgba(37,49,44,.06);padding:26px 26px 30px}
+.card::before{display:none}
+.card-no{right:24px;top:22px;font:800 34px/1 "Hiragino Maru Gothic ProN","Yu Gothic",system-ui,sans-serif;color:rgba(111,160,135,.38)}
+.card-icon-img{display:block;width:min(100%,176px);margin:6px 0 20px;font-size:0}
+.card-icon-img img{display:block;width:100%;height:auto}
+.card h3{color:var(--green-deep)}
+/* Section decorations (leaf / heart) kept in the outer padding so they never touch text or cards */
+.features-deco img{position:absolute;pointer-events:none;user-select:none}
+.deco-leaf{width:60px;height:auto}.deco-heart{width:22px;height:auto}
+.deco-tl{left:2.2vw;top:34px}.deco-tl2{left:calc(2.2vw + 70px);top:58px}
+.deco-br{right:2.2vw;bottom:30px;transform:scaleX(-1)}.deco-br2{right:calc(2.2vw + 72px);bottom:48px}
+/* Story manga: show the whole square image (no cropping), caption moves to a band under the image */
+.story-image{min-height:0;display:flex;flex-direction:column}
+.story-image img{min-height:0;height:auto;aspect-ratio:1/1;object-fit:contain;background:#fffaf3}
+.story-image::after{display:none}
+.story-caption{position:static;padding:22px 32px 26px;background:#26342e}
+@media(max-width:900px){.story-image,.story-image img{min-height:0}}
+@media(max-width:600px){
+  .card{min-height:0;padding:22px 22px 26px}
+  .card-icon-img{width:min(100%,150px);margin-bottom:16px}
+  .deco-leaf{width:40px}.deco-heart{width:16px}
+  .deco-tl{left:8px;top:22px}.deco-tl2{left:52px;top:36px}
+  .deco-br{right:8px;bottom:18px}.deco-br2{right:52px;bottom:30px}
+  .story-caption{padding:18px 22px 22px;font-size:16px}
+}
+
+/* ---- v2.2.3 (Claude): hero layout fix, headline line breaks, hospital drawing, contact / footer info ---- */
+/* The empty .hero-noise div was taking the first grid cell and pushed the copy to the right column. */
+.hero-noise{display:none}
+/* Keep "暮らしのそばを、" and "いっしょに歩く。" each on one line. */
+.hero h1{font-size:clamp(44px,4.9vw,92px);line-height:1.08}
+.hero h1 .h1-line{display:inline-block}
+.hero h1 .h1-line:first-child{color:inherit}
+/* Contact: LINE WORKS / WhatsApp buttons and service area */
+.contact-msg{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:16px}
+.msg-link{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 22px;border-radius:999px;border:1px solid rgba(255,255,255,.45);color:#fff;text-decoration:none;font-weight:800;font-size:15px}
+.msg-link:hover{background:rgba(255,255,255,.08)}
+.contact small.contact-area{margin-top:6px}
+/* Footer: operator, address, office number */
+footer{align-items:flex-end;gap:16px;flex-wrap:wrap}
+.footer-info{display:flex;flex-direction:column;gap:4px;line-height:1.7}
+@media(max-width:900px){.hero h1{font-size:clamp(40px,8.6vw,74px)}}
+@media(max-width:600px){
+  .hero h1{font-size:clamp(34px,10vw,40px)}
+  footer{flex-direction:column;align-items:flex-start}
+  .msg-link{width:100%}
+}
+/* Contact headline: keep 「相談していい日です。」 on one line on PC/tablet (it broke as 「…日で／す。」) */
+@media(min-width:601px){.contact h2{font-size:clamp(40px,6vw,88px)}}
+
+/* ---- v2.2.4 (Claude): 「必要な支援をつなげる」の絵を植木鉢に、「一人で抱えなくて、」の改行 ---- */
+/* The .hospital wrapper keeps its position / opacity (--opa-b) / transform, only the drawing changes. */
+.connect .connect-pot{display:block;width:150px;height:auto}
+.journey-headline h2 .h2-line{display:inline-block}
+@media(max-width:600px){
+  .journey-headline h2{font-size:clamp(28px,9.4vw,38px)}
+  /* Phone: move the pot into the free space above card 02 (it used to sit under the card). */
+  .connect{left:auto;right:14px;top:19vh;transform:translate3d(calc((var(--scene-p) - .55)*-20vw),0,0)}
+  .connect .connect-pot{width:112px}
+}
+
+/* ---- v2.3 (Claude): 3-language switch + entrances to the guide / provider search ---- */
+.header-actions{display:flex;align-items:center;gap:12px}
+.lang-switch{display:flex;gap:4px}
+.lang-switch button{border:1px solid rgba(49,91,77,.32);background:rgba(255,255,255,.6);color:var(--green-deep);border-radius:999px;padding:6px 11px;font:800 12px/1 "Hiragino Kaku Gothic ProN","Yu Gothic",system-ui,sans-serif;cursor:pointer}
+.lang-switch button.active{background:var(--green);border-color:var(--green);color:#fff}
+.lang-switch .ls-short{display:none}
+.site-header nav a.nav-ext{color:var(--green);opacity:1}
+.hero-links{display:grid;gap:10px;margin-top:22px;max-width:520px}
+.hero-link{display:flex;align-items:center;gap:14px;padding:12px 14px 12px 20px;border-radius:18px;background:rgba(255,255,255,.62);border:1px solid rgba(49,91,77,.16);text-decoration:none;color:var(--ink);transition:transform .25s ease,box-shadow .25s ease}
+.hero-link:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(49,91,77,.12)}
+.hl-text{display:flex;flex-direction:column;gap:2px;min-width:0}
+.hl-text strong{font-size:15px;line-height:1.5;color:var(--green-deep)}
+.hl-text small{font-size:12px;line-height:1.55;color:#66716c}
+.hl-arrow{margin-left:auto;flex-shrink:0;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--green);color:#fff;font-weight:900}
+@media(max-width:900px){.lang-switch .ls-long{display:none}.lang-switch .ls-short{display:inline}}
+@media(max-width:600px){
+  .header-actions{gap:6px}
+  .lang-switch{gap:2px}
+  .lang-switch button{padding:6px 7px;font-size:10px}
+  .hero-links{margin-top:18px}
+}
+@media(prefers-reduced-motion:reduce){.hero-link{transition:none}.hero-link:hover{transform:none}}
+/* v2.3 layout fixes found by the 3-language check */
+.site-header nav a{white-space:nowrap}
+/* Header: in-page links hide first when the header gets crowded (guide / provider-search links stay) */
+@media(max-width:1280px){.site-header nav a.nav-inpage{display:none}.lang-switch .ls-long{display:none}.lang-switch .ls-short{display:inline}}
+@media(max-width:1600px){html:not([lang="ja"]) .site-header nav a.nav-inpage{display:none}}
+@media(max-width:1180px){html:not([lang="ja"]) .site-header nav a.nav-ext{font-size:12px}}
+/* Cards: keep the illustration clear of the card number on narrow 4-column layouts */
+@media(min-width:901px) and (max-width:1280px){.card-icon-img{width:min(calc(100% - 72px),176px)}}
+/* CARE sign: its v2.2 position only clears card 03 from 1366px up */
+@media(max-width:1280px){.support-sign{display:none}}
+/* English / Portuguese: longer sentences */
+html:not([lang="ja"]) .hero h1{font-size:clamp(38px,4.1vw,74px);line-height:1.08}
+html:not([lang="ja"]) .hero h1 .h1-line{display:inline}
+html:not([lang="ja"]) .journey-headline h2{font-size:clamp(34px,3.9vw,62px)}
+html:not([lang="ja"]) .journey-card h3{font-size:20px}
+html:not([lang="ja"]) .journey-card p{font-size:13px;line-height:1.75}
+html:not([lang="ja"]) .support-sign span{font-size:11px}
+@media(max-width:900px){html:not([lang="ja"]) .hero h1{font-size:clamp(34px,6.6vw,56px)}}
+@media(max-width:600px){
+  html:not([lang="ja"]) .hero h1{font-size:clamp(28px,8.4vw,34px)}
+  html:not([lang="ja"]) .journey-headline h2{font-size:clamp(24px,7.4vw,30px)}
+  html:not([lang="ja"]) .journey-card{padding:16px 18px}
+  html:not([lang="ja"]) .journey-card h3{font-size:17px;margin:8px 0 6px}
+  html:not([lang="ja"]) .journey-card p{font-size:12.5px;line-height:1.65}
+}
+/* Header parts must never wrap (PT "Fale Conosco" / logo wrapped to 2 lines) */
+.site-header .logo,.header-cta,.header-actions{white-space:nowrap;flex-shrink:0}
+@media(max-width:1100px){html:not([lang="ja"]) .site-header nav{display:none}}
+@media(max-width:400px){html:not([lang="ja"]) .logo-mark{display:none}html:not([lang="ja"]) .header-cta{padding:10px 11px}}
+/* EN / PT headings: avoid a single orphan word on its own line (PT "Ao seu lado no dia a / dia,") */
+html:not([lang="ja"]) .hero h1 br,html:not([lang="ja"]) .journey-headline h2 br{display:none}
+html:not([lang="ja"]) .hero h1 .h1-line,html:not([lang="ja"]) .journey-headline h2 .h2-line{display:block;text-wrap:balance}
+
+/* ---- v2.4 (Claude): full moon in the hero, night-to-morning sky in the walking section ---- */
+/* Hero circle -> full moon. The old fill was off-centre and turned transparent at 70%, so the lower-right edge looked chipped. */
+.hero-circle{background:
+  radial-gradient(circle at 34% 30%,rgba(255,255,255,.95) 0 5%,rgba(255,255,255,0) 20%),
+  radial-gradient(circle at 62% 36%,rgba(206,186,128,.35) 0 6%,rgba(206,186,128,0) 6.5%),
+  radial-gradient(circle at 42% 64%,rgba(206,186,128,.30) 0 8%,rgba(206,186,128,0) 8.5%),
+  radial-gradient(circle at 70% 66%,rgba(206,186,128,.26) 0 4.5%,rgba(206,186,128,0) 5%),
+  radial-gradient(circle at 26% 52%,rgba(206,186,128,.22) 0 3.5%,rgba(206,186,128,0) 4%),
+  radial-gradient(circle at 50% 50%,#fffbea 0,#fbf0c8 58%,#f0dc9c 100%);
+  box-shadow:0 0 90px 24px rgba(255,236,168,.55)}
+/* Walking section sky: layers under the hills, driven by --scene-p (0..1) that main.js already sets */
+.sky-night,.sky-dawn,.sky-stars{position:absolute;inset:0;pointer-events:none}
+.sky-night{background:linear-gradient(180deg,#18244a 0%,#2d3f70 55%,#56679a 100%);opacity:calc(1 - var(--scene-p) * 1.9)}
+.sky-dawn{background:linear-gradient(180deg,rgba(255,196,140,0) 0%,rgba(255,190,140,.55) 70%,rgba(255,220,170,.7) 100%);opacity:min(calc(var(--scene-p) * 3),calc((0.85 - var(--scene-p)) * 3))}
+.sky-stars{background-image:radial-gradient(1.6px 1.6px at 14% 18%,#fff 50%,transparent 51%),radial-gradient(1.2px 1.2px at 32% 40%,#fff 50%,transparent 51%),radial-gradient(1.8px 1.8px at 52% 10%,#fff 50%,transparent 51%),radial-gradient(1.2px 1.2px at 66% 30%,#fff 50%,transparent 51%),radial-gradient(1.6px 1.6px at 84% 12%,#fff 50%,transparent 51%),radial-gradient(1.2px 1.2px at 92% 44%,#fff 50%,transparent 51%),radial-gradient(1.4px 1.4px at 24% 8%,#fff 50%,transparent 51%),radial-gradient(1.4px 1.4px at 74% 22%,#fff 50%,transparent 51%);opacity:calc(1 - var(--scene-p) * 2.6)}
+.sky-glow{opacity:calc(var(--scene-p) * 1.8)}
+/* Text that sits directly on the sky turns light while it is dark, and returns to its normal colour by morning */
+.journey-headline h2,.journey-headline .eyebrow{color:color-mix(in srgb,#ffffff calc(max(0, 1 - var(--scene-p) * 2.6) * 100%),#24342e)}
+.journey-copy{color:color-mix(in srgb,rgba(255,255,255,.78) calc(max(0, 1 - var(--scene-p) * 2.2) * 100%),rgba(36,52,46,.36))}
+.journey-copy strong{color:color-mix(in srgb,#ffe6a0 calc(max(0, 1 - var(--scene-p) * 2.2) * 100%),#315b4d)}
+.scene-object span{color:color-mix(in srgb,rgba(255,255,255,.85) calc(max(0, 1 - var(--scene-p) * 2.2) * 100%),rgba(36,71,61,.56))}
+/* Sharper light->dark text switch: at the grey dawn sky a half-mixed grey text had contrast 1.4. Switch around p=0.22 within ~0.03 of scroll. */
+.journey-headline h2,.journey-headline .eyebrow{color:color-mix(in srgb,#ffffff calc(max(0, min(1, (0.235 - var(--scene-p)) * 40)) * 100%),#24342e)}
+.journey-copy{color:color-mix(in srgb,rgba(255,255,255,.85) calc(max(0, min(1, (0.235 - var(--scene-p)) * 40)) * 100%),rgba(36,52,46,.36))}
+.journey-copy strong{color:color-mix(in srgb,#ffe6a0 calc(max(0, min(1, (0.235 - var(--scene-p)) * 40)) * 100%),#315b4d)}
+.scene-object span{color:color-mix(in srgb,rgba(255,255,255,.9) calc(max(0, min(1, (0.235 - var(--scene-p)) * 40)) * 100%),rgba(36,71,61,.56))}
+/* Keep the sky dark while the headline is still clearly visible (until ~p=0.3), then brighten; switch text colour once the headline has faded (~p=0.345). */
+.sky-night{opacity:calc(1.35 - var(--scene-p) * 2.6)}
+.sky-stars{opacity:calc(1.3 - var(--scene-p) * 3.2)}
+.sky-dawn{opacity:min(calc((var(--scene-p) - 0.2) * 4), calc((0.85 - var(--scene-p)) * 3))}
+.journey-headline h2,.journey-headline .eyebrow{color:color-mix(in srgb,#ffffff calc(max(0, min(1, (0.345 - var(--scene-p)) * 40)) * 100%),#24342e)}
+.journey-copy{color:color-mix(in srgb,rgba(255,255,255,.85) calc(max(0, min(1, (0.345 - var(--scene-p)) * 40)) * 100%),rgba(36,52,46,.36))}
+.journey-copy strong{color:color-mix(in srgb,#ffe6a0 calc(max(0, min(1, (0.345 - var(--scene-p)) * 40)) * 100%),#315b4d)}
+.scene-object span{color:color-mix(in srgb,rgba(255,255,255,.9) calc(max(0, min(1, (0.345 - var(--scene-p)) * 40)) * 100%),rgba(36,71,61,.56))}
+/* Scene labels sit on a small light pill so they stay readable on any sky colour */
+.scene-object span{color:#2e5347;background:rgba(255,255,255,.82);padding:2px 8px;border-radius:999px;width:max-content;margin-left:auto;margin-right:auto}
+/* Keep the sky dark until the first decorative copy has faded (~p=0.33), then brighten by ~p=0.5 */
+.sky-night{opacity:calc(1.5 - var(--scene-p) * 3)}
+.sky-stars{opacity:calc(1.4 - var(--scene-p) * 3.4)}
+.sky-dawn{opacity:min(calc((var(--scene-p) - 0.3) * 4), calc((0.85 - var(--scene-p)) * 3))}
+.journey-headline h2,.journey-headline .eyebrow{color:color-mix(in srgb,#ffffff calc(max(0, min(1, (0.375 - var(--scene-p)) * 40)) * 100%),#24342e)}
+.journey-copy{color:color-mix(in srgb,rgba(255,255,255,.85) calc(max(0, min(1, (0.375 - var(--scene-p)) * 40)) * 100%),rgba(36,52,46,.36))}
+.journey-copy strong{color:color-mix(in srgb,#ffe6a0 calc(max(0, min(1, (0.375 - var(--scene-p)) * 40)) * 100%),#315b4d)}
+/* Sky brightens between the first copy fading (~p=0.31) and the second copy appearing (~p=0.38) */
+.sky-night{opacity:calc((0.41 - var(--scene-p)) * 7)}
+.sky-stars{opacity:calc((0.38 - var(--scene-p)) * 6)}
+.sky-dawn{opacity:min(calc((var(--scene-p) - 0.3) * 5), calc((0.8 - var(--scene-p)) * 3))}
+.journey-headline h2,.journey-headline .eyebrow{color:color-mix(in srgb,#ffffff calc(max(0, min(1, (0.35 - var(--scene-p)) * 60)) * 100%),#24342e)}
+.journey-copy{color:color-mix(in srgb,#ffffff calc(max(0, min(1, (0.35 - var(--scene-p)) * 60)) * 100%),rgba(36,52,46,.36))}
+.journey-copy strong{color:color-mix(in srgb,#ffe6a0 calc(max(0, min(1, (0.35 - var(--scene-p)) * 60)) * 100%),#315b4d)}
+/* The label pill is for HOME / CONNECT only; keep the CARE sign's inner text as before */
+.support-sign span{background:none;padding:0;width:auto;margin-top:7px;color:#dfeae5}
+
+/* ---- v2.5 (Claude, 2026-09-16): 相談欄にLINE/WhatsAppのQR（PC向け。スマホはリンクで足りるので隠す） ---- */
+.contact-qr{display:flex;flex-wrap:wrap;gap:22px;justify-content:center;margin-top:18px}
+.contact-qr figure{margin:0;text-align:center}
+.contact-qr img{width:120px;height:120px;object-fit:contain;display:block;background:#fff;padding:6px;border-radius:12px}
+.contact-qr figcaption{margin-top:6px;font-size:12px;font-weight:800;color:#fff;opacity:.85;letter-spacing:.04em}
+.contact small.contact-qr-note{margin-top:8px}
+@media(max-width:600px){.contact-qr,.contact small.contact-qr-note{display:none}}

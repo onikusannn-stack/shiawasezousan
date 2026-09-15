@@ -14,83 +14,54 @@
 <meta property="og:title" content="親の介護、何から始める？状況別ガイド｜しあわせぞうさん">
 <meta property="og:description" content="「退院してと言われた」「物忘れが増えた」…出雲市のケアマネジャーが6つの状況別に介護の始め方をやさしく解説。">
 <meta property="og:url" content="https://onikusannn-stack.github.io/shiawasezousan/guide/">
-<meta property="og:image" content="https://onikusannn-stack.github.io/shiawasezousan/images/zou_art.jpg">
+<meta property="og:image" content="https://onikusannn-stack.github.io/shiawasezousan/images/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <meta property="og:locale" content="ja_JP">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/brand.css">
 <style>
   :root {
-    --main: #2e8b6f;
-    --main-dark: #1f6b54;
-    --accent: #f4a83c;
-    --bg: #fdfaf4;
-    --text: #333333;
-    --muted: #666666;
+    --main: #315b4d;
+    --main-dark: #24473d;
+    --accent: #8a5a2b;
+    --bg: #f8f2e9;
+    --text: #24342e;
+    --muted: #55605b;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; scroll-padding-top: 70px; }
   body {
-    font-family: "Zen Maru Gothic", "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", sans-serif;
+    font-family: var(--font-base);
     color: var(--text);
     background: var(--bg);
     line-height: 1.9;
     font-size: 16px;
     letter-spacing: 0.02em;
   }
-  header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  }
-  .header-inner {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 10px 16px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-  }
-  .logo {
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: var(--main-dark);
-    text-decoration: none;
-  }
-  .logo small { display: block; font-size: 0.68rem; font-weight: normal; color: var(--muted); }
-  .header-inner .home-link {
-    font-size: 0.85rem;
-    color: var(--main-dark);
-    text-decoration: none;
-    border: 1px solid var(--main);
-    border-radius: 999px;
-    padding: 4px 14px;
-  }
+  .sz-logo small { display: none; }
+  .nw { white-space: nowrap; } /* スマホで語の途中で折れないように */
 
   .hero {
-    background: linear-gradient(160deg, #e8f5ef 0%, #fdf3e0 100%);
+    background: linear-gradient(180deg,#eef3ef 0%,#f8f2e9 100%);
     text-align: center;
     padding: 44px 16px;
   }
   .hero img.zou {
-    width: 170px;
-    max-width: 70%;
-    border: 6px solid #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
-    transform: rotate(-2deg);
+    width: 190px;
+    max-width: 60%;
+    height: auto;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    transform: scaleX(-1);
+    filter: drop-shadow(0 14px 14px rgba(44,53,49,.16));
   }
   .hero h1 {
-    font-size: 1.55rem;
+    font-size: clamp(32px, 3.2vw, 46px);
     color: var(--main-dark);
     margin: 18px 0 10px;
-    line-height: 1.5;
+    line-height: 1.4;
   }
   .hero p { max-width: 640px; margin: 0 auto; color: var(--muted); }
   .hero .free {
@@ -109,7 +80,8 @@
   h2 {
     text-align: center;
     color: var(--main-dark);
-    font-size: 1.45rem;
+    font-size: clamp(24px, 2.4vw, 34px);
+    line-height: 1.45;
     margin-bottom: 30px;
   }
 
@@ -121,17 +93,18 @@
   }
   .picker a {
     display: block;
-    background: #ffffff;
-    border-radius: 14px;
+    background: rgba(255, 255, 255, .86);
+    border: 1px solid rgba(49, 91, 77, .10);
+    border-radius: 22px;
+    box-shadow: var(--shadow-soft);
     padding: 18px 16px;
     text-decoration: none;
     color: var(--text);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
     line-height: 1.6;
   }
   .picker a:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.10); }
-  .picker .icon { font-size: 1.6rem; }
+  .picker .icon { display: block; width: 104px; height: auto; margin: 0 0 10px; }
   .picker .t { display: block; font-weight: bold; color: var(--main-dark); margin-top: 4px; }
   @media (max-width: 600px) {
     .picker { grid-template-columns: 1fr; }
@@ -140,8 +113,8 @@
   /* 事例 */
   .case {
     background: #ffffff;
-    border-radius: 16px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    border-radius: 22px;
+    box-shadow: var(--shadow-soft);
     padding: 30px 24px;
     margin-bottom: 30px;
   }
@@ -178,7 +151,7 @@
   .case .point {
     margin-top: 14px;
     font-size: 0.9rem;
-    background: #fdf3e0;
+    background: var(--cream);
     border-radius: 10px;
     padding: 12px 16px;
   }
@@ -187,26 +160,33 @@
     margin-top: 22px;
   }
   .btn {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-height: 48px;
     padding: 12px 26px;
     border-radius: 999px;
     text-decoration: none;
     font-weight: bold;
     font-size: 1rem;
+    font-family: var(--font-base);
     margin: 4px;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
   .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0,0,0,0.18); }
-  .btn-tel { background: var(--accent); color: #ffffff; box-shadow: 0 3px 8px rgba(244,168,60,0.4); }
+  .btn-tel { background: var(--green); color: #ffffff; box-shadow: 0 10px 26px rgba(49,91,77,.2); }
   .btn-line { background: #06c755; color: #ffffff; }
   .btn-wa { background: #25d366; color: #ffffff; }
+  .btn-ghost { background: rgba(255, 255, 255, .8); color: var(--green-deep); border: 1px solid rgba(49, 91, 77, .35); }
 
   /* 3ステップ */
   .steps-wrap { background: #ffffff; }
   .steps { counter-reset: step; max-width: 640px; margin: 0 auto; }
   .step {
     background: var(--bg);
-    border-radius: 14px;
+    border-radius: 22px;
+    box-shadow: var(--shadow-soft);
     padding: 20px 20px 20px 66px;
     margin-bottom: 16px;
     position: relative;
@@ -239,28 +219,18 @@
   }
 
   .final-cta {
-    background: linear-gradient(160deg, #e8f5ef 0%, #fdf3e0 100%);
+    background: linear-gradient(180deg,#eef3ef 0%,#f8f2e9 100%);
     text-align: center;
   }
   .final-cta .tel-big {
     display: inline-block;
     font-size: 1.8rem;
     font-weight: bold;
-    color: var(--main-dark);
+    color: var(--green-deep);
     text-decoration: none;
     margin: 8px 0;
   }
   .final-cta .hours { color: var(--muted); font-size: 0.9rem; margin-bottom: 14px; }
-
-  footer {
-    background: var(--main-dark);
-    color: #ffffff;
-    text-align: center;
-    padding: 22px 16px;
-    font-size: 0.8rem;
-    line-height: 1.9;
-  }
-  footer a { color: #ffffff; }
 
   .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s ease; }
   .reveal.visible { opacity: 1; transform: none; }
@@ -268,25 +238,11 @@
     .reveal { opacity: 1; transform: none; transition: none; }
     html { scroll-behavior: auto; }
   }
-  .lang-switch {
-    display: flex;
-    gap: 6px;
-    order: 3;
-  }
-  .lang-switch button {
-    border: 1px solid var(--main);
-    background: #ffffff;
-    color: var(--main-dark);
-    border-radius: 999px;
-    padding: 3px 12px;
-    font-size: 0.78rem;
-    cursor: pointer;
-  }
-  .lang-switch button.active {
-    background: var(--main);
-    color: #ffffff;
-    font-weight: bold;
-  }
+  .case h3 .case-icon{display:inline-block;width:56px;height:auto;vertical-align:middle;margin-right:10px}
+  /* スマホで「何から始めればいいんだ／ろう？」と折れないよう、見出しを1行に収める（ルールの32pxより小さい：読みやすさ優先） */
+  @media (max-width: 600px) { .hero h1 { font-size: clamp(21px, 6.2vw, 26px); } }
+  /* 英・ポで「自己負担0円」の札の最後の1語だけが次の行に落ちないように */
+  .hero .free { text-wrap: balance; }
 </style>
 <script type="application/ld+json">
 [
@@ -321,20 +277,24 @@
 </head>
 <body>
 
-<header>
-  <div class="header-inner">
-    <a href="../" class="logo" data-i18n="g.logo">🐘 しあわせぞうさん<small>居宅介護支援事業所（島根県出雲市）</small></a>
-    <a href="../" class="home-link" data-i18n="g.homelink">ホームページへ →</a>
+<header class="sz-header">
+  <a href="../" class="sz-logo" data-i18n="g.logo">🐘 しあわせぞうさん<small>居宅介護支援事業所（島根県出雲市）</small></a>
+  <nav class="sz-nav" aria-label="メインナビゲーション">
+    <a href="../" data-i18n="g.homelink">ホームページへ →</a>
+    <a href="../jigyosho/" data-i18n="btn.jigyosho">出雲市の事業所をさがす</a>
+  </nav>
+  <div class="sz-header-actions">
     <div class="lang-switch" aria-label="Language">
-      <button type="button" data-lang="ja">日本語</button>
-      <button type="button" data-lang="en">English</button>
-      <button type="button" data-lang="pt">Português</button>
+      <button type="button" data-lang="ja" aria-label="日本語"><span class="ls-long">日本語</span><span class="ls-short">JA</span></button>
+      <button type="button" data-lang="en" aria-label="English"><span class="ls-long">English</span><span class="ls-short">EN</span></button>
+      <button type="button" data-lang="pt" aria-label="Português"><span class="ls-long">Português</span><span class="ls-short">PT</span></button>
     </div>
+    <a href="#contact" class="sz-btn sz-btn--small" data-i18n="g.header_cta">相談する</a>
   </div>
 </header>
 
 <div class="hero">
-  <img class="zou" src="../images/zou_art.jpg" alt="しあわせぞうさんのゾウの絵">
+  <img class="zou" src="../assets/images/zou_walk_01.webp" alt="しあわせぞうさんのゾウ" width="480" height="335">
   <h1 data-i18n="g.h1">親の介護、<br>何から始めればいいんだろう？</h1>
   <p data-i18n="g.lead">そう思ったとき、最初に相談する相手がケアマネジャーです。<br>
   よくある6つの状況をまとめました。<strong>あなたに近いものを選んでください。</strong></p>
@@ -345,12 +305,12 @@
   <div class="inner">
     <h2 data-i18n="g.pick.h2">あなたはどのパターンですか？</h2>
     <div class="picker">
-      <a href="#case1" data-i18n="g.pick1"><span class="icon">🏥</span><span class="t">①「退院してください」と言われた</span>家に帰ってくるまでに何を準備すれば？</a>
-      <a href="#case2" data-i18n="g.pick2"><span class="icon">🧠</span><span class="t">② 物忘れが増えてきた</span>認知症かも？ 本人は病院を嫌がる…</a>
-      <a href="#case3" data-i18n="g.pick3"><span class="icon">🦴</span><span class="t">③ 転んで骨折してから弱ってしまった</span>閉じこもりがちで、足腰がどんどん…</a>
-      <a href="#case4" data-i18n="g.pick4"><span class="icon">✈️</span><span class="t">④ 離れて暮らす親がひとり暮らし</span>遠方に住んでいて、様子が分からない</a>
-      <a href="#case5" data-i18n="g.pick5"><span class="icon">😮‍💨</span><span class="t">⑤ 介護に疲れてきた</span>仕事との両立で、自分の時間がない</a>
-      <a href="#case6" data-i18n="g.pick6"><span class="icon">🌏</span><span class="t">⑥ 日本語が得意でない家族の介護</span>Português OK / 翻訳ソフト対応</a>
+      <a href="#case1" data-i18n="g.pick1"><img class="icon" src="../assets/images/guide/01_discharge_home.webp" alt="" width="320" height="201" loading="lazy"><span class="t">①「退院してください」と言われた</span>家に帰ってくるまでに何を準備すれば？</a>
+      <a href="#case2" data-i18n="g.pick2"><img class="icon" src="../assets/images/guide/02_memory_concern.webp" alt="" width="320" height="273" loading="lazy"><span class="t">② 物忘れが増えてきた</span>認知症かも？ 本人は病院を嫌がる…</a>
+      <a href="#case3" data-i18n="g.pick3"><img class="icon" src="../assets/images/guide/03_fall_fracture_support.webp" alt="" width="320" height="213" loading="lazy"><span class="t">③ 転んで骨折してから弱ってしまった</span>閉じこもりがちで、足腰がどんどん…</a>
+      <a href="#case4" data-i18n="g.pick4"><img class="icon" src="../assets/images/guide/04_long_distance_care.webp" alt="" width="320" height="179" loading="lazy"><span class="t">④ 離れて暮らす親がひとり暮らし</span>遠方に住んでいて、様子が分からない</a>
+      <a href="#case5" data-i18n="g.pick5"><img class="icon" src="../assets/images/guide/05_caregiver_rest.webp" alt="" width="320" height="212" loading="lazy"><span class="t">⑤ 介護に疲れてきた</span>仕事との両立で、自分の時間がない</a>
+      <a href="#case6" data-i18n="g.pick6"><img class="icon" src="../assets/images/guide/06_multilingual_support.webp" alt="" width="320" height="260" loading="lazy"><span class="t">⑥ 日本語が得意でない家族の介護</span>Português OK / 翻訳ソフト対応</a>
     </div>
   </div>
 </section>
@@ -360,7 +320,7 @@
 
     <div class="case" id="case1">
       <span class="tag" data-i18n="c1.tag">パターン①</span>
-      <h3 data-i18n="c1.h3">🏥「退院してください」と言われた</h3>
+      <h3 data-i18n="c1.h3"><img class="case-icon" src="../assets/images/guide/01_discharge_home.webp" alt="" width="320" height="201" loading="lazy">「退院してください」と言われた</h3>
       <div class="story" data-i18n="c1.story">80代のお父さまが脳梗塞で入院。少し麻痺が残った状態で「来週には退院できます」と言われた娘さん。家のお風呂やトイレは使える？ ベッドは？ 何をどう準備すればいいのか分からない——実は、いちばん多いご相談です。</div>
       <h4 data-i18n="c1.h4a">しあわせぞうさんに相談すると</h4>
       <ul data-i18n="c1.ula">
@@ -380,7 +340,7 @@
 
     <div class="case" id="case2">
       <span class="tag" data-i18n="c2.tag">パターン②</span>
-      <h3 data-i18n="c2.h3">🧠 物忘れが増えてきた</h3>
+      <h3 data-i18n="c2.h3"><img class="case-icon" src="../assets/images/guide/02_memory_concern.webp" alt="" width="320" height="273" loading="lazy">物忘れが増えてきた</h3>
       <div class="story" data-i18n="c2.story">同居のお母さまが、同じことを何度も聞いてくる。鍋を焦がすことが増えた。「認知症かもしれない」と思うけれど、本人は「病院なんて行かない」と言い張る。家族としてどう動けばいいのか——。</div>
       <h4 data-i18n="c2.h4a">しあわせぞうさんに相談すると</h4>
       <ul data-i18n="c2.ula">
@@ -400,7 +360,7 @@
 
     <div class="case" id="case3">
       <span class="tag" data-i18n="c3.tag">パターン③</span>
-      <h3 data-i18n="c3.h3">🦴 転んで骨折してから弱ってしまった</h3>
+      <h3 data-i18n="c3.h3"><img class="case-icon" src="../assets/images/guide/03_fall_fracture_support.webp" alt="" width="320" height="213" loading="lazy">転んで骨折してから弱ってしまった</h3>
       <div class="story" data-i18n="c3.story">庭で転んで大腿骨を骨折。手術とリハビリを経て家に戻れたけれど、「また転ぶのが怖い」と外に出なくなってしまった。動かないから、足腰はどんどん弱っていく——この悪循環、放っておくと進みます。</div>
       <h4 data-i18n="c3.h4a">しあわせぞうさんに相談すると</h4>
       <ul data-i18n="c3.ula">
@@ -419,7 +379,7 @@
 
     <div class="case" id="case4">
       <span class="tag" data-i18n="c4.tag">パターン④</span>
-      <h3 data-i18n="c4.h3">✈️ 離れて暮らす親がひとり暮らし</h3>
+      <h3 data-i18n="c4.h3"><img class="case-icon" src="../assets/images/guide/04_long_distance_care.webp" alt="" width="320" height="179" loading="lazy">離れて暮らす親がひとり暮らし</h3>
       <div class="story" data-i18n="c4.story">東京で働く息子さん。出雲でひとり暮らしの母に電話をすると、いつも「大丈夫」。でも久しぶりに帰省したら、冷蔵庫には同じ食材ばかり、部屋も以前より散らかっていた。次に帰れるのは半年後——。</div>
       <h4 data-i18n="c4.h4a">しあわせぞうさんに相談すると</h4>
       <ul data-i18n="c4.ula">
@@ -439,7 +399,7 @@
 
     <div class="case" id="case5">
       <span class="tag" data-i18n="c5.tag">パターン⑤</span>
-      <h3 data-i18n="c5.h3">😮‍💨 介護に疲れてきた</h3>
+      <h3 data-i18n="c5.h3"><img class="case-icon" src="../assets/images/guide/05_caregiver_rest.webp" alt="" width="320" height="212" loading="lazy">介護に疲れてきた</h3>
       <div class="story" data-i18n="c5.story">お母さまを介護して3年になる娘さん。仕事から帰ればすぐ介護、休日も介護。最近よく眠れず、つい強い口調になってしまう自分に落ち込む。「私が頑張らなきゃ」と思うほど、苦しくなる——。</div>
       <h4 data-i18n="c5.h4a">しあわせぞうさんに相談すると</h4>
       <ul data-i18n="c5.ula">
@@ -458,7 +418,7 @@
 
     <div class="case" id="case6">
       <span class="tag" data-i18n="c6.tag">パターン⑥ / Padrão 6</span>
-      <h3 data-i18n="c6.h3">🌏 日本語が得意でない家族の介護</h3>
+      <h3 data-i18n="c6.h3"><img class="case-icon" src="../assets/images/guide/06_multilingual_support.webp" alt="" width="320" height="260" loading="lazy">日本語が得意でない家族の介護</h3>
       <div class="story" data-i18n="c6.story">ブラジル出身のご家族。お父さまの介護が必要になったが、介護保険の仕組みが分からないし、役所の書類は難しい日本語ばかり。誰に聞けばいいのかも分からない——。<br><em>Sua família precisa de cuidados, mas o japonês é difícil? Podemos ajudar.</em></div>
       <h4 data-i18n="c6.h4a">しあわせぞうさんに相談すると / Como ajudamos</h4>
       <ul data-i18n="c6.ula">
@@ -494,7 +454,7 @@
   </div>
 </section>
 
-<section class="final-cta">
+<section class="final-cta" id="contact">
   <div class="inner">
     <h2 data-i18n="g.final.h2">迷っている時間が、いちばんもったいない</h2>
     <p data-i18n="g.final.p">「まだ早いかな？」と思ったときが、相談のベストタイミングです。</p>
@@ -503,16 +463,18 @@
     <div>
       <a href="https://works.do/R/ti/p/ishizakicorporation.hitoshi@works-459349" target="_blank" rel="noopener" class="btn btn-line" data-i18n="btn.line">LINEで相談</a>
       <a href="https://wa.me/message/Q4KJPEWBH2D3F1" target="_blank" rel="noopener" class="btn btn-wa" data-i18n="btn.wa">WhatsApp</a>
-      <a href="../jigyosho/" class="btn" style="background:#ffffff;color:var(--main-dark);border:2px solid var(--main);" data-i18n="btn.jigyosho">出雲市の事業所をさがす</a>
-      <a href="../" class="btn" style="background:#ffffff;color:var(--main-dark);border:2px solid var(--main);" data-i18n="btn.home">事業所の詳しいご案内へ</a>
+      <a href="../jigyosho/" class="btn btn-ghost" data-i18n="btn.jigyosho">出雲市の事業所をさがす</a>
+      <a href="../" class="btn btn-ghost" data-i18n="btn.home">事業所の詳しいご案内へ</a>
     </div>
   </div>
 </section>
 
-<footer>
-  <p data-i18n="g.footer">居宅介護支援事業所 しあわせぞうさん（合同会社しあわせぞうさん）<br>
-  島根県出雲市大社町遙堪663-25　／　介護保険事業所番号：3270403482<br>
+<footer class="sz-footer">
+  <!-- .sz-footer-info は縦並びの箱（flex column）なので、1行＝1つの span にまとめる（語の途中で折れないように .nw を併用） -->
+  <p class="sz-footer-info" data-i18n="g.footer"><span>居宅介護支援事業所 しあわせぞうさん<span class="nw">（合同会社しあわせぞうさん）</span></span>
+  <span>島根県出雲市大社町遙堪663-25　／　<span class="nw">介護保険事業所番号：3270403482</span></span>
   <a href="../">ホームページはこちら</a></p>
+  <span>© 2026 Shiawase Zousan</span>
 </footer>
 
 <script>
@@ -546,18 +508,19 @@
   "_title": "Starting care for your parents: a guide by situation | Shiawase Zousan (care manager in Izumo, Shimane)",
   "g.logo": "🐘 Shiawase Zousan<small>Care management office (Izumo, Shimane)</small>",
   "g.homelink": "To the main site →",
+  "g.header_cta": "Contact Us",
   "g.h1": "Caring for your parents:<br>where do you even start?",
   "g.lead": "When that question comes up, a care manager is the first person to talk to.<br>Here are six common situations. <strong>Pick the one closest to yours.</strong>",
   "g.free": "Consultation and care plan: no cost to you",
   "g.pick.h2": "Which situation are you in?",
-  "g.pick1": "<span class=\"icon\">🏥</span><span class=\"t\">1. \"We are discharging your parent\"</span>What has to be ready before they come home?",
-  "g.pick2": "<span class=\"icon\">🧠</span><span class=\"t\">2. Forgetfulness is increasing</span>Could it be dementia? They refuse to see a doctor…",
-  "g.pick3": "<span class=\"icon\">🦴</span><span class=\"t\">3. Weakened after a fall and fracture</span>Staying indoors, losing strength fast…",
-  "g.pick4": "<span class=\"icon\">✈️</span><span class=\"t\">4. A parent living alone far away</span>You live far off and cannot tell how they are",
-  "g.pick5": "<span class=\"icon\">😮‍💨</span><span class=\"t\">5. Worn out by caregiving</span>Between work and care, no time for yourself",
-  "g.pick6": "<span class=\"icon\">🌏</span><span class=\"t\">6. Caring when Japanese is hard</span>Português OK / translation tools available",
+  "g.pick1": "<img class=\"icon\" src=\"../assets/images/guide/01_discharge_home.webp\" alt=\"\" width=\"320\" height=\"201\" loading=\"lazy\"><span class=\"t\">1. \"We are discharging your parent\"</span>What has to be ready before they come home?",
+  "g.pick2": "<img class=\"icon\" src=\"../assets/images/guide/02_memory_concern.webp\" alt=\"\" width=\"320\" height=\"273\" loading=\"lazy\"><span class=\"t\">2. Forgetfulness is increasing</span>Could it be dementia? They refuse to see a doctor…",
+  "g.pick3": "<img class=\"icon\" src=\"../assets/images/guide/03_fall_fracture_support.webp\" alt=\"\" width=\"320\" height=\"213\" loading=\"lazy\"><span class=\"t\">3. Weakened after a fall and fracture</span>Staying indoors, losing strength fast…",
+  "g.pick4": "<img class=\"icon\" src=\"../assets/images/guide/04_long_distance_care.webp\" alt=\"\" width=\"320\" height=\"179\" loading=\"lazy\"><span class=\"t\">4. A parent living alone far away</span>You live far off and cannot tell how they are",
+  "g.pick5": "<img class=\"icon\" src=\"../assets/images/guide/05_caregiver_rest.webp\" alt=\"\" width=\"320\" height=\"212\" loading=\"lazy\"><span class=\"t\">5. Worn out by caregiving</span>Between work and care, no time for yourself",
+  "g.pick6": "<img class=\"icon\" src=\"../assets/images/guide/06_multilingual_support.webp\" alt=\"\" width=\"320\" height=\"260\" loading=\"lazy\"><span class=\"t\">6. Caring when Japanese is hard</span>Português OK / translation tools available",
   "c1.tag": "Situation 1",
-  "c1.h3": "🏥 \"We are discharging your parent\"",
+  "c1.h3": "<img class=\"case-icon\" src=\"../assets/images/guide/01_discharge_home.webp\" alt=\"\" width=\"320\" height=\"201\" loading=\"lazy\">\"We are discharging your parent\"",
   "c1.story": "A father in his 80s is admitted after a stroke. Some paralysis remains, and his daughter is told he can go home next week. Can he use the bath? The toilet? What about a bed? Not knowing what to prepare is, in fact, the most common reason people contact us.",
   "c1.h4a": "How we help",
   "c1.ula": "<li><strong>You can consult us while they are still in hospital.</strong> We work with the hospital social worker and join the pre-discharge meeting.</li><li>We file the long-term care insurance application, timed to be ready before discharge.</li><li>We check the home and give you a list of what needs preparing.</li>",
@@ -565,7 +528,7 @@
   "c1.ulb": "<li>Rental of care beds, handrails and similar equipment</li><li>Fitting handrails and removing steps (home renovation subsidy)</li><li>Home rehabilitation or day care to keep the recovery going</li>",
   "c1.point": "💡 Tip: once the discharge date is fixed, everything becomes a rush. <strong>Contact us the moment the word \"discharge\" comes up.</strong>",
   "c2.tag": "Situation 2",
-  "c2.h3": "🧠 Forgetfulness is increasing",
+  "c2.h3": "<img class=\"case-icon\" src=\"../assets/images/guide/02_memory_concern.webp\" alt=\"\" width=\"320\" height=\"273\" loading=\"lazy\">Forgetfulness is increasing",
   "c2.story": "Your mother, who lives with you, asks the same thing over and over. She burns pots more often. You think it may be dementia, but she insists she will not go to a hospital. What should the family do?",
   "c2.h4a": "How we help",
   "c2.ula": "<li><strong>The family alone can consult us.</strong> It is fine even before the person knows.</li><li>We think through how to raise a medical visit in a way they will accept.</li><li>We file the care certification and suggest ways to keep living at home even with dementia.</li>",
@@ -573,7 +536,7 @@
   "c2.ulb": "<li>Day service (contact with other people is the strongest stimulation for the brain)</li><li>A helper to check in and prompt medication</li><li>For families: local dementia cafés and family support groups</li>",
   "c2.point": "💡 Tip: with memory concerns there is no such thing as too early. <strong>The \"maybe I am imagining it\" stage is actually the best time.</strong>",
   "c3.tag": "Situation 3",
-  "c3.h3": "🦴 Weakened after a fall and fracture",
+  "c3.h3": "<img class=\"case-icon\" src=\"../assets/images/guide/03_fall_fracture_support.webp\" alt=\"\" width=\"320\" height=\"213\" loading=\"lazy\">Weakened after a fall and fracture",
   "c3.story": "A fall in the garden broke a femur. After surgery and rehabilitation she made it home, but now says she is afraid of falling again and has stopped going out. Not moving means the legs keep weakening. Left alone, this spiral continues.",
   "c3.h4a": "How we help",
   "c3.ula": "<li>We build a plan that respects the fear while creating safe chances to move.</li><li>We check the places in the home where falls are likely.</li>",
@@ -581,7 +544,7 @@
   "c3.ulb": "<li>Home rehabilitation and day care (regaining strength with professionals)</li><li>Rental of walkers, handrails and similar equipment</li><li>Home renovation such as fitting handrails (a subsidy is available)</li>",
   "c3.point": "💡 Tip: after a fracture later in life, <strong>the first few months decide the outcome</strong>. Contact us before strength is lost while you wait and see.",
   "c4.tag": "Situation 4",
-  "c4.h3": "✈️ A parent living alone far away",
+  "c4.h3": "<img class=\"case-icon\" src=\"../assets/images/guide/04_long_distance_care.webp\" alt=\"\" width=\"320\" height=\"179\" loading=\"lazy\">A parent living alone far away",
   "c4.story": "A son working in Tokyo calls his mother, who lives alone in Izumo. She always says she is fine. But on his first visit in a long while, the fridge held the same few items and the rooms were messier than before. His next visit will be in six months.",
   "c4.h4a": "How we help",
   "c4.ula": "<li><strong>We keep in touch with family living far away by LINE, phone and email as we go.</strong></li><li>We visit the home every month and report back to the family. You gain a pair of eyes on the ground.</li><li>We work out together who to contact if something happens.</li>",
@@ -589,7 +552,7 @@
   "c4.ulb": "<li>Helper (shopping, cooking, cleaning)</li><li>Meal delivery (nutrition and a safety check in one)</li><li>Day service (keeping social ties) and emergency call devices</li>",
   "c4.point": "💡 Tip: <strong>we can schedule the meeting around your trip home.</strong> A message saying \"I will be back over the long weekend\" is very welcome.",
   "c5.tag": "Situation 5",
-  "c5.h3": "😮‍💨 Worn out by caregiving",
+  "c5.h3": "<img class=\"case-icon\" src=\"../assets/images/guide/05_caregiver_rest.webp\" alt=\"\" width=\"320\" height=\"212\" loading=\"lazy\">Worn out by caregiving",
   "c5.story": "A daughter has been caring for her mother for three years. Care starts the moment she gets home from work, and fills her days off. Lately she cannot sleep, and feels low about snapping at her mother. The harder she tells herself she must keep going, the heavier it gets.",
   "c5.h4a": "How we help",
   "c5.ula": "<li><strong>Rest for the carer is a proper goal of the care plan.</strong> There is no need to feel guilty.</li><li>We review the current mix of services and look for a shape that lightens the family's load.</li><li>We explain the systems for combining work and care, such as care leave.</li>",
@@ -597,7 +560,7 @@
   "c5.ulb": "<li>Short stay (a few nights away, so the family can properly rest)</li><li>More day service, or combining it with a helper</li>",
   "c5.point": "💡 Tip: caregiving is a long-distance run. <strong>Building rest in before you collapse</strong> ends up helping the person you care for too.",
   "c6.tag": "Situation 6 / Padrão 6",
-  "c6.h3": "🌏 Caring when Japanese is hard",
+  "c6.h3": "<img class=\"case-icon\" src=\"../assets/images/guide/06_multilingual_support.webp\" alt=\"\" width=\"320\" height=\"260\" loading=\"lazy\">Caring when Japanese is hard",
   "c6.story": "A family from Brazil. Their father now needs care, but the long-term care insurance system is unfamiliar and the city office forms are all in difficult Japanese. They do not even know who to ask.<br><em>Sua família precisa de cuidados, mas o japonês é difícil? Podemos ajudar.</em>",
   "c6.h4a": "How we help / Como ajudamos",
   "c6.ula": "<li><strong>You can consult us in your own language using translation tools</strong> (Português OK)</li><li><strong>We accept contact via WhatsApp</strong> / Atendemos pelo WhatsApp</li><li>We support you with the applications at the city office</li>",
@@ -617,23 +580,24 @@
   "btn.wa": "WhatsApp",
   "btn.jigyosho": "Find care providers in Izumo",
   "btn.home": "More about our office",
-  "g.footer": "Shiawase Zousan Care Management Office (Shiawase Zousan LLC)<br>663-25 Yokan, Taisha-cho, Izumo, Shimane<br>Provider number: 3270403482<br><a href=\"../\">Back to the main site</a>"
+  "g.footer": "<span>Shiawase Zousan Care Management Office <span class=\"nw\">(Shiawase Zousan LLC)</span></span><span>663-25 Yokan, Taisha-cho, Izumo, Shimane</span><span>Provider number: <span class=\"nw\">3270403482</span></span><a href=\"../\">Back to the main site</a>"
 }, pt: {
   "_title": "Cuidar dos pais: guia por situação | Shiawase Zousan (gestor de cuidados em Izumo, Shimane)",
   "g.logo": "🐘 Shiawase Zousan<small>Escritório de gestão de cuidados (Izumo, Shimane)</small>",
   "g.homelink": "Ir para o site →",
+  "g.header_cta": "Fale Conosco",
   "g.h1": "Cuidar dos pais:<br>por onde começar?",
   "g.lead": "Quando essa dúvida aparece, o gestor de cuidados é a primeira pessoa a procurar.<br>Reunimos seis situações comuns. <strong>Escolha a mais parecida com a sua.</strong>",
   "g.free": "Consulta e plano de cuidados: sem custo para você",
   "g.pick.h2": "Em qual situação você está?",
-  "g.pick1": "<span class=\"icon\">🏥</span><span class=\"t\">1. \"Vamos dar alta\"</span>O que precisa estar pronto antes de voltarem para casa?",
-  "g.pick2": "<span class=\"icon\">🧠</span><span class=\"t\">2. Esquecimentos cada vez mais frequentes</span>Será demência? A pessoa recusa ir ao médico…",
-  "g.pick3": "<span class=\"icon\">🦴</span><span class=\"t\">3. Enfraquecido após queda e fratura</span>Fica em casa e perde força rapidamente…",
-  "g.pick4": "<span class=\"icon\">✈️</span><span class=\"t\">4. Pai ou mãe morando sozinho longe</span>Você mora longe e não sabe como estão",
-  "g.pick5": "<span class=\"icon\">😮‍💨</span><span class=\"t\">5. Cansado de cuidar</span>Entre o trabalho e os cuidados, sem tempo para si",
-  "g.pick6": "<span class=\"icon\">🌏</span><span class=\"t\">6. Cuidar quando o japonês é difícil</span>Português OK / usamos tradutor",
+  "g.pick1": "<img class=\"icon\" src=\"../assets/images/guide/01_discharge_home.webp\" alt=\"\" width=\"320\" height=\"201\" loading=\"lazy\"><span class=\"t\">1. \"Vamos dar alta\"</span>O que precisa estar pronto antes de voltarem para casa?",
+  "g.pick2": "<img class=\"icon\" src=\"../assets/images/guide/02_memory_concern.webp\" alt=\"\" width=\"320\" height=\"273\" loading=\"lazy\"><span class=\"t\">2. Esquecimentos cada vez mais frequentes</span>Será demência? A pessoa recusa ir ao médico…",
+  "g.pick3": "<img class=\"icon\" src=\"../assets/images/guide/03_fall_fracture_support.webp\" alt=\"\" width=\"320\" height=\"213\" loading=\"lazy\"><span class=\"t\">3. Enfraquecido após queda e fratura</span>Fica em casa e perde força rapidamente…",
+  "g.pick4": "<img class=\"icon\" src=\"../assets/images/guide/04_long_distance_care.webp\" alt=\"\" width=\"320\" height=\"179\" loading=\"lazy\"><span class=\"t\">4. Pai ou mãe morando sozinho longe</span>Você mora longe e não sabe como estão",
+  "g.pick5": "<img class=\"icon\" src=\"../assets/images/guide/05_caregiver_rest.webp\" alt=\"\" width=\"320\" height=\"212\" loading=\"lazy\"><span class=\"t\">5. Cansado de cuidar</span>Entre o trabalho e os cuidados, sem tempo para si",
+  "g.pick6": "<img class=\"icon\" src=\"../assets/images/guide/06_multilingual_support.webp\" alt=\"\" width=\"320\" height=\"260\" loading=\"lazy\"><span class=\"t\">6. Cuidar quando o japonês é difícil</span>Português OK / usamos tradutor",
   "c1.tag": "Situação 1",
-  "c1.h3": "🏥 \"Vamos dar alta\"",
+  "c1.h3": "<img class=\"case-icon\" src=\"../assets/images/guide/01_discharge_home.webp\" alt=\"\" width=\"320\" height=\"201\" loading=\"lazy\">\"Vamos dar alta\"",
   "c1.story": "Um pai de 80 e poucos anos é internado após um AVC. Ficou com alguma paralisia e a filha ouve que ele terá alta na semana seguinte. Ele consegue usar o banheiro? E a cama? Não saber o que preparar é, na verdade, o motivo mais comum das consultas.",
   "c1.h4a": "Como ajudamos",
   "c1.ula": "<li><strong>Pode nos consultar ainda durante a internação.</strong> Trabalhamos junto com o assistente social do hospital e participamos da reunião de alta.</li><li>Damos entrada no seguro de cuidados, no prazo certo para a alta.</li><li>Visitamos a casa e entregamos uma lista do que precisa ser preparado.</li>",
@@ -641,7 +605,7 @@
   "c1.ulb": "<li>Aluguel de cama hospitalar, barras de apoio e equipamentos</li><li>Instalação de barras e remoção de degraus (subsídio para reforma)</li><li>Reabilitação domiciliar ou centro-dia para continuar a recuperação</li>",
   "c1.point": "💡 Dica: depois que a data da alta é marcada, tudo vira correria. <strong>Entre em contato assim que a palavra \"alta\" aparecer.</strong>",
   "c2.tag": "Situação 2",
-  "c2.h3": "🧠 Esquecimentos cada vez mais frequentes",
+  "c2.h3": "<img class=\"case-icon\" src=\"../assets/images/guide/02_memory_concern.webp\" alt=\"\" width=\"320\" height=\"273\" loading=\"lazy\">Esquecimentos cada vez mais frequentes",
   "c2.story": "Sua mãe, que mora com você, pergunta a mesma coisa várias vezes. Queima panelas com frequência. Você suspeita de demência, mas ela insiste que não vai ao médico. O que a família deve fazer?",
   "c2.h4a": "Como ajudamos",
   "c2.ula": "<li><strong>A família pode nos consultar sozinha.</strong> Tudo bem mesmo antes de a pessoa saber.</li><li>Pensamos junto em como propor a consulta médica de um jeito que ela aceite.</li><li>Damos entrada na certificação e sugerimos formas de continuar vivendo em casa mesmo com demência.</li>",
@@ -649,7 +613,7 @@
   "c2.ulb": "<li>Centro-dia (o convívio com outras pessoas é o melhor estímulo para o cérebro)</li><li>Cuidador para acompanhar e lembrar dos remédios</li><li>Para famílias: cafés de demência e grupos de apoio na região</li>",
   "c2.point": "💡 Dica: em questões de memória, nunca é cedo demais. <strong>A fase do \"será impressão minha?\" é justamente a melhor hora.</strong>",
   "c3.tag": "Situação 3",
-  "c3.h3": "🦴 Enfraquecido após queda e fratura",
+  "c3.h3": "<img class=\"case-icon\" src=\"../assets/images/guide/03_fall_fracture_support.webp\" alt=\"\" width=\"320\" height=\"213\" loading=\"lazy\">Enfraquecido após queda e fratura",
   "c3.story": "Uma queda no jardim fraturou o fêmur. Depois da cirurgia e da reabilitação, voltou para casa, mas diz ter medo de cair de novo e parou de sair. Sem se mover, as pernas enfraquecem cada vez mais. Sozinha, essa espiral só piora.",
   "c3.h4a": "Como ajudamos",
   "c3.ula": "<li>Montamos um plano que respeita o medo e cria oportunidades seguras de se movimentar.</li><li>Verificamos os pontos da casa onde há risco de queda.</li>",
@@ -657,7 +621,7 @@
   "c3.ulb": "<li>Reabilitação domiciliar e centro-dia (recuperar força com profissionais)</li><li>Aluguel de andador, barras de apoio e equipamentos</li><li>Reformas como instalação de barras (há subsídio)</li>",
   "c3.point": "💡 Dica: após uma fratura na idade avançada, <strong>os primeiros meses são decisivos</strong>. Entre em contato antes que a força se perca enquanto se espera para ver.",
   "c4.tag": "Situação 4",
-  "c4.h3": "✈️ Pai ou mãe morando sozinho longe",
+  "c4.h3": "<img class=\"case-icon\" src=\"../assets/images/guide/04_long_distance_care.webp\" alt=\"\" width=\"320\" height=\"179\" loading=\"lazy\">Pai ou mãe morando sozinho longe",
   "c4.story": "Um filho que trabalha em Tóquio liga para a mãe, que mora sozinha em Izumo. Ela sempre diz que está bem. Mas na primeira visita depois de muito tempo, a geladeira tinha sempre os mesmos itens e a casa estava mais bagunçada. A próxima visita será só daqui a seis meses.",
   "c4.h4a": "Como ajudamos",
   "c4.ula": "<li><strong>Mantemos contato com a família que mora longe por LINE, telefone e e-mail.</strong></li><li>Visitamos a casa todo mês e informamos a família. Você ganha olhos no local.</li><li>Organizamos juntos quem acionar se algo acontecer.</li>",
@@ -665,7 +629,7 @@
   "c4.ulb": "<li>Cuidador (compras, cozinha, limpeza)</li><li>Entrega de refeições (nutrição e verificação de bem-estar)</li><li>Centro-dia (manter o convívio) e dispositivo de chamada de emergência</li>",
   "c4.point": "💡 Dica: <strong>podemos marcar a reunião na data da sua visita.</strong> Avisar \"vou estar aí no feriado\" é muito bem-vindo.",
   "c5.tag": "Situação 5",
-  "c5.h3": "😮‍💨 Cansado de cuidar",
+  "c5.h3": "<img class=\"case-icon\" src=\"../assets/images/guide/05_caregiver_rest.webp\" alt=\"\" width=\"320\" height=\"212\" loading=\"lazy\">Cansado de cuidar",
   "c5.story": "Uma filha cuida da mãe há três anos. Ao chegar do trabalho, começa o cuidado; nos dias de folga, também. Ultimamente não dorme bem e se sente mal por falar de forma ríspida. Quanto mais pensa que precisa aguentar, mais pesado fica.",
   "c5.h4a": "Como ajudamos",
   "c5.ula": "<li><strong>O descanso de quem cuida faz parte dos objetivos do plano.</strong> Não há motivo para culpa.</li><li>Revisamos a combinação atual de serviços e buscamos um formato que alivie a família.</li><li>Explicamos os sistemas para conciliar trabalho e cuidado, como a licença para cuidar.</li>",
@@ -673,7 +637,7 @@
   "c5.ulb": "<li>Estadia curta (algumas noites, para a família descansar de verdade)</li><li>Aumentar o centro-dia ou combiná-lo com um cuidador</li>",
   "c5.point": "💡 Dica: cuidar é uma corrida de longa distância. <strong>Incluir descanso antes de desabar</strong> acaba ajudando também quem recebe o cuidado.",
   "c6.tag": "Situação 6 / Padrão 6",
-  "c6.h3": "🌏 Cuidar quando o japonês é difícil",
+  "c6.h3": "<img class=\"case-icon\" src=\"../assets/images/guide/06_multilingual_support.webp\" alt=\"\" width=\"320\" height=\"260\" loading=\"lazy\">Cuidar quando o japonês é difícil",
   "c6.story": "Uma família do Brasil. O pai passou a precisar de cuidados, mas o sistema do seguro de cuidados é desconhecido e os formulários da prefeitura estão todos em japonês difícil. Nem sabem a quem perguntar.<br><em>Sua família precisa de cuidados, mas o japonês é difícil? Podemos ajudar.</em>",
   "c6.h4a": "Como ajudamos",
   "c6.ula": "<li><strong>Pode nos consultar no seu idioma usando tradutor</strong> (Português OK)</li><li><strong>Atendemos pelo WhatsApp</strong></li><li>Ajudamos com os pedidos na prefeitura</li>",
@@ -693,7 +657,7 @@
   "btn.wa": "WhatsApp",
   "btn.jigyosho": "Buscar serviços em Izumo",
   "btn.home": "Saiba mais sobre o escritório",
-  "g.footer": "Escritório de gestão de cuidados Shiawase Zousan (Shiawase Zousan LLC)<br>663-25 Yokan, Taisha-cho, Izumo, Shimane<br>Nº do serviço: 3270403482<br><a href=\"../\">Voltar ao site</a>"
+  "g.footer": "<span>Escritório de gestão de cuidados Shiawase Zousan <span class=\"nw\">(Shiawase Zousan LLC)</span></span><span>663-25 Yokan, Taisha-cho, Izumo, Shimane</span><span>Nº do serviço: <span class=\"nw\">3270403482</span></span><a href=\"../\">Voltar ao site</a>"
 } };
 
   var japanese = {};
