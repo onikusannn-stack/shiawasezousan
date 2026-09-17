@@ -89,6 +89,7 @@ section{position:relative;padding:120px 7vw}.eyebrow{color:var(--green);font-siz
 .contact-msg{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:16px}
 .msg-link{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 22px;border-radius:999px;border:1px solid rgba(255,255,255,.45);color:#fff;text-decoration:none;font-weight:800;font-size:15px}
 .msg-link:hover{background:rgba(255,255,255,.08)}
+.contact-mail a{color:inherit;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
 .contact small.contact-area{margin-top:6px}
 /* Footer: operator, address, office number */
 footer{align-items:flex-end;gap:16px;flex-wrap:wrap}
