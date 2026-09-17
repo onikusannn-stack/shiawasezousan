@@ -290,8 +290,19 @@ const STAMPS = [
     opts:[{k:'t',label:'いる時間',choices:[['7-8','1日（7〜8時間）'],['5-6','5〜6時間'],['3-4','半日（3〜4時間）']]},
           {k:'bath',label:'お風呂',choices:[['1','入る（入浴の加算 40単位を含める）'],['0','入らない']]}],
     per:(lv,o)=>{ const b = pick(TSUSHO,'normal',o.t||'7-8',lv); return b==null?null : b + (o.bath==='0'?0:40); }},
-  {id:'dayS', mk:'デ', color:'var(--c-day)', name:'デイサービス（要支援の方）', ds:'週1回程度・週2回程度（要支援2のみ）の月ぎめ料金', who:'S', food:true, other:true,
-    tier:(lv,n,w)=> n===0?0 : (w>=2 ? 3621 : 1798)},
+  {id:'dayS', mk:'デ', color:'var(--c-day)', name:'デイサービス（要支援の方）', ds:'週1回程度・週2回程度（要支援2のみ）', who:'S', food:true, other:true,
+    opts:[{k:'t',label:'いる時間',choices:[['long','4時間以上（月ぎめ料金）'],['short','4時間未満（回数が少ない月は1回ごとの料金）']]}],
+    // 出雲市の報酬単価（通所介護従前相当）
+    //  4時間以上 … 週1回程度 1,798／月、週2回程度（要支援2）3,621／月
+    //  4時間未満 … 週1回程度：月1〜4回は436×回数、5回以上は1,798／月に切り替え
+    //              週2回程度（要支援2）：月1〜8回は447×回数、9回以上は3,621／月に切り替え
+    //  ※回数を足し続けるのではなく、上限の回数を超えたら月額に「切り替わる」
+    tier:(lv,n,w,o)=>{
+      if (n===0) return 0;
+      const twice = (lv==='S2' && w>=2);
+      if ((o && o.t) === 'short') return twice ? (n<=8 ? 447*n : 3621) : (n<=4 ? 436*n : 1798);
+      return twice ? 3621 : 1798;
+    }},
   {id:'rehab', mk:'リ', color:'var(--c-reha)', name:'デイケア（リハビリに通う）', ds:'6〜7時間', who:'K', food:true, other:true, per:(lv)=>pick(REHA,'6-7',lv)},
   {id:'rehabS', mk:'リ', color:'var(--c-reha)', name:'デイケア（要支援の方）', ds:'月ぎめ料金', who:'S', food:true, other:true,
     tier:(lv,n)=> n===0?0 : (({S1:2268,S2:4228})[lv] ?? null)},
@@ -402,7 +413,7 @@ function ecalc(){
     dayList(d).forEach(id=>{
       const s = stampById(id); if (!stampOk(s, lv) || !counts(id, d)) return;
       let u;
-      if (s.tier){ if (tierDone[id]) return; tierDone[id] = true; u = s.tier(lv, st[id].n, weekMax(id)); }
+      if (s.tier){ if (tierDone[id]) return; tierDone[id] = true; u = s.tier(lv, st[id].n, weekMax(id), es.set[id]||{}); }
       else u = s.per(lv, es.set[id]||{});
       const f = push(id, u);
       if (f==='all' || (f==='part' && flag!=='all')) flag = f;
