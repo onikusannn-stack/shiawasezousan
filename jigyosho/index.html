@@ -179,6 +179,7 @@
   .act-hp { background: rgba(255,255,255,.8); color: var(--main-dark); border: 1.5px solid rgba(49,91,77,.45); }
   .act-map { background: rgba(255,255,255,.8); color: var(--main-dark); border: 1.5px solid rgba(49,91,77,.45); }
   .act-fee { background: rgba(255,255,255,.8); color: var(--accent); border: 1.5px solid var(--sand); }
+  .act-sns { background: rgba(255,255,255,.8); color: var(--main-dark); border: 1.5px solid rgba(49,91,77,.45); }
   .empty {
     text-align: center;
     color: var(--muted);
@@ -406,6 +407,16 @@ var DESCS = [
     hint: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"></path></svg>'
   };
 
+  // SNSボタンの線画アイコン（形でも見分けられるように、文字のラベルと併記する）
+  var SVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">';
+  var SNS_ICON = {
+    Instagram: SVG + '<rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"></circle></svg>',
+    Facebook: SVG + '<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>',
+    X: SVG + '<path d="M4 4l16 16"></path><path d="M20 4L4 20"></path></svg>',
+    LINE: SVG + '<path d="M21 11.5c0 4.1-4 7.5-9 7.5-1 0-2-.1-2.9-.4L5 21l1-3.6C4.2 16 3 13.9 3 11.5 3 7.4 7 4 12 4s9 3.4 9 7.5z"></path></svg>',
+    YouTube: SVG + '<rect x="2" y="5" width="20" height="14" rx="4"></rect><path d="M10 9l5 3-5 3z" fill="currentColor"></path></svg>'
+  };
+
   function card(e) {
     var addr = e.addr.replace(/^島根県/, "");
     var map = e.lat && e.lng
@@ -427,6 +438,9 @@ var DESCS = [
     if (e.url) { h += '<a class="act act-hp" href="' + esc(e.url) + '" target="_blank" rel="noopener nofollow">' + ICON.hp + ' ホームページ</a>'; }
     if (e.fee) { h += '<a class="act act-fee" href="' + esc(e.fee) + '" target="_blank" rel="noopener nofollow">' + ICON.fee + ' 料金ページ</a>'; }
     h += '<a class="act act-map" href="' + map + '" target="_blank" rel="noopener">' + ICON.map + ' 地図</a>';
+    (e.sns || []).forEach(function (s) {
+      h += '<a class="act act-sns" href="' + esc(s.u) + '" target="_blank" rel="noopener nofollow">' + (SNS_ICON[s.s] || ICON.hp) + ' ' + esc(s.s) + '</a>';
+    });
     h += '</div></div>';
     return h;
   }
