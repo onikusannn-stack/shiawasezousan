@@ -303,7 +303,7 @@ const STAMPS = [
       return r==='unit' ? pick(T,'unitHeisetsu','unit',lv) : pick(T,'heisetsu',r,lv); }},
   {id:'nurse', mk:'看', color:'var(--c-nurse)', name:'訪問看護（看護師が家に来る）', ds:'30〜60分', who:'B', per:(lv)=> lv.startsWith('K')?823:(lv==='J'?null:794)},
   {id:'bath', mk:'浴', color:'var(--c-bath)', name:'訪問入浴（お風呂の出張）', ds:'浴槽を持ってきて入浴', who:'B', per:(lv)=> lv.startsWith('K')?1266:(lv==='J'?null:856)},
-  {id:'reha', mk:'訪リ', color:'var(--c-vreha)', name:'訪問リハビリ（家でリハビリ）', ds:'1回20分', who:'B', per:(lv)=> lv.startsWith('K')?308:(lv==='J'?null:298)},
+  {id:'reha', mk:'訪リ', color:'var(--c-vreha)', name:'訪問リハビリ（家でリハビリ）', ds:'1回40分（20分×2回分の料金）', who:'B', per:(lv)=> lv.startsWith('K')?308*2:(lv==='J'?null:298*2)},
   // 福祉用具レンタルは月額。カレンダーには入れず、設定欄に月額を入れる
   {id:'rent', mk:'用', color:'#6D4C41', name:'福祉用具レンタル', ds:'車いす・介護ベッドなど（月額）', who:'B', monthly:true, per:(lv)=> lv==='J'?null:1},
 ];
