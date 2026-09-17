@@ -4,6 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>介護保険 利用料計算</title>
+<!--
+  出典（単位数・制度の確認に使ったもの。優先順：厚生労働省 → 介護サービス情報公表システム → 出雲市）
+  ・厚生労働省 介護報酬の算定構造（令和6年6月施行） https://www.mhlw.go.jp/content/12300000/001195510.pdf
+  ・厚生労働省 令和6〜8年度の地域区分（出雲市は「その他」＝1単位10円） https://www.mhlw.go.jp/content/12300000/001213182.pdf
+  ・出雲市 介護保険パンフレット https://www.city.izumo.shimane.jp/www/contents/1616743086238/index.html
+  ・出雲市 介護予防・日常生活支援総合事業の報酬単価 https://www.city.izumo.shimane.jp/www/contents/1486973074472/index.html
+  ・出雲市 高額介護（介護予防）サービス費 https://www.city.izumo.shimane.jp/www/contents/1165310593003/index.html
+  ・厚生労働省 令和8年度介護報酬改定について（改定は処遇改善加算と食費の基準費用額のみ） https://www.mhlw.go.jp/content/12404000/001675936.pdf
+  ・出雲市 訪問介護相当サービス（独自）サービスコード表（令和8年6月1日～） https://www.city.izumo.shimane.jp/www/contents/1486973074472/simple/1.pdf
+  ・出雲市 通所介護相当サービス（独自）サービスコード表（令和8年6月1日～）…週2回程度は「直前の要支援認定が要支援2であった者に限る」 https://www.city.izumo.shimane.jp/www/contents/1486973074472/simple/2.pdf
+  ・出雲市 実施のしおり 訪問型サービスA（令和8年4月）…941/1,879/2,982単位、事業対象者は要支援1・2からの移行者のみ、利用者負担1割、限度額管理あり https://www.city.izumo.shimane.jp/www/contents/1712019044418/simple/Ashiori260401.pdf
+  ・出雲市 実施のしおり 通所型サービスA（令和8年4月）…週1回370単位/回、利用者負担1割、限度額管理あり https://www.city.izumo.shimane.jp/www/contents/1712019044418/simple/tuusyoAshiori260401.pdf
+-->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -46,6 +59,7 @@ button:disabled{border-color:#BBB;color:#999;cursor:not-allowed;background:#F3F3
 .btns button{flex:1 1 96px;font-size:16px;border-color:#8A9BD6;color:var(--text)}
 .btns button.on{background:var(--c-help);border-color:var(--c-help);color:#fff}
 .btns.ratio button.on{background:var(--c-day);border-color:var(--c-day)}
+.prevbox{background:#fff;border:2px dashed var(--c-help);border-radius:var(--r);padding:8px 16px;margin-top:8px}
 
 /* スクロールしてもついてくる帯 */
 .sticky-bar{position:sticky;top:0;z-index:10;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:end;
@@ -54,7 +68,7 @@ button:disabled{border-color:#BBB;color:#999;cursor:not-allowed;background:#F3F3
 .meter{position:relative;height:24px;background:#E6E6EE;border-radius:var(--r);overflow:hidden;margin:4px 0;border:1px solid #BBB}
 .meter .used{position:absolute;left:0;top:0;bottom:0;background:var(--ok)}
 .meter .used.warn{background:var(--c-short)}
-.meter .over{position:absolute;top:0;bottom:0;right:0;background:repeating-linear-gradient(45deg,var(--err) 0 6px,#fff 6px 10px)}
+.meter .over{position:absolute;top:0;bottom:0;right:0;background:var(--err)}
 .rest-text{font-size:15px;line-height:1.4}
 .rest-text b{font-size:20px}
 .sb-right{text-align:right}
@@ -64,12 +78,14 @@ button:disabled{border-color:#BBB;color:#999;cursor:not-allowed;background:#F3F3
 .pay{display:grid;grid-template-columns:1fr auto;gap:4px 16px}
 .pay div{padding:4px 0;border-bottom:1px solid #F0D9B8}
 .pay .r{text-align:right;font-weight:700}
+.pay .tot{font-weight:700;border-bottom:0;font-size:17px}
 .kasan{background:var(--t-yellow);border:2px solid #E3C35A;border-radius:var(--r);padding:8px 16px;margin:12px 0;font-size:14px}
 .kasan ul{margin:8px 0;padding-left:20px}
 .kasan summary{color:var(--link);cursor:pointer;margin-top:4px;min-height:32px;font-weight:700}
 .info{background:#fff;border-left:6px solid var(--c-short);border-radius:var(--r);padding:8px 16px;margin:8px 0;font-size:15px}
 .warn{background:#FFECEC;border-left:6px solid var(--err);border-radius:var(--r);padding:8px 16px;margin:8px 0;font-size:14px}
 .warn::before{content:"⚠ ";font-weight:700;color:var(--err)}
+.note{background:#fff;border-left:6px solid var(--link);border-radius:var(--r);padding:8px 16px;margin:8px 0;font-size:14px}
 
 .stamps{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px;margin:8px 0}
 .stamp{display:flex;align-items:center;gap:8px;text-align:left;border:2px solid var(--sc);background:#fff;color:var(--text);padding:8px;min-height:64px;font-weight:400}
@@ -102,13 +118,10 @@ button:disabled{border-color:#BBB;color:#999;cursor:not-allowed;background:#F3F3
 .cal .d .chips{display:flex;flex-wrap:wrap;gap:2px}
 .cal .d .mk{height:20px;min-width:20px;font-size:11px;padding:0 3px;border-radius:4px}
 .cal .d .mk.bad{background:#999!important;text-decoration:line-through;text-decoration-thickness:2px;outline:2px solid var(--err)}
-.cal .d.over{background:repeating-linear-gradient(45deg,#FFD6D6 0 6px,#fff 6px 12px);border-color:var(--err)}
-.cal .d.part{border:3px solid var(--err)}
 .cal .d.today{outline:3px solid #E3C35A}
 .cal .blank{min-height:76px}
-.sw{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin-right:4px;border:1px solid #666}
 
-table{border-collapse:collapse;width:100%;font-size:14px;min-width:560px}
+table{border-collapse:collapse;width:100%;font-size:14px;min-width:640px}
 th,td{padding:8px;border-bottom:1px solid #E6E6EE;text-align:left}
 th{color:var(--sub);font-weight:500;font-size:13px}
 td.r,th.r{text-align:right}
@@ -136,7 +149,7 @@ footer a{color:var(--link)}
   <div>
     <a href="../" class="meta" style="font-size:14px;font-weight:700;color:#fff;text-decoration:underline">← 🐘 しあわせぞうさん ホームページへ</a>
     <h1>介護保険 利用料計算</h1>
-    <div class="meta">介護サービスを使ったときの、ひと月の支払いの目安｜地域：島根県出雲市</div>
+    <div class="meta">介護サービスを使ったときの、ひと月の支払いの目安｜地域：島根県出雲市｜<span id="eDataLabel"></span></div>
   </div>
   <button class="no-print" onclick="window.print()" style="border-color:#fff;color:#fff;background:transparent">印刷する</button>
 </header>
@@ -144,6 +157,11 @@ footer a{color:var(--link)}
 <section class="card blue">
   <div class="step"><span class="stepn" style="background:var(--c-help)">1</span>介護度をえらぶ <span class="muted">（介護保険証に書いてあります）</span></div>
   <div class="btns" id="eLevel"></div>
+  <div class="prevbox" id="eTargetWrap" hidden>
+    <div class="sub-h">事業対象者になる前の認定</div>
+    <div class="btns" id="eTarget"></div>
+    <div class="muted">要支援の認定から事業対象者に移った方かどうかで、使えるサービスや回数が変わります。</div>
+  </div>
   <div class="step" style="margin-top:16px"><span class="stepn" style="background:var(--c-day)">2</span>自己負担の割合をえらぶ <span class="muted">（「負担割合証」に書いてあります）</span></div>
   <div class="btns ratio" id="eRatio"></div>
 </section>
@@ -165,11 +183,11 @@ footer a{color:var(--link)}
   <h2>今月の支払いの内訳</h2>
   <div class="pay num" id="ePay"></div>
   <div class="kasan">
-    <b>「＋α」は加算の分です。実際の請求は、この金額より高くなります。</b><br>
+    <b>「＋α」は加算の分です。実際の請求は、この金額より高くなることがあります。</b><br>
     ここで計算しているのは<b>基本料金</b>です。事業所ごとに<b>加算（＝サービスの内容や職員の体制による上乗せ料金）</b>がつきます。
     <details><summary>どんな加算があるか見る</summary>
       <ul>
-        <li><b>どのサービスにも</b>：職員の給料アップのための加算（処遇改善加算）など</li>
+        <li>対象となるサービスでは、介護職員等処遇改善加算（＝職員の給料アップのための上乗せ）や各種加算・減算が加わる場合があります。</li>
         <li><b>デイサービス</b>：機能訓練（体を動かす訓練）、口や栄養のケア、職員の体制 など。送迎がないと少し安くなります</li>
         <li><b>ショートステイ</b>：送迎（片道ごと）、夜の職員の体制、看護師の体制、機能訓練 など</li>
         <li><b>ヘルパー</b>：はじめて使う月（初回）、職員の資格や体制、急な訪問 など</li>
@@ -199,9 +217,7 @@ footer a{color:var(--link)}
   </div>
   <div class="muted" id="eWdNote" style="margin-bottom:4px">曜日をタップすると、その曜日を全部入れる／外すことができます</div>
   <div class="cal" id="eCal"></div>
-  <div style="margin-top:8px;font-size:13px">
-    <span class="sw" style="background:repeating-linear-gradient(45deg,var(--err) 0 3px,#fff 3px 5px)"></span>斜線の日＝保険の枠を超えた日（全額自己負担）
-  </div>
+  <div class="muted" style="margin-top:8px">灰色に取り消し線の印＝計算に入れていない予定（日帰りのショートステイ・今の介護度では使えないサービス）</div>
   <div id="eWarn"></div>
 </section>
 
@@ -211,10 +227,21 @@ footer a{color:var(--link)}
   <div class="tbl"><table id="eDetail"></table></div>
   <ul class="muted" style="margin:8px 0 0;padding-left:20px">
     <li>金額は基本料金の目安です。実際は加算（＋α）がつきます。</li>
+    <li>「自己負担」の列は、保険の枠内に収まった場合の金額です。枠を超える場合、どのサービスが保険の対象外になるかはケアプランと給付管理（＝ケアマネジャーが月ごとに行う調整）で決まるため、超える分は上の内訳にまとめて出しています。</li>
     <li>ショートステイは、泊まった日と帰る日の両方に料金がかかります（1泊2日＝2日分）。日帰りでは使えません。</li>
     <li>ショートステイで続けて泊まれるのは30日まで。認定の有効期間のおおむね半分までが目安です。</li>
+    <li>食費・部屋代（居住費・滞在費）・日用品費・理美容代などは、保険の枠とは別に計算しています。</li>
     <li>ケアプランを作るケアマネジャーの費用は0円です。</li>
     <li>自己負担が高い月は「高額介護サービス費」で戻る場合があります（食費・部屋代は対象外）。</li>
+  </ul>
+</section>
+
+<section class="card">
+  <h2>ご利用にあたって</h2>
+  <ul style="margin:0;padding-left:20px;font-size:14px">
+    <li>このシミュレーターは、介護保険サービス利用料の目安を確認するためのものです。</li>
+    <li>実際の自己負担額は、サービス事業所、地域区分、各種加算・減算、食費・居住費、保険給付対象外費用等によって異なります。</li>
+    <li>正式な利用料については、担当ケアマネジャーまたは各サービス事業所へご確認ください。</li>
   </ul>
 </section>
 
@@ -223,37 +250,56 @@ footer a{color:var(--link)}
 
 <script>
 /* ============================================================
-   料金データ（単位数）。令和6年6月施行。出雲市パンフレット（2024年6月改訂版）と照合済み
+   制度データ（ここだけ直せば全体に効く）
    出雲市は地域区分「その他」＝1単位10円
    ============================================================ */
-const DATA_DATE = '2026-09-17';
+const SYSTEM_DATA_DATE = '2026-09-17';
+// 令和8年6月の改定は処遇改善加算と食費の基準費用額だけで、基本の単位数は変わっていない（厚労省「令和8年度介護報酬改定について」）
+const SYSTEM_DATA_LABEL = '2026年9月時点・令和8年度介護報酬改定対応';
+const YEN_PER_UNIT = 10;
+
+// 区分支給限度基準額（ひと月の保険の枠・単位）。キーは保存データと合わせて K1〜K5＝要介護1〜5
+const CARE_LIMITS = {J:5032, S1:5032, S2:10531, K1:16765, K2:19705, K3:27048, K4:30938, K5:36217};
 const LEVELS = [
-  {k:'J',  label:'事業対象者', limit:5032},
-  {k:'S1', label:'要支援1', limit:5032},
-  {k:'S2', label:'要支援2', limit:10531},
-  {k:'K1', label:'要介護1', limit:16765},
-  {k:'K2', label:'要介護2', limit:19705},
-  {k:'K3', label:'要介護3', limit:27048},
-  {k:'K4', label:'要介護4', limit:30938},
-  {k:'K5', label:'要介護5', limit:36217},
+  {k:'J',  label:'事業対象者'},
+  {k:'S1', label:'要支援1'},
+  {k:'S2', label:'要支援2'},
+  {k:'K1', label:'要介護1'},
+  {k:'K2', label:'要介護2'},
+  {k:'K3', label:'要介護3'},
+  {k:'K4', label:'要介護4'},
+  {k:'K5', label:'要介護5'},
 ];
+// 事業対象者になる前の認定
+const TARGET_PREV = [['none','認定なし・新規'], ['S1','要支援1から移行'], ['S2','要支援2から移行']];
+
 const K = (a)=>({K1:a[0],K2:a[1],K3:a[2],K4:a[3],K5:a[4]});
 const pick = (tbl, ...keys) => { let t = tbl; for (const k of keys){ if (t==null) return null; t = t[k]; } return t ?? null; };
-const TSUSHO = { normal:{   // 通所介護 通常規模
-  '3-4':K([370,423,479,533,588]), '5-6':K([570,673,777,880,984]), '7-8':K([658,777,900,1023,1148]) } };
-const REHA = { '6-7':K([715,850,981,1137,1290]) };   // 通所リハ 通常規模
-const SHORT_S = {        // 短期入所生活介護（要介護）
-  heisetsu:{jurai:K([603,672,745,815,884]), tasho:K([603,672,745,815,884])},
-  unitHeisetsu:{unit:K([704,772,847,918,987])},
-};
-const SHORT_S_SHIEN = {  // 介護予防短期入所生活介護（要支援）
-  heisetsu:{jurai:{S1:451,S2:561}, tasho:{S1:451,S2:561}},
-  unitHeisetsu:{unit:{S1:529,S2:656}},
+
+// サービスの単位数（令和6年6月施行・出雲市パンフレットと照合済み）
+const UNITS = {
+  homon:{body30:387, body60:567, house:220},                 // 訪問介護 身体介護30分以上60分未満／60分以上90分未満／生活援助45分以上
+  homonS:{w1:1176, w2:2349, w3:3727},                         // 訪問介護従前相当（月額）週1回程度／週2回程度／週3回程度
+  tsusho:{'3-4':K([370,423,479,533,588]), '5-6':K([570,673,777,880,984]), '7-8':K([658,777,900,1023,1148])}, // 通所介護 通常規模
+  tsushoBath:40,                                              // 入浴介助加算(I)で概算
+  tsushoS:{long:{w1:1798, w2:3621}, short:{w1:436, w1Max:4, w2:447, w2Max:8}}, // 通所介護従前相当
+  reha:{'6-7':K([715,850,981,1137,1290])},                    // 通所リハ 通常規模
+  rehaS:{S1:2268, S2:4228},                                   // 介護予防通所リハ（月額）
+  short:{heisetsu:{jurai:K([603,672,745,815,884]), tasho:K([603,672,745,815,884])}, unitHeisetsu:{unit:K([704,772,847,918,987])}},
+  shortS:{heisetsu:{jurai:{S1:451,S2:561}, tasho:{S1:451,S2:561}}, unitHeisetsu:{unit:{S1:529,S2:656}}},
+  visitA:{w1:941, w2:1879, w3:2982},                          // 訪問型サービスA（月額・自己負担1割）週3回程度は要支援2のみ
+  dayA:370,                                                   // 通所型サービスA（1回・週1回・自己負担1割）
+  nurse:{K:823, S:794},                                       // 訪問看護（30分以上60分未満）
+  bath:{K:1266, S:856},                                       // 訪問入浴
+  vreha:{K:308, S:298},                                       // 訪問リハ（20分あたり）
 };
 
 const SOURCES = [
   ['【出雲市】介護保険パンフレット（2024年6月改訂版）…ひと月の枠の金額・サービスごとの料金の確認に使用','https://www.city.izumo.shimane.jp/www/contents/1616743086238/index.html'],
-  ['【出雲市】介護予防・日常生活支援総合事業の報酬単価（要支援の方のヘルパー・デイ）','https://www.city.izumo.shimane.jp/www/contents/1486973074472/index.html'],
+  ['【出雲市】介護予防・日常生活支援総合事業の報酬単価（要支援・事業対象者の方のヘルパー・デイ）','https://www.city.izumo.shimane.jp/www/contents/1486973074472/index.html'],
+  ['【出雲市】訪問型サービスA（自立支援訪問サービス）実施のしおり（令和8年4月）','https://www.city.izumo.shimane.jp/www/contents/1712019044418/simple/Ashiori260401.pdf'],
+  ['【出雲市】通所型サービスA（自立支援通所サービス）実施のしおり（令和8年4月）','https://www.city.izumo.shimane.jp/www/contents/1712019044418/simple/tuusyoAshiori260401.pdf'],
+  ['【厚生労働省】令和8年度介護報酬改定について（処遇改善加算と食費の見直し。基本の単位数は変わらず）','https://www.mhlw.go.jp/content/12404000/001675936.pdf'],
   ['【出雲市】高額介護（介護予防）サービス費の支給について','https://www.city.izumo.shimane.jp/www/contents/1165310593003/index.html'],
   ['【出雲市】福祉用具購入費の申請について','https://www.city.izumo.shimane.jp/www/contents/1173844481762/index.html'],
   ['【島根県】介護報酬改定（国の資料への案内ページ）','https://www.pref.shimane.lg.jp/medical/fukushi/kourei/kaigo_hoken/housyu_kaitei.html'],
@@ -266,116 +312,123 @@ const fmt = (n)=> Math.round(n).toLocaleString('ja-JP');
 const esc = (s)=> String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
 /* ============================================================
-   状態
+   状態（保存データは古い形でも読めるように、足りない項目は既定値で補う）
    ============================================================ */
 const EASY_KEY = 'kaigo_easy_v2';
 const today = new Date();
-let es = {level:'K1', ratio:1, ym:`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}`,
-          sel:'body30', days:{}, set:{}, rent:''};
-try { const s = JSON.parse(localStorage.getItem(EASY_KEY)); if (s && s.days) es = Object.assign(es, s); } catch(e){}
+const thisYm = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}`;
+let es = {level:'K1', prev:'none', ratio:1, ym:thisYm, sel:'body30', days:{}, set:{}, rent:''};
+try { const s = JSON.parse(localStorage.getItem(EASY_KEY)); if (s && s.days && typeof s.days === 'object') es = Object.assign(es, s); } catch(e){}
+if (!(es.level in CARE_LIMITS)) es.level = 'K1';
+if (!TARGET_PREV.some(([k])=> k === es.prev) || es.level !== 'J') es.prev = 'none';
+if (![1,2,3].includes(es.ratio)) es.ratio = 1;
+if (!/^\d{4}-\d{2}$/.test(es.ym)) es.ym = thisYm;
+if (!es.set || typeof es.set !== 'object') es.set = {};
 const esave = ()=>{ try { localStorage.setItem(EASY_KEY, JSON.stringify(es)); } catch(e){} };
 const isS = (lv)=> lv==='S1'||lv==='S2'||lv==='J';
+const levelLabel = (lv)=> LEVELS.find(l=>l.k===lv).label;
+const prevLabel = (p)=> (TARGET_PREV.find(([k])=>k===p)||[])[1] || '';
+
+/* ============================================================
+   総合事業（要支援・事業対象者）の決まり
+   ============================================================ */
+// 週2回程度のデイ（通所介護従前相当）を使えるか：要支援2と、要支援2から移った事業対象者
+const canUseTwiceWeekly = (lv, prev)=> lv === 'S2' || (lv === 'J' && prev === 'S2');
+function getDayServiceWeeklyLimit(lv, prev){
+  if (lv === 'S1') return 1;
+  if (lv === 'S2') return 2;
+  if (lv === 'J') return prev === 'S2' ? 2 : 1;
+  return null;
+}
+// 1週間の回数の上限（日〜土を1週間として数える）
+function weekCap(id, lv, prev){
+  if (id === 'dayS') return getDayServiceWeeklyLimit(lv, prev);
+  if (id === 'helperS') return ({S1:2, S2:3})[lv] ?? (lv === 'J' ? 2 : null);
+  if (id === 'rehabS') return ({S1:1, S2:2})[lv] ?? null;   // 介護予防通所リハの目安
+  if (id === 'visitA') return ({S1:2, S2:3, J:2})[lv] ?? null; // 週3回程度は要支援2のみ
+  if (id === 'dayA') return isS(lv) ? 1 : null;               // 週1回
+  return null;
+}
 
 /* 印（スタンプ）の定義
    per : 1回（1日）の単位。null=この介護度では使えない
-   tier: 要支援の月ぎめ料金。回数から月の単位を返す */
+   tier: 月ぎめ料金。(介護度, 月の回数, 1週間でいちばん多い回数, 設定, 前の認定) から月の単位を返す
+   only: 介護度のほかに使える条件（前の認定など）
+   who : K=要介護だけ／S=要支援・事業対象者だけ（総合事業など）／B=両方 */
 const STAMPS = [
-  {id:'body30', mk:'身', color:'var(--c-help)', name:'ヘルパー：からだの手伝い 30分', ds:'食事・トイレ・着替えの手伝いなど', who:'K', per:()=>387},
-  {id:'body60', mk:'身1', color:'var(--c-help)', name:'ヘルパー：からだの手伝い 1時間', ds:'お風呂の手伝いなど', who:'K', per:()=>567},
-  {id:'house', mk:'家', color:'var(--c-help)', name:'ヘルパー：家事の手伝い 45分', ds:'掃除・洗濯・料理など', who:'K', per:()=>220},
-  // 要支援・事業対象者の月ぎめ料金は「週に何回くらい使うか」で決まる（出雲市の報酬単価）。w = 1週間でいちばん多い回数
-  {id:'helperS', mk:'ヘ', color:'var(--c-help)', name:'ヘルパー（要支援の方）', ds:'週1回程度・週2回程度・週3回程度（要支援2のみ）の月ぎめ料金', who:'S',
-    tier:(lv,n,w)=> n===0?0 : (w<=1?1176 : (w===2?2349 : 3727))},
+  {id:'body30', mk:'身', color:'var(--c-help)', name:'ヘルパー：からだの手伝い（30分以上60分未満）', ds:'食事・トイレ・着替えの手伝いなど', who:'K', per:()=>UNITS.homon.body30},
+  {id:'body60', mk:'身1', color:'var(--c-help)', name:'ヘルパー：からだの手伝い（60分以上90分未満）', ds:'お風呂の手伝いなど', who:'K', per:()=>UNITS.homon.body60},
+  {id:'house', mk:'家', color:'var(--c-help)', name:'ヘルパー：家事の手伝い（45分以上）', ds:'掃除・洗濯・料理など', who:'K', per:()=>UNITS.homon.house},
+  // 訪問介護従前相当：新規の事業対象者は使えない（要支援から移った方は使える）
+  {id:'helperS', mk:'ヘ', color:'var(--c-help)', name:'ヘルパー（要支援・事業対象者の方）', ds:'訪問介護従前相当サービス。週1回程度・週2回程度・週3回程度（要支援2のみ）の月ぎめ料金', who:'S',
+    only:(lv, prev)=> !(lv === 'J' && prev === 'none'),
+    tier:(lv,n,w)=> n===0?0 : (w<=1?UNITS.homonS.w1 : (w===2?UNITS.homonS.w2 : UNITS.homonS.w3))},
+  // 訪問型サービスA（自立支援訪問サービス）：事業対象者は要支援1・2からの移行者のみ。自己負担は1割
+  {id:'visitA', mk:'ヘA', color:'var(--c-help)', name:'生活援助中心のヘルパー（訪問型サービスA）', ds:'掃除・洗濯・買い物など、生活援助を中心とした出雲市の総合事業サービスです。週1回程度・週2回程度・週3回程度（要支援2のみ）の月ぎめ料金。自己負担は1割', who:'S', fixedRatio:1,
+    only:(lv, prev)=> !(lv === 'J' && prev === 'none'),
+    tier:(lv,n,w)=> n===0?0 : (w<=1?UNITS.visitA.w1 : (w===2?UNITS.visitA.w2 : UNITS.visitA.w3))},
   {id:'day', mk:'デ', color:'var(--c-day)', name:'デイサービス（日帰りで通う）', ds:'送迎つき', who:'K', food:true, other:true,
     opts:[{k:'t',label:'いる時間',choices:[['7-8','1日（7〜8時間）'],['5-6','5〜6時間'],['3-4','半日（3〜4時間）']]},
-          {k:'bath',label:'お風呂',choices:[['1','入る（入浴の加算 40単位を含める）'],['0','入らない']]}],
-    per:(lv,o)=>{ const b = pick(TSUSHO,'normal',o.t||'7-8',lv); return b==null?null : b + (o.bath==='0'?0:40); }},
-  {id:'dayS', mk:'デ', color:'var(--c-day)', name:'デイサービス（要支援の方）', ds:'週1回程度・週2回程度（要支援2のみ）', who:'S', food:true, other:true,
+          {k:'bath',label:'お風呂',choices:[['1','入浴あり（40単位で概算）'],['0','入らない']]}],
+    note:'入浴の料金は、事業所の算定区分によっては55単位等となる場合があります。',
+    per:(lv,o)=>{ const b = pick(UNITS.tsusho,o.t||'7-8',lv); return b==null?null : b + (o.bath==='0'?0:UNITS.tsushoBath); }},
+  {id:'dayS', mk:'デ', color:'var(--c-day)', name:'デイサービス（要支援・事業対象者の方）', ds:'通所介護従前相当サービス。週1回程度・週2回程度（要支援2の方と、要支援2から移った事業対象者の方）', who:'S', food:true, other:true,
     opts:[{k:'t',label:'いる時間',choices:[['long','4時間以上（月ぎめ料金）'],['short','4時間未満（回数が少ない月は1回ごとの料金）']]}],
     // 出雲市の報酬単価（通所介護従前相当）
-    //  4時間以上 … 週1回程度 1,798／月、週2回程度（要支援2）3,621／月
+    //  4時間以上 … 週1回程度 1,798／月、週2回程度 3,621／月
     //  4時間未満 … 週1回程度：月1〜4回は436×回数、5回以上は1,798／月に切り替え
-    //              週2回程度（要支援2）：月1〜8回は447×回数、9回以上は3,621／月に切り替え
+    //              週2回程度：月1〜8回は447×回数、9回以上は3,621／月に切り替え
     //  ※回数を足し続けるのではなく、上限の回数を超えたら月額に「切り替わる」
-    tier:(lv,n,w,o)=>{
+    tier:(lv,n,w,o,prev)=>{
       if (n===0) return 0;
-      const twice = (lv==='S2' && w>=2);
-      if ((o && o.t) === 'short') return twice ? (n<=8 ? 447*n : 3621) : (n<=4 ? 436*n : 1798);
-      return twice ? 3621 : 1798;
+      const T = UNITS.tsushoS;
+      const twice = canUseTwiceWeekly(lv, prev) && w>=2;
+      if ((o && o.t) === 'short') return twice ? (n<=T.short.w2Max ? T.short.w2*n : T.long.w2) : (n<=T.short.w1Max ? T.short.w1*n : T.long.w1);
+      return twice ? T.long.w2 : T.long.w1;
     }},
-  {id:'rehab', mk:'リ', color:'var(--c-reha)', name:'デイケア（リハビリに通う）', ds:'6〜7時間', who:'K', food:true, other:true, per:(lv)=>pick(REHA,'6-7',lv)},
+  // 通所型サービスA（自立支援通所サービス）：週1回・1回ごとの料金。自己負担は1割
+  {id:'dayA', mk:'教', color:'var(--c-day)', name:'短時間の介護予防教室（通所型サービスA）', ds:'体操やレクリエーションなどをする出雲市の総合事業サービスです。週1回・1回ごとの料金。自己負担は1割', who:'S', fixedRatio:1,
+    per:(lv)=> isS(lv) ? UNITS.dayA : null},
+  {id:'rehab', mk:'リ', color:'var(--c-reha)', name:'デイケア（リハビリに通う）', ds:'6〜7時間', who:'K', food:true, other:true, per:(lv)=>pick(UNITS.reha,'6-7',lv)},
   {id:'rehabS', mk:'リ', color:'var(--c-reha)', name:'デイケア（要支援の方）', ds:'月ぎめ料金', who:'S', food:true, other:true,
-    tier:(lv,n)=> n===0?0 : (({S1:2268,S2:4228})[lv] ?? null)},
+    tier:(lv,n)=> n===0?0 : (UNITS.rehaS[lv] ?? null)},
   {id:'short', mk:'泊', color:'var(--c-short)', name:'ショートステイ（お泊まり）', ds:'1泊2日から。泊まる日と帰る日の両方に料金', who:'B', food:true, room:true, short:true,
     // 部屋の種類のキーは rtype（部屋代の金額 room と名前を分ける＝同じ名前だと金額で種類が上書きされる）
     opts:[{k:'rtype',label:'部屋',choices:[['unit','ユニット型の個室'],['jurai','個室'],['tasho','相部屋']]}],
-    per:(lv,o)=>{ if (lv==='J') return null; const T = lv.startsWith('K') ? SHORT_S : SHORT_S_SHIEN;
+    note:'このシミュレーターでは併設型等の代表的な料金で概算しています。',
+    per:(lv,o)=>{ if (lv==='J') return null; const T = lv.startsWith('K') ? UNITS.short : UNITS.shortS;
       const r = o.rtype || 'unit';
       return r==='unit' ? pick(T,'unitHeisetsu','unit',lv) : pick(T,'heisetsu',r,lv); }},
-  {id:'nurse', mk:'看', color:'var(--c-nurse)', name:'訪問看護（看護師が家に来る）', ds:'30〜60分', who:'B', per:(lv)=> lv.startsWith('K')?823:(lv==='J'?null:794)},
-  {id:'bath', mk:'浴', color:'var(--c-bath)', name:'訪問入浴（お風呂の出張）', ds:'浴槽を持ってきて入浴', who:'B', per:(lv)=> lv.startsWith('K')?1266:(lv==='J'?null:856)},
-  {id:'reha', mk:'訪リ', color:'var(--c-vreha)', name:'訪問リハビリ（家でリハビリ）', ds:'1回40分（20分×2回分の料金）', who:'B', per:(lv)=> lv.startsWith('K')?308*2:(lv==='J'?null:298*2)},
-  // 福祉用具レンタルは月額。カレンダーには入れず、設定欄に月額を入れる
+  {id:'nurse', mk:'看', color:'var(--c-nurse)', name:'訪問看護（看護師が家に来る）', ds:'30〜60分', who:'B', per:(lv)=> lv.startsWith('K')?UNITS.nurse.K:(lv==='J'?null:UNITS.nurse.S)},
+  {id:'bath', mk:'浴', color:'var(--c-bath)', name:'訪問入浴（お風呂の出張）', ds:'浴槽を持ってきて入浴', who:'B', per:(lv)=> lv.startsWith('K')?UNITS.bath.K:(lv==='J'?null:UNITS.bath.S)},
+  {id:'reha', mk:'訪リ', color:'var(--c-vreha)', name:'訪問リハビリ（家でリハビリ）', ds:'1回40分（20分×2回分の料金）', who:'B', per:(lv)=> lv.startsWith('K')?UNITS.vreha.K*2:(lv==='J'?null:UNITS.vreha.S*2)},
+  // 福祉用具レンタルは月額。カレンダーには入れず、設定欄に月額（10割の価格）を入れる
   {id:'rent', mk:'用', color:'#6D4C41', name:'福祉用具レンタル', ds:'車いす・介護ベッドなど（月額）', who:'B', monthly:true, per:(lv)=> lv==='J'?null:1},
 ];
-// 同じ日にいっしょに使えない組み合わせ
-// ・ショートステイの途中の日は、ほかのサービスは使えない
-// ・入所日・退所日（泊まりの最初と最後の日）は、家に来るサービス（ヘルパー・訪問看護・訪問入浴・訪問リハ）だけ使える
-// ・デイサービスとデイケアは同じ日に使えない
-const DAY_GROUP = {day:'tsusho', dayS:'tsusho', rehab:'tsusho', rehabS:'tsusho'};
-// 要支援・事業対象者の1週間の回数の上限（日〜土を1週間として数える）
-const WEEK_CAP = {
-  helperS:{J:2, S1:2, S2:3},   // 出雲市の報酬単価：週1・週2程度、週3程度は要支援2のみ
-  dayS:{J:1, S1:1, S2:2},      // 出雲市の報酬単価：週1回程度、週2回程度は要支援2
-  rehabS:{S1:1, S2:2},         // 介護予防通所リハの目安
-};
-const weekOf = (d)=> Math.floor((firstDow() + d - 1) / 7);
-const weekCount = (id, wk)=>{ let n = 0; for (let x=1; x<=daysIn(); x++) if (weekOf(x)===wk && dayList(x).includes(id)) n++; return n; };
-const weekMax = (id)=>{ let m = 0; for (let wk=0; wk<=5; wk++) m = Math.max(m, weekCount(id, wk)); return m; };
-function capOver(d, id){
-  const cap = WEEK_CAP[id] && WEEK_CAP[id][es.level]; if (!cap) return '';
-  if (weekCount(id, weekOf(d)) >= cap) return `${LEVELS.find(l=>l.k===es.level).label}の「${stampById(id).name}」は、1週間に${cap}回までです。`;
-  return '';
-}
-const VISIT = new Set(['body30','body60','house','helperS','nurse','bath','reha']);
-// ショートステイの日 x に、ほかのサービスが入っていてよいか
-function shortDayOk(x){
-  if (!hasShort(x)) return true;
-  const others = dayList(x).filter(i=> i !== 'short');
-  if (!others.length) return true;
-  const edge = !(hasShort(x-1) && hasShort(x+1));
-  return edge && others.every(i=> VISIT.has(i));
-}
-// days に短期入所を足したと仮定して、前後の日も含めて決まりを破らないか
-function shortAddOk(days){
-  const mm = monthMap(), added = [];
-  days.forEach(d=>{ const l = mm[d] = mm[d] || []; if (!l.includes('short')){ l.push('short'); added.push(d); } });
-  const lo = Math.min(...days) - 1, hi = Math.max(...days) + 1;
-  let ok = true;
-  for (let x = Math.max(1, lo); x <= Math.min(daysIn(), hi); x++) if (!shortDayOk(x)) ok = false;
-  added.forEach(d=> removeFrom(d, 'short'));
-  return ok;
-}
-function conflictOn(d, id){
-  const list = dayList(d);
-  if (id === 'short') return !shortAddOk([d]);
-  if (list.includes('short')){
-    const edge = !(hasShort(d-1) && hasShort(d+1));
-    if (!(edge && VISIT.has(id))) return true;
-  }
-  if (DAY_GROUP[id]) return list.some(x=> x !== id && DAY_GROUP[x]);
-  return false;
-}
+// 通所系（同じ日に2つ入っていたら注意を出す）
+const DAY_GROUP = new Set(['day','dayS','dayA','rehab','rehabS']);
+const WEEK_CAP_IDS = ['helperS','visitA','dayS','dayA','rehabS'];
 const stampById = (id)=> STAMPS.find(s=>s.id===id);
-const stampOk = (s, lv)=>{
+const stampOk = (s, lv, prev = es.prev)=>{
   if (!s) return false;
   if (s.who==='K' && isS(lv)) return false;
   if (s.who==='S' && !isS(lv)) return false;
-  if (s.tier) return s.tier(lv,1) != null;
+  if (s.only && !s.only(lv, prev)) return false;
+  if (s.tier) return s.tier(lv,1,1,{},prev) != null;
   return s.per(lv, es.set[s.id]||{}) != null;
 };
+// 使えない理由（介護度を変えたあとに残っている予定の注意に使う）
+function whyNotOk(s, lv, prev){
+  if (s.who==='K' && isS(lv)) return `「${s.name}」は要介護の方のサービスです。${levelLabel(lv)}の方は使えません。`;
+  if (s.who==='S' && !isS(lv)) return `「${s.name}」は要支援・事業対象者の方のサービス（総合事業）です。要介護の方は使えません。`;
+  if (s.id==='helperS' || s.id==='visitA') return `「${s.name}」は、新規の事業対象者の方は対象外です（要支援1・2から移った方だけが使えます）。`;
+  return `「${s.name}」は、${levelLabel(lv)}の方は使えません。`;
+}
 
-/* 日付まわり */
+/* ============================================================
+   日付まわり
+   日付は「表示中の月の d 日目」で扱う。0以下や月末より先は前月・翌月（年またぎも）に読み替える
+   ============================================================ */
 const ymParts = (ym)=> ym.split('-').map(Number);
 const ymShift = (ym, k)=>{ let [y,m] = ymParts(ym); m += k; if (m<1){m=12;y--;} if (m>12){m=1;y++;} return `${y}-${String(m).padStart(2,'0')}`; };
 const daysOf = (ym)=>{ const [y,m] = ymParts(ym); return new Date(y, m, 0).getDate(); };
@@ -383,84 +436,138 @@ const daysIn = ()=> daysOf(es.ym);
 const firstDow = ()=>{ const [y,m] = ymParts(es.ym); return new Date(y, m-1, 1).getDay(); };
 const listOf = (ym, d)=> (es.days[ym] && es.days[ym][d]) || [];
 const dayList = (d)=> listOf(es.ym, d);
-// 月をまたいでもショートステイがあるか（前月末・翌月初めにつながる泊まりを見分ける）
-function hasShort(d){
-  if (d < 1){ const p = ymShift(es.ym,-1); return listOf(p, daysOf(p)+d).includes('short'); }
-  if (d > daysIn()){ const n = ymShift(es.ym,1); return listOf(n, d-daysIn()).includes('short'); }
-  return dayList(d).includes('short');
-}
+const locate = (d)=>{ const [y,m] = ymParts(es.ym); const t = new Date(y, m-1, d);
+  return [`${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}`, t.getDate(), t]; };
+const dateLabel = (d)=>{ const [, x, t] = locate(d); const [y] = ymParts(es.ym);
+  return (t.getFullYear() !== y ? `${t.getFullYear()}年` : '') + `${t.getMonth()+1}月${x}日`; };
+const listAt = (d)=>{ const [ym, x] = locate(d); return listOf(ym, x); };
+const addAt = (d, id)=>{ const [ym, x] = locate(d); const mm = es.days[ym] = es.days[ym] || {}; const l = mm[x] = mm[x] || []; if (!l.includes(id)) l.push(id); };
+const removeAt = (d, id)=>{ const [ym, x] = locate(d); const l = es.days[ym] && es.days[ym][x]; if (!l) return; const i = l.indexOf(id); if (i>=0) l.splice(i,1); };
+const hasShort = (d)=> listAt(d).includes('short');
 // 前後の日にショートステイが無い「1日だけ」は日帰りになるので使えない
 const shortAlone = (d)=> hasShort(d) && !hasShort(d-1) && !hasShort(d+1);
+// 泊まりの途中の日（入所日・退所日ではない日）
+const shortMiddle = (d)=> hasShort(d) && hasShort(d-1) && hasShort(d+1);
+// 入所日・退所日
+const shortEdge = (d)=> hasShort(d) && !shortAlone(d) && !shortMiddle(d);
+const othersOn = (d)=> listAt(d).filter(i=> i !== 'short');
+
+// 途中の日にほかのサービスが入っていないか（入所日・退所日は注意だけで入れてよい）
+const shortDayOk = (x)=> !(shortMiddle(x) && othersOn(x).length);
+// days にショートステイを足したと仮定して、前後の日も含めて決まりを破らないか
+function shortAddOk(days){
+  const added = days.filter(d=> !hasShort(d));
+  added.forEach(d=> addAt(d, 'short'));
+  let ok = true;
+  for (let x = Math.min(...days) - 1; x <= Math.max(...days) + 1; x++) if (!shortDayOk(x)) ok = false;
+  added.forEach(d=> removeAt(d, 'short'));
+  return ok;
+}
+function conflictOn(d, id){
+  if (id === 'short') return !shortAddOk([d]);
+  return shortMiddle(d);
+}
+// 表示中の月をふくむ、いちばん長いショートステイの連続（前後の月にまたがっても数える）
+function longestShortRun(){
+  const N = daysIn(); let best = {len:0};
+  let s = 1; while (hasShort(s-1)) s--;
+  let run = null;
+  for (let d = s; d <= N || (run && hasShort(d)); d++){
+    if (hasShort(d)){ run = run || {from:d, len:0}; run.len++; run.to = d; }
+    else { if (run && run.to >= 1 && run.len > best.len) best = run; run = null; }
+  }
+  if (run && run.to >= 1 && run.len > best.len) best = run;
+  return best;
+}
+
+const weekOf = (d)=> Math.floor((firstDow() + d - 1) / 7);
+const weekCount = (id, wk)=>{ let n = 0; for (let x=1; x<=daysIn(); x++) if (weekOf(x)===wk && dayList(x).includes(id)) n++; return n; };
+const weekMax = (id)=>{ let m = 0; for (let wk=0; wk<=5; wk++) m = Math.max(m, weekCount(id, wk)); return m; };
+function capOver(d, id){
+  const cap = weekCap(id, es.level, es.prev); if (!cap) return '';
+  if (weekCount(id, weekOf(d)) >= cap) return `${levelLabel(es.level)}${es.level==='J'?'（'+prevLabel(es.prev)+'）':''}の「${stampById(id).name}」は、1週間に${cap}回までです。`;
+  return '';
+}
 
 /* ============================================================
    計算（基本料金のみ。加算は＋αとして別に案内）
+   保険の枠は日付順に積み上げず、ひと月の合計で比べる
    ============================================================ */
+// 自己負担＝費用 −（保険が払う分＝費用×9〜7割の1円未満切り捨て）。サービスAは出雲市の決まりで1割だけ
+const selfPay = (units, ratio = es.ratio)=>{ const cost = units * YEN_PER_UNIT; return cost - Math.floor(cost * (10 - ratio) / 10); };
 function ecalc(){
-  const lv = es.level, L = LEVELS.find(l=>l.k===lv).limit, N = daysIn();
-  const st = {}; STAMPS.forEach(s=> st[s.id] = {n:0, inU:0, over:0});
-  let cum = 0; const dayState = {};
-  const push = (id, u)=>{ const before = cum; cum += u;
-    const over = Math.max(0, Math.min(u, cum - L)); st[id].inU += u - over; st[id].over += over;
-    return before >= L ? 'all' : (over>0 ? 'part' : ''); };
-  const rentU = Math.round((Number(es.rent)||0)/10); let rentIn = 0, rentOver = 0;
-  if (rentU){ cum += rentU; rentOver = Math.max(0, cum-L); rentIn = rentU - rentOver; }
+  const lv = es.level, prev = es.prev, N = daysIn();
+  const st = {}; STAMPS.forEach(s=> st[s.id] = {n:0, units:0});
   const counts = (id, d)=> dayList(d).includes(id) && !(id==='short' && shortAlone(d));
   for (let d=1; d<=N; d++) STAMPS.forEach(s=>{ if (counts(s.id, d)) st[s.id].n++; });
-  const tierDone = {}; let badShort = 0;
-  for (let d=1; d<=N; d++){
-    let flag = '';
-    if (dayList(d).includes('short') && shortAlone(d)) badShort++;
-    dayList(d).forEach(id=>{
-      const s = stampById(id); if (!stampOk(s, lv) || !counts(id, d)) return;
-      let u;
-      if (s.tier){ if (tierDone[id]) return; tierDone[id] = true; u = s.tier(lv, st[id].n, weekMax(id), es.set[id]||{}); }
-      else u = s.per(lv, es.set[id]||{});
-      const f = push(id, u);
-      if (f==='all' || (f==='part' && flag!=='all')) flag = f;
-      if (cum > L && !flag) flag = 'part';
-    });
-    dayState[d] = flag;
-  }
-  let self=0, overYen=0, food=0, room=0, other=0;
-  const rows = [];
+  let badShort = 0; for (let d=1; d<=N; d++) if (dayList(d).includes('short') && shortAlone(d)) badShort++;
+
+  const dailyServices = [], monthlyServices = [], equipmentServices = [], excluded = [];
   STAMPS.forEach(s=>{
-    const x = st[s.id]; if (!x.n || !stampOk(s, lv)) return;
-    const cost = Math.floor(x.inU*10), ben = Math.floor(cost*(10-es.ratio)/10);
+    const x = st[s.id];
+    if (s.monthly){ if (stampOk(s, lv, prev) && Number(es.rent) > 0){ x.units = Math.round(Number(es.rent) / YEN_PER_UNIT); equipmentServices.push(s.id); } return; }
+    if (!x.n) return;
+    if (!stampOk(s, lv, prev)){ excluded.push(s); return; }
     const o = es.set[s.id]||{};
-    const fy = s.food ? (Number(o.food)||0)*x.n : 0, ry = s.room ? (Number(o.room)||0)*x.n : 0, oy = s.other ? (Number(o.other)||0)*x.n : 0;
-    const r = {s, n:x.n, self:cost-ben, overYen:Math.floor(x.over*10), jippi:fy+ry+oy};
-    self += r.self; overYen += r.overYen; food += fy; room += ry; other += oy; rows.push(r);
+    if (s.tier){ x.units = s.tier(lv, x.n, weekMax(s.id), o, prev); monthlyServices.push(s.id); }
+    else { x.units = s.per(lv, o) * x.n; dailyServices.push(s.id); }
   });
-  if (rentU){
-    const cost = rentIn*10, ben = Math.floor(cost*(10-es.ratio)/10);
-    rows.push({s:{name:'福祉用具のレンタル', mk:'用', color:'#6D4C41'}, n:'月', self:cost-ben, overYen:rentOver*10, jippi:0});
-    self += cost-ben; overYen += rentOver*10;
-  }
-  return {L, cum, st, dayState, rows, self, overYen, food, room, other, N, badShort};
+  const sumUnits = (ids)=> ids.reduce((a, id)=> a + st[id].units, 0);
+  const dailyUnits = sumUnits(dailyServices), monthlyUnits = sumUnits(monthlyServices), equipmentUnits = sumUnits(equipmentServices);
+  const totalUnits = dailyUnits + monthlyUnits + equipmentUnits;
+  const limitUnits = CARE_LIMITS[lv];
+  const overUnits = Math.max(0, totalUnits - limitUnits);
+
+  let food=0, room=0, other=0;
+  const rows = [...dailyServices, ...monthlyServices, ...equipmentServices].map(id=>{
+    const s = stampById(id), x = st[id], o = es.set[id]||{};
+    const fy = s.food ? (Number(o.food)||0)*x.n : 0, ry = s.room ? (Number(o.room)||0)*x.n : 0, oy = s.other ? (Number(o.other)||0)*x.n : 0;
+    food += fy; room += ry; other += oy;
+    const ratio = s.fixedRatio || es.ratio;
+    return {s, n: s.monthly ? '月' : x.n, units:x.units, cost:x.units*YEN_PER_UNIT, ratio, self:selfPay(x.units, ratio), jippi:fy+ry+oy};
+  }).sort((a,b)=> STAMPS.indexOf(a.s) - STAMPS.indexOf(b.s));
+  // 枠内の自己負担：枠に収まる月はサービスごとの合計。超える月は、枠に収まる割合（枠÷合計）で按分した概算
+  const selfSum = rows.reduce((a,r)=> a + r.self, 0);
+  const selfInLimit = overUnits > 0 ? Math.round(selfSum * limitUnits / totalUnits) : selfSum;
+  const overYen = overUnits * YEN_PER_UNIT;
+  return {N, st, rows, excluded, badShort, dailyUnits, monthlyUnits, equipmentUnits, totalUnits, limitUnits, overUnits,
+          totalCost: totalUnits*YEN_PER_UNIT, selfInLimit, overYen, food, room, other};
 }
 
 /* ============================================================
    描画
    ============================================================ */
+const LIGHT_EQUIP = {S1:1, S2:1, K1:1, K2:2, K3:2};
+const rowsHaveFixed = (c)=> es.ratio !== 1 && c.rows.some(r=> r.s.fixedRatio);
 function erender(){
-  const lv = es.level, c = ecalc();
+  const lv = es.level, prev = es.prev, c = ecalc();
+  $('eDataLabel').textContent = SYSTEM_DATA_LABEL;
   $('eLevel').innerHTML = LEVELS.map(l=>`<button class="${l.k===lv?'on':''}" data-lv="${l.k}" aria-pressed="${l.k===lv}">${l.label}</button>`).join('');
+  $('eTargetWrap').hidden = lv !== 'J';
+  $('eTarget').innerHTML = TARGET_PREV.map(([k,t])=>`<button class="${k===prev?'on':''}" data-prev="${k}" aria-pressed="${k===prev}">${t}</button>`).join('');
   $('eRatio').innerHTML = [1,2,3].map(r=>`<button class="${r===es.ratio?'on':''}" data-r="${r}" aria-pressed="${r===es.ratio}">${r}割</button>`).join('');
 
   // ついてくる帯
-  const L = c.L, U = c.cum, rest = L - U, tot = Math.max(L,U), pct = Math.round(U/L*100);
+  const L = c.limitUnits, U = c.totalUnits, rest = L - U, tot = Math.max(L,U), pct = Math.round(U/L*100);
   $('eMUsed').style.width = (Math.min(U,L)/tot*100)+'%';
   $('eMUsed').classList.toggle('warn', pct >= 80);
   $('eMOver').style.width = (Math.max(0,U-L)/tot*100)+'%';
   $('eRestText').innerHTML = rest >= 0
     ? `使っているのは <b class="num">${pct}%</b>　残り <b class="num">${100-pct}%</b>`
-    : `<span style="color:var(--err)"><b class="num">${pct}%</b>　枠を超えています（超えた分は全額自己負担）</span>`;
-  const total = c.self + c.overYen + c.food + c.room + c.other;
+    : `<span style="color:var(--err)">枠を <b class="num">${fmt(c.overUnits)}単位</b> 超える見込みです</span>`;
+  const total = c.selfInLimit + c.overYen + c.food + c.room + c.other;
   $('eTotal').textContent = fmt(total) + '円';
 
   // 内訳（行の数は固定＝高さが変わるとカレンダーの位置がずれて押し間違える）
-  const lines = [['基本料金（'+es.ratio+'割負担）', fmt(c.self)+'円'], ['加算', '＋α'], ['枠を超えた分（全額）', fmt(c.overYen)+'円'], ['食費・部屋代・おやつ代', fmt(c.food+c.room+c.other)+'円']];
-  $('ePay').innerHTML = lines.map(([k,v])=>`<div>${k}</div><div class="r"${k.startsWith('枠')&&c.overYen>0?' style="color:var(--err)"':''}${k==='加算'?' style="color:var(--c-short)"':''}>${v}</div>`).join('');
+  const lines = [
+    ['サービス費の総額（10割）', fmt(c.totalCost)+'円相当', ''],
+    ['介護保険の枠内の自己負担（'+es.ratio+'割）', fmt(c.selfInLimit)+'円', ''],
+    ['枠を超える見込みの分（全額自己負担）', fmt(c.overYen)+'円', c.overYen>0?'color:var(--err)':''],
+    ['食費・部屋代・おやつ代（保険の枠とは別）', fmt(c.food+c.room+c.other)+'円', ''],
+    ['加算', '＋α', 'color:var(--c-short)'],
+    ['合計の目安', fmt(total)+'円 ＋α', ''],
+  ];
+  $('ePay').innerHTML = lines.map(([k,v,st],i)=>`<div${i===lines.length-1?' class="tot"':''}>${k}</div><div class="r${i===lines.length-1?' tot':''}" style="${st}">${v}</div>`).join('');
 
   // ショートステイ
   const sh = stampById('short');
@@ -470,7 +577,7 @@ function erender(){
     const free = c.N - c.st.short.n;
     const can = Math.max(0, Math.min(free, Math.floor(Math.max(0,rest)/u)));
     si = `<div class="info"><span class="mk" style="background:var(--c-short)">泊</span> ショートステイ（お泊まり）は、今の予定のままなら <b class="num" style="font-size:22px">あと${can}日</b> まで保険の枠内で使えます` +
-         `<div class="muted">1泊2日で2日分です。続けて泊まれるのは30日まで。</div></div>`;
+         `<div class="muted">1泊2日で2日分です。続けて泊まれるのは30日まで。${sh.note}</div></div>`;
   } else {
     si = `<div class="info">事業対象者の方は、ショートステイは使えません。</div>`;
   }
@@ -484,13 +591,13 @@ function erender(){
       return `<button class="stamp ${es.sel===s.id?'on':''}" style="--sc:${s.color}" data-st="${s.id}" aria-pressed="${es.sel===s.id}">
         <span class="mk" style="background:${s.color}">${s.mk}</span>
         <span><span class="nm">${s.name}</span><br><span class="ds">${s.ds}</span></span>
-        <span class="cnt">月額<br><b class="num">${es.rent?fmt(es.rent)+'円':'未入力'}</b></span></button>`;
+        <span class="cnt">月額（10割）<br><b class="num">${es.rent?fmt(es.rent)+'円':'未入力'}</b></span></button>`;
     }
     if (!s.tier){ const u = s.per(lv, es.set[s.id]||{}); more = rest>0 ? `あと<b class="num">${Math.floor(rest/u)}</b>${s.short?'日':'回'}` : '<span style="color:var(--err)">枠なし</span>'; }
     else more = '月ぎめ';
     return `<button class="stamp ${es.sel===s.id?'on':''}" style="--sc:${s.color}" data-st="${s.id}" aria-pressed="${es.sel===s.id}">
       <span class="mk" style="background:${s.color}">${s.mk}</span>
-      <span><span class="nm">${s.name}</span><br><span class="ds">${s.ds}</span>${s.id==='helperS'&&lv==='J'?'<br><span style="color:var(--err);font-weight:700;font-size:13px;background:#fff;padding:0 4px;border-radius:4px">⚠ 要支援からの移行者のみ</span>':''}</span>
+      <span><span class="nm">${s.name}</span><br><span class="ds">${s.ds}</span></span>
       <span class="cnt">今月 <b class="num">${c.st[s.id].n}</b>${s.short?'日':'回'}<br>${more}</span></button>`;
   }).join('');
 
@@ -498,9 +605,14 @@ function erender(){
   const s = stampById(es.sel);
   let sh2 = '';
   if (s && s.monthly){
+    const light = LIGHT_EQUIP[lv];
     sh2 = `<div class="stampset" style="--sc:${s.color}"><div class="sub-h"><span class="mk" style="background:${s.color}">${s.mk}</span> ${s.name} の設定</div>
-      <div class="grid"><div><label class="f">レンタル代の合計（円/月）</label><input type="number" min="0" step="10" inputmode="numeric" data-rent="1" value="${esc(es.rent||'')}" placeholder="業者に聞いてください"></div></div>
-      <div class="muted">毎月決まった額なので、カレンダーに入れる必要はありません。</div></div>`;
+      <div class="grid"><div><label class="f">福祉用具レンタルの月額（10割の価格）（円/月）</label><input type="number" min="0" step="10" inputmode="numeric" data-rent="1" value="${esc(es.rent||'')}" placeholder="業者に聞いてください"></div></div>
+      <div class="muted">利用者が実際に支払う1～3割負担額ではなく、介護保険適用前の10割価格を入力してください。毎月決まった額なので、カレンダーに入れる必要はありません。</div>` +
+      (light ? `<div class="note">${light===1
+        ? `${levelLabel(lv)}の方は、車いす・介護ベッド・床ずれ防止用具・体位変換器・徘徊感知機器・移動用リフト・自動排泄処理装置などは、原則として保険の対象外です（状態によって例外で使える場合があります）。ケアマネジャーにご確認ください。`
+        : `${levelLabel(lv)}の方は、自動排泄処理装置は原則として保険の対象外です（状態によって例外で使える場合があります）。ケアマネジャーにご確認ください。`}</div>` : '') +
+      `</div>`;
   } else if (s && (s.opts || s.food || s.room)){
     const o = es.set[s.id] = es.set[s.id] || {};
     sh2 = `<div class="stampset" style="--sc:${s.color}"><div class="sub-h"><span class="mk" style="background:${s.color}">${s.mk}</span> ${s.name} の設定</div><div class="grid">`;
@@ -512,14 +624,17 @@ function erender(){
     if (s.food) sh2 += `<div><label class="f">食費（円/${per}）</label><input type="number" min="0" step="10" inputmode="numeric" data-jp="food" value="${esc(o.food||'')}" placeholder="施設に聞いてください"></div>`;
     if (s.room) sh2 += `<div><label class="f">部屋代（円/${per}）</label><input type="number" min="0" step="10" inputmode="numeric" data-jp="room" value="${esc(o.room||'')}" placeholder="施設に聞いてください"></div>`;
     if (s.other) sh2 += `<div><label class="f">おやつ代など（円/${per}）</label><input type="number" min="0" step="10" inputmode="numeric" data-jp="other" value="${esc(o.other||'')}" placeholder="なければ空のまま"></div>`;
-    sh2 += '</div></div>';
+    sh2 += '</div>' + (s.note ? `<div class="muted">${s.note}</div>` : '') + '</div>';
   }
   if (!(document.activeElement && document.activeElement.closest && document.activeElement.closest('#eStampSet'))) $('eStampSet').innerHTML = sh2;
 
   // ショートステイをえらんでいるときの案内と、使えないボタン
   const isShortSel = es.sel === 'short';
-  // 出雲市マニュアル（2026年4月版）：ヘルパー（訪問介護従前相当・訪問型サービスA）は、新規の事業対象者は使えない＝要支援からの移行者のみ
-  $('eHint').innerHTML = (lv==='J' ? '<div class="hint" style="border-color:var(--err);color:var(--err);font-weight:700">⚠ 事業対象者の方のヘルパーは、要支援から事業対象者に移った方だけが使えます。新規の事業対象者の方は使えません（状態に合わせた訪問のサービスは、ケアマネジャーにご相談ください）。</div>' : '') + (isShortSel ?'<div class="hint">ショートステイは<b>泊まる日をタップすると「1泊2日」で入ります</b>。もっと泊まるときは、続きの日をタップしてください。日帰りでは使えません。</div>' : '');
+  const hints = [];
+  if (lv==='J' && prev==='none') hints.push('<div class="hint" style="border-color:var(--err);color:var(--err);font-weight:700">⚠ 新規の事業対象者の方は、訪問介護従前相当サービス（要支援・事業対象者の方のヘルパー）と訪問型サービスAは対象外です（出雲市の決まりで、要支援1・2から移った方だけが使えます）。たすけあい訪問サービス（訪問型サービスB）などを利用できる場合がありますので、ケアマネジャー・地域包括支援センターにご相談ください。</div>');
+  if (rowsHaveFixed(c)) hints.push('<div class="hint">訪問型サービスA・通所型サービスAの自己負担は、出雲市の決まりで負担割合にかかわらず1割で計算しています。</div>');
+  if (isShortSel) hints.push('<div class="hint">ショートステイは<b>泊まる日をタップすると「1泊2日」で入ります</b>（月末の日は翌月1日が帰る日になります）。もっと泊まるときは、続きの日をタップしてください。日帰りでは使えません。</div>');
+  $('eHint').innerHTML = hints.join('');
   document.querySelectorAll('.quick button[data-q="mwf"], .quick button[data-q="tt"]').forEach(b=> b.disabled = isShortSel);
   $('eWdNote').textContent = isShortSel ? 'ショートステイは、曜日をタップしてまとめて入れることはできません' : '曜日をタップすると、その曜日を全部入れる／外すことができます';
 
@@ -533,27 +648,39 @@ function erender(){
   for (let d=1; d<=c.N; d++){
     const dow = (firstDow()+d-1)%7;
     const list = dayList(d).map(stampById).filter(Boolean);
-    const f = c.dayState[d];
-    const label = `${m}月${d}日 ${list.map(x=>x.name).join('、')||'予定なし'}${f==='all'?'（枠を超えています）':''}`;
-    h += `<button class="d ${dow===0?'sun':''} ${dow===6?'sat':''} ${f==='all'?'over':''} ${f==='part'?'part':''} ${isThisMonth&&today.getDate()===d?'today':''}" data-day="${d}" aria-label="${label}">
-      <span class="dn">${d}</span><span class="chips">${list.map(x=>`<span class="mk ${x.id==='short'&&shortAlone(d)?'bad':''}" style="background:${x.color}">${x.mk}</span>`).join('')}</span></button>`;
+    const label = `${m}月${d}日 ${list.map(x=>x.name).join('、')||'予定なし'}`;
+    h += `<button class="d ${dow===0?'sun':''} ${dow===6?'sat':''} ${isThisMonth&&today.getDate()===d?'today':''}" data-day="${d}" aria-label="${label}">
+      <span class="dn">${d}</span><span class="chips">${list.map(x=>`<span class="mk ${(x.id==='short'&&shortAlone(d))||!stampOk(x,lv)?'bad':''}" style="background:${x.color}">${x.mk}</span>`).join('')}</span></button>`;
   }
   $('eCal').innerHTML = h;
 
-  // 注意
+  // 注意（エラーで止めず、気づいてもらう）
   const warns = [];
-  if (typeof flash !== 'undefined' && flash){ warns.push(flash); flash = ''; }
+  if (flash){ warns.push(flash); flash = ''; }
   if (c.badShort) warns.push(`ショートステイが1日だけの日があります（取り消し線の「泊」）。日帰りでは使えないので計算に入れていません。前後の日も入れてください。`);
-  let run = 0, maxRun = 0; for (let d=1; d<=c.N; d++){ run = dayList(d).includes('short') ? run+1 : 0; maxRun = Math.max(maxRun, run); }
-  if (maxRun > 30) warns.push(`ショートステイが${maxRun}日続いています。31日目からは全額自己負担です。`);
-  if (U > L) warns.push('カレンダーの斜線の日から、保険の枠を超えています。超えた分は10割（全額）自己負担になります。');
+  const run = longestShortRun();
+  if (run.len > 30) warns.push(`ショートステイが${dateLabel(run.from)}から${dateLabel(run.to)}まで${run.len}日続いています（前後の月もつなげて数えています）。続けて保険で使えるのは30日までで、31日目からは全額自己負担です。`);
+  if (c.overUnits > 0) warns.push(`区分支給限度額（保険で使える枠）を <b class="num">${fmt(c.overUnits)}単位</b> 超える見込みです（約${fmt(c.overYen)}円が全額自己負担になる見込み）。実際にどのサービスが保険の対象外になるかは、ケアプラン・給付管理（＝ケアマネジャーが月ごとに行う調整）によって異なります。`);
   // 介護度を下げたときなど、すでに入っている回数が上限を超えていたら知らせる
-  Object.keys(WEEK_CAP).forEach(id=>{ const cap = WEEK_CAP[id][lv]; if (cap && weekMax(id) > cap) warns.push(`「${stampById(id).name}」が1週間に${cap}回を超えている週があります。${LEVELS.find(l=>l.k===lv).label}は1週間に${cap}回までです。`); });
+  WEEK_CAP_IDS.forEach(id=>{ const cap = weekCap(id, lv, prev); if (cap && stampOk(stampById(id), lv) && weekMax(id) > cap) warns.push(`「${stampById(id).name}」が1週間に${cap}回を超えている週があります。${levelLabel(lv)}${lv==='J'?'（'+prevLabel(prev)+'）':''}は1週間に${cap}回までです。`); });
+  c.excluded.forEach(s=> warns.push(`${whyNotOk(s, lv, prev)}カレンダーに入っている予定（取り消し線の「${s.mk}」）は計算に入れていません。`));
+  const edgeDays = [], midDays = [], tsushoDays = [];
+  for (let d=1; d<=c.N; d++){
+    const others = dayList(d).filter(i=> i!=='short' && stampOk(stampById(i), lv));
+    if (shortEdge(d) && others.length) edgeDays.push(d);
+    if (shortMiddle(d) && others.length) midDays.push(d);
+    if (others.filter(i=> DAY_GROUP.has(i)).length >= 2) tsushoDays.push(d);
+  }
+  if (edgeDays.length) warns.push(`${edgeDays.map(d=>m+'月'+d+'日').join('・')}：ショートステイの入所日・退所日に他の居宅サービスを利用する場合、算定できるかケアマネジャー・各事業所への確認が必要です。`);
+  if (midDays.length) warns.push(`${midDays.map(d=>m+'月'+d+'日').join('・')}：ショートステイに泊まっている途中の日に、ほかのサービス（ヘルパー・デイサービスなど）が入っています。この日は通常ほかのサービスは使えません。`);
+  if (tsushoDays.length) warns.push(`${tsushoDays.map(d=>m+'月'+d+'日').join('・')}：同じ日にデイサービスとデイケアなど、通うサービスが2つ入っています。通常は同じ日にいっしょには使えないので、ケアマネジャーにご確認ください。`);
+  if (LIGHT_EQUIP[lv] && c.equipmentUnits > 0) warns.push(`${levelLabel(lv)}の方は、一部の福祉用具（${LIGHT_EQUIP[lv]===1?'車いす・介護ベッドなど':'自動排泄処理装置'}）が原則として保険の対象外です。レンタルする用具が対象になるか、ケアマネジャーにご確認ください。`);
   $('eWarn').innerHTML = warns.map(t=>`<div class="warn">${t}</div>`).join('');
 
   // 内訳の表
-  $('eDetail').innerHTML = '<thead><tr><th>サービス</th><th class="r">回数</th><th class="r">基本料金</th><th class="r">枠を超えた分</th><th class="r">食費など</th><th class="r">計</th></tr></thead><tbody>' +
-    (c.rows.length ? c.rows.map(r=>`<tr class="num"><td><span class="mk" style="background:${r.s.color};height:22px;min-width:22px;font-size:12px">${r.s.mk}</span> ${r.s.name}</td><td class="r">${r.n}</td><td class="r">${fmt(r.self)}円</td><td class="r">${fmt(r.overYen)}円</td><td class="r">${fmt(r.jippi)}円</td><td class="r"><b>${fmt(r.self+r.overYen+r.jippi)}円</b> ＋α</td></tr>`).join('')
+  $('eDetail').innerHTML = `<thead><tr><th>サービス</th><th class="r">回数</th><th class="r">単位数</th><th class="r">サービス費（10割）</th><th class="r">自己負担（${es.ratio}割・枠内の場合）</th><th class="r">食費など</th></tr></thead><tbody>` +
+    (c.rows.length ? c.rows.map(r=>`<tr class="num"><td><span class="mk" style="background:${r.s.color};height:22px;min-width:22px;font-size:12px">${r.s.mk}</span> ${r.s.name}</td><td class="r">${r.n}</td><td class="r">${fmt(r.units)}</td><td class="r">${fmt(r.cost)}円</td><td class="r"><b>${fmt(r.self)}円</b>${r.ratio!==es.ratio?`（${r.ratio}割）`:''} ＋α</td><td class="r">${fmt(r.jippi)}円</td></tr>`).join('') +
+      `<tr class="num"><td><b>合計</b></td><td></td><td class="r"><b>${fmt(c.totalUnits)}</b></td><td class="r"><b>${fmt(c.totalCost)}円</b></td><td class="r"></td><td class="r"><b>${fmt(c.food+c.room+c.other)}円</b></td></tr>`
       : '<tr><td colspan="6" class="muted">カレンダーにサービスを入れると出ます</td></tr>') + '</tbody>';
   esave();
 }
@@ -562,26 +689,25 @@ function erender(){
    操作
    ============================================================ */
 const monthMap = ()=> (es.days[es.ym] = es.days[es.ym] || {});
-const addTo = (d, id)=>{ const mm = monthMap(); const list = mm[d] = mm[d] || []; if (!list.includes(id)) list.push(id); };
-const removeFrom = (d, id)=>{ const list = monthMap()[d]; if (!list) return; const i = list.indexOf(id); if (i>=0) list.splice(i,1); };
 
 // 入れられなかったときの一言（次の操作で消える）
 let flash = '';
-const CONFLICT_MSG = 'ショートステイの途中の日は、ほかのサービスは使えません（入所日・退所日は、ヘルパー・訪問看護・訪問入浴・訪問リハビリだけ使えます）。デイサービスとデイケアも同じ日には使えません。';
+const CONFLICT_MSG = 'ショートステイに泊まっている途中の日（入所日と退所日のあいだ）は、ほかのサービスは使えません。';
 function tapDay(d){
   const id = es.sel; if (!id) return;
   const s = stampById(id);
   if (s.monthly){ flash = '福祉用具レンタルは月額なので、カレンダーに入れる必要はありません。'; return; }
-  if (dayList(d).includes(id)){ removeFrom(d, id); return; }
-  if (conflictOn(d, id)){ flash = `${d}日には入れられません。${CONFLICT_MSG}`; return; }
+  if (dayList(d).includes(id)){ removeAt(d, id); return; }
+  if (conflictOn(d, id)){ flash = `${d}日には入れられません。${id==='short' ? '泊まりの途中の日になる日に、ほかのサービスが入っています。' : CONFLICT_MSG}`; return; }
   { const cm = capOver(d, id); if (cm){ flash = `${d}日には入れられません。${cm}`; return; } }
-  // ショートステイは日帰りにならないよう、前後につながりが無ければ翌日も入れる（1泊2日）
+  // ショートステイは日帰りにならないよう、前後につながりが無ければ翌日（月末なら翌月1日）も入れる＝1泊2日
   if (id === 'short' && !hasShort(d-1) && !hasShort(d+1)){
-    const e = d < daysIn() ? d+1 : d-1;
-    if (!shortAddOk([d, e])){ flash = `ショートステイは1泊2日からです。${e}日にほかのサービスが入っているので入れられません。`; return; }
-    addTo(d, id); addTo(e, id); return;
+    if (!shortAddOk([d, d+1])){ flash = `ショートステイは1泊2日からです。${dateLabel(d+1)}を入れると泊まりの途中の日にほかのサービスが入ってしまうので、入れられません。`; return; }
+    addAt(d, id); addAt(d+1, id);
+    if (d === daysIn()) flash = `帰る日として${dateLabel(d+1)}にも「泊」を入れました（翌月のカレンダーで確かめられます）。`;
+    return;
   }
-  addTo(d, id);
+  addAt(d, id);
 }
 function toggleWeekday(w){
   const id = es.sel; if (!id || id==='short' || stampById(id).monthly) return;
@@ -591,15 +717,16 @@ function toggleWeekday(w){
   let skipped = 0;
   let capMsg = '';
   target.forEach(d=>{
-    if (allHave){ removeFrom(d, id); return; }
+    if (allHave){ removeAt(d, id); return; }
     if (dayList(d).includes(id)) return;
     const cm = capOver(d, id);
-    if (cm){ capMsg = cm; skipped++; } else if (conflictOn(d, id)) skipped++; else addTo(d, id);
+    if (cm){ capMsg = cm; skipped++; } else if (conflictOn(d, id)) skipped++; else addAt(d, id);
   });
   if (skipped) flash = `${skipped}日は入れられませんでした。${capMsg || CONFLICT_MSG}`;
 }
 
-$('eLevel').addEventListener('click', e=>{ const b = e.target.closest('button'); if (!b) return; es.level = b.dataset.lv; erender(); });
+$('eLevel').addEventListener('click', e=>{ const b = e.target.closest('button'); if (!b) return; es.level = b.dataset.lv; if (es.level !== 'J') es.prev = 'none'; erender(); });
+$('eTarget').addEventListener('click', e=>{ const b = e.target.closest('button'); if (!b) return; es.prev = b.dataset.prev; erender(); });
 $('eRatio').addEventListener('click', e=>{ const b = e.target.closest('button'); if (!b) return; es.ratio = Number(b.dataset.r); erender(); });
 $('eStamps').addEventListener('click', e=>{ const b = e.target.closest('button'); if (!b) return; es.sel = b.dataset.st; $('eStampSet').innerHTML=''; erender(); });
 $('eStampSet').addEventListener('change', e=>{ const t = e.target; const o = es.set[es.sel] = es.set[es.sel]||{};
@@ -634,7 +761,7 @@ document.querySelector('.quick').addEventListener('click', e=>{
     for (let d=1; d<=N; d++) if (P((fd+d-1)%7)){
       if (dayList(d).includes(es.sel)) continue;
       const cm = capOver(d, es.sel);
-      if (cm){ capMsg = cm; skipped++; } else if (conflictOn(d, es.sel)) skipped++; else addTo(d, es.sel);
+      if (cm){ capMsg = cm; skipped++; } else if (conflictOn(d, es.sel)) skipped++; else addAt(d, es.sel);
     }
     if (skipped) flash = `${skipped}日は入れられませんでした。${capMsg || CONFLICT_MSG}`;
   }
@@ -643,7 +770,7 @@ document.querySelector('.quick').addEventListener('click', e=>{
 $('ePrev').addEventListener('click', ()=>{ es.ym = ymShift(es.ym,-1); erender(); });
 $('eNext').addEventListener('click', ()=>{ es.ym = ymShift(es.ym,1); erender(); });
 
-$('sources').innerHTML = `<div><b>データの出どころ</b></div><ul style="margin:4px 0;padding-left:20px">` +
+$('sources').innerHTML = `<div><b>データの出どころ</b>（${SYSTEM_DATA_LABEL}・データ確認日 ${SYSTEM_DATA_DATE}）</div><ul style="margin:4px 0;padding-left:20px">` +
   SOURCES.map(([t,u])=>`<li><a href="${u}" target="_blank" rel="noopener">${t}</a></li>`).join('') +
   '</ul><div>基本料金は令和6年6月施行の単位で、出雲市パンフレットの金額と一致することを確かめています。</div>';
 erender();
