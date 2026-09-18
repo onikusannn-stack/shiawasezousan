@@ -438,8 +438,11 @@ var DESCS = [
     if (e.url) { h += '<a class="act act-hp" href="' + esc(e.url) + '" target="_blank" rel="noopener nofollow">' + ICON.hp + ' ホームページ</a>'; }
     if (e.fee) { h += '<a class="act act-fee" href="' + esc(e.fee) + '" target="_blank" rel="noopener nofollow">' + ICON.fee + ' 料金ページ</a>'; }
     h += '<a class="act act-map" href="' + map + '" target="_blank" rel="noopener">' + ICON.map + ' 地図</a>';
+    // k があるSNSは事業所専用ではない（運営法人・グループ・ブランド・入居施設のアカウント）
+    var SNS_KIND = { "法人": "法人公式", "グループ": "グループ公式", "ブランド": "ブランド公式", "施設": "入居施設" };
     (e.sns || []).forEach(function (s) {
-      h += '<a class="act act-sns" href="' + esc(s.u) + '" target="_blank" rel="noopener nofollow">' + (SNS_ICON[s.s] || ICON.hp) + ' ' + esc(s.s) + '</a>';
+      var label = s.s + (SNS_KIND[s.k] ? "（" + SNS_KIND[s.k] + "）" : "");
+      h += '<a class="act act-sns" href="' + esc(s.u) + '" target="_blank" rel="noopener nofollow">' + (SNS_ICON[s.s] || ICON.hp) + ' ' + esc(label) + '</a>';
     });
     h += '</div></div>';
     return h;
