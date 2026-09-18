@@ -250,7 +250,7 @@ footer a{color:var(--link)}
   <div id="eStampSet"></div>
   <div id="eHint"></div>
   <div class="nowbox" id="eNow"></div>
-  <details id="eCalWrap"><summary style="min-height:44px;color:var(--link);font-weight:700;cursor:pointer;font-size:16px">日にちを細かく決める（曜日や日にちを自分で選ぶ）</summary>
+  <details id="eCalWrap" open><summary style="min-height:44px;color:var(--link);font-weight:700;cursor:pointer;font-size:16px">日にちを細かく決める（曜日や日にちを自分で選ぶ）</summary>
   <div class="quick no-print">
     <span class="muted">まとめて入れる：</span>
     <button data-q="all">毎日</button><button data-q="weekday">平日（月〜金）</button>
@@ -533,8 +533,14 @@ const shortMiddle = (d)=> hasShort(d) && hasShort(d-1) && hasShort(d+1);
 const shortEdge = (d)=> hasShort(d) && !shortAlone(d) && !shortMiddle(d);
 const othersOn = (d)=> listAt(d).filter(i=> i !== 'short');
 
-// 途中の日にほかのサービスが入っていないか（入所日・退所日は注意だけで入れてよい）
-const shortDayOk = (x)=> !(shortMiddle(x) && othersOn(x).length);
+// ショートステイの日の決まり
+//  ・途中の日：ほかのサービスは入れない
+//  ・入所日・退所日：通うサービス（デイ・デイケアなど）は入れない。家に来るサービスは注意つきで入れてよい
+const shortDayOk = (x)=> {
+  if (shortMiddle(x)) return !othersOn(x).length;
+  if (shortEdge(x)) return !othersOn(x).some(i=> DAY_GROUP.has(i));
+  return true;
+};
 // days にショートステイを足したと仮定して、前後の日も含めて決まりを破らないか
 function shortAddOk(days){
   const added = days.filter(d=> !hasShort(d));
@@ -546,7 +552,8 @@ function shortAddOk(days){
 }
 function conflictOn(d, id){
   if (id === 'short') return !shortAddOk([d]);
-  return shortMiddle(d);
+  if (shortMiddle(d)) return true;
+  return DAY_GROUP.has(id) && shortEdge(d);   // 泊まりの日（入所日・退所日）に通うサービスは入れない
 }
 // 表示中の月をふくむ、いちばん長いショートステイの連続（前後の月にまたがっても数える）
 function longestShortRun(){
@@ -574,7 +581,7 @@ const selfPay = (units, ratio = es.ratio)=>{ if (![1,2,3].includes(ratio)) retur
 function ecalc(){
   const lv = es.level, prev = es.prev, N = daysIn();
   if (!lv) return {N, st:Object.fromEntries(STAMPS.map(s=>[s.id,{n:0,units:0}])), rows:[], excluded:[], incomplete:[], badShort:0,
-    dailyUnits:0, monthlyUnits:0, equipmentUnits:0, totalUnits:0, limitUnits:0, overUnits:0, totalCost:0, selfInLimit:null, overYen:0, food:0, room:0, other:0};
+    dailyUnits:0, monthlyUnits:0, equipmentUnits:0, totalUnits:0, limitUnits:0, overUnits:0, totalCost:0, selfInLimit:null, selfByRatio:null, overYen:0, food:0, room:0, other:0};
   const st = {}; STAMPS.forEach(s=> st[s.id] = {n:0, units:0});
   const counts = (id, d)=> dayList(d).includes(id) && !(id==='short' && shortAlone(d));
   for (let d=1; d<=N; d++) STAMPS.forEach(s=>{ if (counts(s.id, d)) st[s.id].n++; });
@@ -606,10 +613,15 @@ function ecalc(){
     return {s, n: s.monthly ? '月' : x.n, units:x.units, cost:x.units*YEN_PER_UNIT, ratio, self:selfPay(x.units, ratio), jippi:fy+ry+oy};
   }).sort((a,b)=> STAMPS.indexOf(a.s) - STAMPS.indexOf(b.s));
   // 枠内の自己負担：枠に収まる月はサービスごとの合計。超える月は、枠に収まる割合（枠÷合計）で按分した概算
-  const selfSum = ratioKnown() ? rows.reduce((a,r)=> a + (r.self||0), 0) : null;
-  const selfInLimit = selfSum == null ? null : (overUnits > 0 ? Math.round(selfSum * limitUnits / totalUnits) : selfSum);
+  // 枠内の自己負担を、負担割合ごとに出す（「わからない」のときは1〜3割を並べて見せる）
+  const selfFor = (ratio)=>{
+    const sum = rows.reduce((a,r)=> a + selfPay(r.units, r.s.fixedRatio || ratio), 0);
+    return overUnits > 0 ? Math.round(sum * limitUnits / totalUnits) : sum;
+  };
+  const selfByRatio = {1:selfFor(1), 2:selfFor(2), 3:selfFor(3)};
+  const selfInLimit = ratioKnown() ? selfByRatio[es.ratio] : null;
   const overYen = overUnits * YEN_PER_UNIT;
-  return {N, st, rows, excluded, incomplete, badShort, dailyUnits, monthlyUnits, equipmentUnits, totalUnits, limitUnits, overUnits,
+  return {N, st, rows, excluded, incomplete, badShort, selfByRatio, dailyUnits, monthlyUnits, equipmentUnits, totalUnits, limitUnits, overUnits,
           totalCost: totalUnits*YEN_PER_UNIT, selfInLimit, overYen, food, room, other};
 }
 
@@ -644,24 +656,33 @@ function erender(){
     : (rest >= 0
       ? `使っているのは <b class="num">${pct}%</b>　残り <b class="num">${100-pct}%</b>`
       : `<span style="color:var(--err)">枠を <b class="num">${fmt(c.overUnits)}単位</b> 超える見込みです</span>`);
-  const total = c.selfInLimit == null ? null : c.selfInLimit + c.overYen + c.food + c.room + c.other;
-  const totalText = total == null ? '—' : fmt(total) + '円';
+  const extra = c.overYen + c.food + c.room + c.other;
+  const total = c.selfInLimit == null ? null : c.selfInLimit + extra;
+  // 負担割合が「わからない」のときは、1割〜3割の幅で見せる
+  const unsure = es.ratio === '?' && c.selfByRatio;
+  const totalText = total != null ? fmt(total) + '円'
+    : (unsure ? `${fmt(c.selfByRatio[1] + extra)}〜${fmt(c.selfByRatio[3] + extra)}円` : '—');
   $('eTotal').textContent = totalText;
   $('eSbMini').innerHTML = !lv ? '介護度を選んでください'
-    : `今月の目安 ${totalText}${total==null?'':' <small>＋α</small>'}｜枠 ${pct}%`;
+    : `今月の目安 ${totalText}${totalText==='—'?'':' <small>＋α</small>'}｜枠 ${pct}%`;
 
   // 内訳（行の数は固定＝高さが変わるとカレンダーの位置がずれて押し間違える）
   const lines = [
     ['サービス費の総額（10割）', fmt(c.totalCost)+'円相当', ''],
-    ['介護保険の枠内の自己負担（概算）', c.selfInLimit==null?'—':fmt(c.selfInLimit)+'円', ''],
+    ['介護保険の枠内の自己負担（概算）', c.selfInLimit!=null ? fmt(c.selfInLimit)+'円'
+      : (unsure ? [1,2,3].map(r=> `${r}割なら ${fmt(c.selfByRatio[r])}円`).join('<br>') : '—'), ''],
     ['枠を超える見込みの分（全額自己負担）', fmt(c.overYen)+'円', c.overYen>0?'color:var(--err)':''],
     ['食費・部屋代・おやつ代（保険の枠とは別）', fmt(c.food+c.room+c.other)+'円', ''],
     ['加算', '＋α', 'color:var(--c-short)'],
-    ['合計の目安', total==null?'—':fmt(total)+'円 ＋α', ''],
+    ['合計の目安', total!=null ? fmt(total)+'円 ＋α'
+      : (unsure ? [1,2,3].map(r=> `${r}割なら ${fmt(c.selfByRatio[r] + extra)}円`).join('<br>') + ' ＋α' : '—'), ''],
   ];
   const payNotes = [];
-  if (!ratioKnown()) payNotes.push(`※自己負担は、②の負担割合を選ぶと出ます。${es.ratio==='?' ? ASK.ratio : ''}`);
-  if (ratioKnown() && c.rows.some(r=> r.s.fixedRatio)) payNotes.push(`※通常の介護保険サービスは選択した負担割合（${es.ratio}割）、サービスAは1割で計算しています。`);
+  if (es.ratio === '?') payNotes.push(`※負担割合が分からないため、1割・2割・3割のそれぞれで計算しています。${ASK.ratio}`);
+  else if (!ratioKnown()) payNotes.push('※自己負担は、②の負担割合を選ぶと出ます。');
+  if (c.rows.some(r=> r.s.fixedRatio)) payNotes.push(ratioKnown()
+    ? `※通常の介護保険サービスは選択した負担割合（${es.ratio}割）、サービスAは1割で計算しています。`
+    : '※サービスAは、どの場合も1割で計算しています。');
   if (c.overUnits > 0) payNotes.push('※実際にどのサービスが限度額内・限度額外になるかは給付管理によって異なるため、ここでは概算です。');
   $('ePayNote').innerHTML = payNotes.join('<br>');
   $('ePay').innerHTML = lines.map(([k,v,st],i)=>`<div${i===lines.length-1?' class="tot"':''}>${k}</div><div class="r${i===lines.length-1?' tot':''}" style="${st}">${v}</div>`).join('');
@@ -829,12 +850,13 @@ function erender(){
   const edgeDays = [], midDays = [], tsushoDays = [];
   for (let d=1; d<=c.N; d++){
     const others = dayList(d).filter(i=> i!=='short' && stampOk(stampById(i), lv));
-    if (shortEdge(d) && others.length) edgeDays.push(d);
+    if (shortEdge(d) && others.some(i=> DAY_GROUP.has(i))) midDays.push(d);
+    else if (shortEdge(d) && others.length) edgeDays.push(d);
     if (shortMiddle(d) && others.length) midDays.push(d);
     if (others.filter(i=> DAY_GROUP.has(i)).length >= 2) tsushoDays.push(d);
   }
   if (edgeDays.length) warns.push(`${edgeDays.map(d=>m+'月'+d+'日').join('・')}：ショートステイの入所日・退所日に他の居宅サービスを利用する場合、算定できるかケアマネジャー・各事業所への確認が必要です。`);
-  if (midDays.length) warns.push(`${midDays.map(d=>m+'月'+d+'日').join('・')}：ショートステイに泊まっている途中の日に、ほかのサービス（ヘルパー・デイサービスなど）が入っています。この日は通常ほかのサービスは使えません。`);
+  if (midDays.length) warns.push(`${midDays.map(d=>m+'月'+d+'日').join('・')}：ショートステイに泊まっている日に、使えないサービス（デイサービスなど）が入っています。その日の予定を外してください。`);
   if (tsushoDays.length) warns.push(`${tsushoDays.map(d=>m+'月'+d+'日').join('・')}：同じ日にデイサービスとデイケアなど、通うサービスが2つ入っています。通常は同じ日にいっしょには使えないので、ケアマネジャーにご確認ください。`);
   if (LIGHT_EQUIP[lv] && c.equipmentUnits > 0) warns.push(`${levelLabel(lv)}の方は、一部の福祉用具（${LIGHT_EQUIP[lv]===1?'車いす・介護ベッドなど':'自動排泄処理装置'}）が原則として保険の対象外です。レンタルする用具が対象になるか、ケアマネジャーにご確認ください。`);
   $('eWarn').innerHTML = warns.map(t=>`<div class="warn">${t}</div>`).join('');
@@ -885,17 +907,17 @@ function applyWeekly(n){
 function applyNights(nights){
   if (!canAddSelectedService()) return;
   const id = 'short', N = daysIn();
-  for (let d=1; d<=N; d++) removeAt(d, id);
+  const before = []; for (let d=1; d<=N; d++) if (dayList(d).includes(id)){ before.push(d); removeAt(d, id); }
   const start = Math.min(SHORT_START, N);
   const days = []; for (let k=0; k<=nights; k++) days.push(start + k);
-  if (!shortAddOk(days)){ flash = `${start}日から${nights}泊${nights+1}日で入れられませんでした。ほかのサービスが入っている日があります。`; return; }
+  if (!shortAddOk(days)){ before.forEach(d=> addAt(d, id)); flash = `${start}日から${nights}泊${nights+1}日で入れられませんでした。その日にデイサービスなどの予定が入っています。先にその予定を外すか、「日にちを細かく決める」で別の日を選んでください。`; return; }
   days.forEach(d=> addAt(d, id));
   flash = '';
 }
 
 // 入れられなかったときの一言（次の操作で消える）
 let flash = '';
-const CONFLICT_MSG = 'ショートステイに泊まっている途中の日（入所日と退所日のあいだ）は、ほかのサービスは使えません。';
+const CONFLICT_MSG = 'ショートステイに泊まっている日は、デイサービスなどの通うサービスは使えません（泊まっている途中の日は、ほかのサービスも使えません）。';
 function tapDay(d){
   const id = es.sel;
   // 入っている予定を外すのは、いつでもできる
