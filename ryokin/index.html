@@ -249,13 +249,14 @@ footer a{color:var(--link)}
     <div class="stamps" id="eStampsMore"></div></details>
   <div id="eStampSet"></div>
   <div id="eHint"></div>
+  <div class="nowbox" id="eNow"></div>
+  <details id="eCalWrap"><summary style="min-height:44px;color:var(--link);font-weight:700;cursor:pointer;font-size:16px">日にちを細かく決める（曜日や日にちを自分で選ぶ）</summary>
   <div class="quick no-print">
     <span class="muted">まとめて入れる：</span>
     <button data-q="all">毎日</button><button data-q="weekday">平日（月〜金）</button>
     <button data-q="mwf">月・水・金</button><button data-q="tt">火・木</button>
     <button data-q="clear">この印を消す</button><button data-q="clearAll" class="del">カレンダーを全部消す</button>
   </div>
-  <div class="nowbox" id="eNow"></div>
   <div class="cal-head">
     <button id="ePrev" aria-label="前の月">◀</button>
     <div id="eYm" class="ym"></div>
@@ -264,6 +265,8 @@ footer a{color:var(--link)}
   <div class="muted" id="eWdNote" style="margin-bottom:4px">曜日をタップすると、その曜日を全部入れる／外すことができます</div>
   <div class="cal" id="eCal"></div>
   <div class="muted" style="margin-top:8px">灰色に取り消し線の印＝計算に入れていない予定（日帰りのショートステイ・今の介護度では使えないサービス）</div>
+  </details>
+  <div id="eIncomplete"></div>
   <div id="eWarn"></div>
 </section>
 
@@ -404,11 +407,12 @@ function freqChoices(id, lv, prev){
   return [];
 }
 // 選んだ区分が今の介護度で選べないときは週1回程度で計算する（保存している選択そのものは書き換えない）
-const freqOf = (id, lv, prev, o)=>{ const v = o && o.freq; return freqChoices(id, lv, prev).includes(v) ? v : 'w1'; };
-const freqOpt = (id)=> ({k:'freq', label:'利用区分（ケアプランで決める回数の目安）', choices:(lv, prev)=> freqChoices(id, lv, prev).map(f=> [f, FREQ_LABEL[f]])});
+const freqOf = (id, lv, prev, o)=>{ const v = o && o.freq; return freqChoices(id, lv, prev).includes(v) ? v : ''; };
+const freqOpt = (id)=> ({k:'freq', label:'利用区分（ケアプランで決める回数の目安）',
+  choices:(lv, prev)=> [['','選んでください']].concat(freqChoices(id, lv, prev).map(f=> [f, FREQ_LABEL[f]]))});
 // 1週間の回数の目安（日〜土を1週間として数える）。超えても入力は止めず、注意を出すだけ
 function weekCap(id, lv, prev){
-  if (FREQ_IDS.includes(id)) return isS(lv) ? FREQ_N[freqOf(id, lv, prev, es.set[id])] : null;
+  if (FREQ_IDS.includes(id)) return isS(lv) ? (FREQ_N[freqOf(id, lv, prev, es.set[id])] || null) : null;
   if (id === 'rehabS') return ({S1:1, S2:2})[lv] ?? null;   // 介護予防通所リハの目安
   if (id === 'dayA') return isS(lv) ? 1 : null;               // 週1回
   return null;
@@ -420,19 +424,21 @@ function weekCap(id, lv, prev){
    only: 介護度のほかに使える条件（前の認定など）
    who : K=要介護だけ／S=要支援・事業対象者だけ（総合事業など）／B=両方 */
 const STAMPS = [
-  {id:'body30', mk:'身', color:'var(--c-help)', name:'ヘルパー：からだの手伝い（30分以上60分未満）', ds:'食事・トイレ・着替えの手伝いなど', who:'K', per:()=>UNITS.homon.body30},
-  {id:'body60', mk:'身1', color:'var(--c-help)', name:'ヘルパー：からだの手伝い（60分以上90分未満）', ds:'お風呂の手伝いなど', who:'K', per:()=>UNITS.homon.body60},
-  {id:'house', mk:'家', color:'var(--c-help)', name:'ヘルパー：家事の手伝い（45分以上）', ds:'掃除・洗濯・料理など', who:'K', per:()=>UNITS.homon.house},
+  {id:'body30', mk:'身', color:'var(--c-help)', name:'ヘルパー：からだの手伝い（30分以上60分未満）', ds:'食事・トイレ・着替えの手伝いなど', who:'K', group:'main', per:()=>UNITS.homon.body30},
+  {id:'body60', mk:'身1', color:'var(--c-help)', name:'ヘルパー：からだの手伝い（60分以上90分未満）', ds:'お風呂の手伝いなど', who:'K', group:'main', per:()=>UNITS.homon.body60},
+  {id:'house', mk:'家', color:'var(--c-help)', name:'ヘルパー：家事の手伝い（45分以上）', ds:'掃除・洗濯・料理など', who:'K', group:'main', per:()=>UNITS.homon.house},
   // 訪問介護従前相当：新規の事業対象者は使えない（要支援から移った方は使える）
   {id:'helperS', mk:'ヘ', color:'var(--c-help)', name:'ヘルパー（要支援・事業対象者の方）', ds:'訪問介護従前相当サービス。利用区分（週1回程度・週2回程度・週3回程度〈要支援2のみ〉）ごとの月ぎめ料金', who:'S',
     group:'main', opts:[freqOpt('helperS')],
     only:(lv, prev)=> lv !== 'J' || prev === 'S1' || prev === 'S2',
-    tier:(lv,n,o,prev)=> n===0?0 : UNITS.homonS[freqOf('helperS', lv, prev, o)]},
+    ready:(o,lv,prev)=> !!freqOf('helperS', lv, prev, o), needMsg:'利用区分（週に何回くらい使うか）',
+    tier:(lv,n,o,prev)=> n===0?0 : UNITS.homonS[freqOf('helperS', lv, prev, o) || 'w1']},
   // 訪問型サービスA（自立支援訪問サービス）：事業対象者は要支援1・2からの移行者のみ。自己負担は1割
   {id:'visitA', mk:'ヘA', color:'var(--c-help)', name:'生活援助中心のヘルパー（訪問型サービスA）', ds:'掃除・洗濯・買い物など、生活援助を中心とした出雲市の総合事業サービスです。利用区分（週1回程度・週2回程度・週3回程度〈要支援2のみ〉）ごとの月ぎめ料金。自己負担は1割', who:'S', fixedRatio:1,
     opts:[freqOpt('visitA')],
     only:(lv, prev)=> lv !== 'J' || prev === 'S1' || prev === 'S2',
-    tier:(lv,n,o,prev)=> n===0?0 : UNITS.visitA[freqOf('visitA', lv, prev, o)]},
+    ready:(o,lv,prev)=> !!freqOf('visitA', lv, prev, o), needMsg:'利用区分（週に何回くらい使うか）',
+    tier:(lv,n,o,prev)=> n===0?0 : UNITS.visitA[freqOf('visitA', lv, prev, o) || 'w1']},
   {id:'day', mk:'デ', color:'var(--c-day)', name:'デイサービス（日帰りで通う）', ds:'送迎つき', who:'K', food:true, other:true,
     group:'main',
     opts:[{k:'t',label:'いる時間',choices:[['','選んでください'],['7-8','1日（7〜8時間）'],['5-6','5〜6時間'],['3-4','半日（3〜4時間）'],['?','わからない']],unknownNote:ASK.day},
@@ -444,8 +450,8 @@ const STAMPS = [
   {id:'dayS', mk:'デ', color:'var(--c-day)', name:'デイサービス（要支援・事業対象者の方）', ds:'通所介護従前相当サービス。週1回程度・週2回程度（要支援2の方と、要支援2から移った事業対象者の方）', who:'S', food:true, other:true,
     group:'main',
     opts:[freqOpt('dayS'), {k:'t',label:'いる時間',choices:[['','選んでください'],['long','4時間以上（月ぎめ料金）'],['short','4時間未満（回数が少ない月は1回ごとの料金）'],['?','わからない']],unknownNote:ASK.day}],
-    ready:(o)=> !!o.t && o.t!=='?',
-    needMsg:'利用時間',
+    ready:(o,lv,prev)=> !!freqOf('dayS', lv, prev, o) && !!o.t && o.t!=='?',
+    needMsg:'利用区分と利用時間',
     // 出雲市の報酬単価（通所介護従前相当）
     //  4時間以上 … 週1回程度 1,798／月、週2回程度 3,621／月
     //  4時間未満 … 週1回程度：月1〜4回は436×回数、5回以上は1,798／月に切り替え
@@ -581,7 +587,7 @@ function ecalc(){
     if (!x.n) return;
     if (!stampOk(s, lv, prev)){ excluded.push(s); return; }
     const o = es.set[s.id]||{};
-    if (s.ready && !s.ready(o)){ incomplete.push(s); return; }   // 設定が未選択のサービスは、推測で計算しない
+    if (s.ready && !s.ready(o, lv, prev)){ incomplete.push(s); return; }   // 設定が未選択のサービスは、推測で計算しない
     if (s.tier){ x.units = s.tier(lv, x.n, o, prev); monthlyServices.push(s.id); }
     else { x.units = s.per(lv, o) * x.n; dailyServices.push(s.id); }
   });
@@ -710,23 +716,39 @@ function erender(){
         ? `${levelLabel(lv)}の方は、車いす・介護ベッド・床ずれ防止用具・体位変換器・徘徊感知機器・移動用リフト・自動排泄処理装置などは、原則として保険の対象外です（状態によって例外で使える場合があります）。ケアマネジャーにご確認ください。`
         : `${levelLabel(lv)}の方は、自動排泄処理装置は原則として保険の対象外です（状態によって例外で使える場合があります）。ケアマネジャーにご確認ください。`}</div>` : '') +
       `</div>`;
-  } else if (s && (s.opts || s.food || s.room)){
+  } else if (s){
     const o = es.set[s.id] = es.set[s.id] || {};
-    sh2 = `<div class="stampset" style="--sc:${s.color}"><div class="sub-h"><span class="mk" style="background:${s.color}">${s.mk}</span> ${s.name} の設定</div><div class="grid">`;
+    sh2 = `<div class="stampset" style="--sc:${s.color}"><div class="sub-h"><span class="mk" style="background:${s.color}">${s.mk}</span> ${s.name} の設定</div>`;
+    // 選ぶところは大きなボタンで（押しやすさ優先）
     (s.opts||[]).forEach(op=>{
       const choices = typeof op.choices === 'function' ? op.choices(lv, prev) : op.choices;
-      const cur = op.k === 'freq' ? freqOf(s.id, lv, prev, o) : (o[op.k] || choices[0][0]);
-      sh2 += `<div><label class="f">${op.label}</label><select data-opt="${op.k}">` +
-        choices.map(ch=>`<option value="${ch[0]}"${cur===ch[0]?' selected':''}>${ch[1]}</option>`).join('') + '</select>' +
+      const cur = op.k === 'freq' ? freqOf(s.id, lv, prev, o) : (o[op.k] || '');
+      sh2 += `<div style="margin-bottom:8px"><label class="f">${op.label}</label><div class="btns">` +
+        choices.filter(ch=> ch[0] !== '').map(ch=>`<button class="${cur===ch[0]?'on':''} ${ch[0]==='?'?'un':''}" data-opt="${op.k}" data-val="${ch[0]}" aria-pressed="${cur===ch[0]}">${ch[1]}</button>`).join('') +
+        '</div>' + (cur === '' ? '<div class="muted" style="color:var(--err);font-weight:700">↑ここを選んでください</div>' : '') +
         (cur === '?' && op.unknownNote ? `<div class="muted">${op.unknownNote}</div>` : '') + '</div>';
     });
+    // かんたん入力：回数を選ぶと、カレンダーがその形で埋まる
+    const okNow = !s.ready || s.ready(o, lv, prev);
+    if (!okNow){
+      sh2 += `<div class="hint" style="border-color:var(--err);font-weight:700">「${s.name}」を選びました。次に${s.needMsg}を選んでください。選ぶまでは、カレンダーに入れることも料金の計算もしません。</div>`;
+    } else if (s.short){
+      sh2 += `<div class="sub-h" style="margin-top:8px">今月、何泊しますか？</div><div class="btns">` +
+        [1,2,3,4,5,6].map(n=>`<button data-nights="${n}">${n}泊${n+1}日</button>`).join('') +
+        `</div><div class="muted">押すと、${SHORT_START}日から続けて入ります。日にちを変えたいときは、下の「日にちを細かく決める」で直せます。</div>`;
+    } else {
+      const counts = s.tier ? [FREQ_N[freqOf(s.id, lv, prev, o)]] : [1,2,3,4,5,7];
+      sh2 += `<div class="sub-h" style="margin-top:8px">${s.tier ? 'この利用区分でカレンダーに入れる' : '週に何回くらい使いますか？'}</div><div class="btns">` +
+        counts.map(n=>`<button data-week="${n}">${n===7?'毎日':'週'+n+'回'}</button>`).join('') +
+        `</div><div class="muted">押すと、今月のカレンダーがその回数で埋まります（先に入れていた「${s.mk}」は入れ替わります）。曜日や日にちを変えたいときは、下の「日にちを細かく決める」で直せます。</div>`;
+    }
     const per = s.short ? '1日' : '1回';
-    if (s.food) sh2 += `<div><label class="f">食費（円/${per}）</label><input type="number" min="0" step="10" inputmode="numeric" data-jp="food" value="${esc(o.food||'')}" placeholder="施設に聞いてください"></div>`;
-    if (s.room) sh2 += `<div><label class="f">部屋代（円/${per}）</label><input type="number" min="0" step="10" inputmode="numeric" data-jp="room" value="${esc(o.room||'')}" placeholder="施設に聞いてください"></div>`;
-    if (s.other) sh2 += `<div><label class="f">おやつ代など（円/${per}）</label><input type="number" min="0" step="10" inputmode="numeric" data-jp="other" value="${esc(o.other||'')}" placeholder="なければ空のまま"></div>`;
-    sh2 += '</div>' + (s.note ? `<div class="muted">${s.note}</div>` : '')
-      + (s.ready && !s.ready(o) ? `<div class="hint" style="border-color:var(--err);font-weight:700">「${s.name}」を選びました。次に${s.needMsg}を選んでください。選ぶまで料金は計算しません。</div>` : '')
-      + '</div>';
+    let jippi = '';
+    if (s.food) jippi += `<div><label class="f">食費（円/${per}）</label><input type="number" min="0" step="10" inputmode="numeric" data-jp="food" value="${esc(o.food||'')}" placeholder="施設に聞いてください"></div>`;
+    if (s.room) jippi += `<div><label class="f">部屋代（円/${per}）</label><input type="number" min="0" step="10" inputmode="numeric" data-jp="room" value="${esc(o.room||'')}" placeholder="施設に聞いてください"></div>`;
+    if (s.other) jippi += `<div><label class="f">おやつ代など（円/${per}）</label><input type="number" min="0" step="10" inputmode="numeric" data-jp="other" value="${esc(o.other||'')}" placeholder="なければ空のまま"></div>`;
+    if (jippi) sh2 += `<details style="margin-top:8px"><summary style="min-height:36px;color:var(--link);font-weight:700;cursor:pointer">食費・部屋代などを入れる（分かる方だけ）</summary><div class="grid">${jippi}</div></details>`;
+    sh2 += (s.note ? `<div class="muted">${s.note}</div>` : '') + '</div>';
   }
   if (!(document.activeElement && document.activeElement.closest && document.activeElement.closest('#eStampSet'))) $('eStampSet').innerHTML = sh2;
 
@@ -799,7 +821,10 @@ function erender(){
     } else if (weekMax(id) > cap) warns.push(`「${st.name}」が1週間に${cap}回を超えている週があります。目安は1週間に${cap}回までです。利用回数または予定をご確認ください。`);
   });
   c.excluded.forEach(s=> warns.push(`${whyNotOk(s, lv, prev)}カレンダーに入っている予定（取り消し線の「${s.mk}」）は計算に入れていません。`));
-  c.incomplete.forEach(s=> warns.push(`「${s.name}」は${s.needMsg}が未選択のため、計算に入れていません。サービスをえらんで、設定の欄で選んでください。`));
+  $('eIncomplete').innerHTML = c.incomplete.length
+    ? `<div class="kasan"><b>条件が未確定のため、次のサービスは今の合計単位・自己負担額に含まれていません。</b><ul>` +
+      c.incomplete.map(s=> `<li>${s.name}：${s.needMsg}が未確定</li>`).join('') +
+      `</ul>上の「使いたいサービス」からえらんで、設定の欄で選ぶと計算に入ります。</div>` : '';
   if (lv === 'J' && (prev === '' || prev === '?')) warns.push(`事業対象者になる前の認定が${prev==='?'?'「わからない」':'未選択'}です。${ASK.prev}`);
   const edgeDays = [], midDays = [], tsushoDays = [];
   for (let d=1; d<=c.N; d++){
@@ -826,19 +851,57 @@ function erender(){
    操作
    ============================================================ */
 const monthMap = ()=> (es.days[es.ym] = es.days[es.ym] || {});
+// かんたん入力：週の回数から曜日の形をつくる（日=0〜土=6）
+const WEEK_PATTERN = {1:[1], 2:[1,4], 3:[1,3,5], 4:[1,2,4,5], 5:[1,2,3,4,5], 7:[0,1,2,3,4,5,6]};
+const SHORT_START = 10;   // 「何泊しますか」で入れはじめる日
+
+// 入れてよいかの共通の関門（1日タップ・曜日・まとめて入れる・かんたん入力で同じ判定を通す）
+function canAddSelectedService(){
+  if (!es.level){ flash = 'まず介護度を選んでください。'; return false; }
+  if (es.ratio === ''){ flash = 'まず負担割合を選んでください（分からないときは「わからない」を選べます）。'; return false; }
+  const id = es.sel;
+  if (!id){ flash = '先に利用するサービスを選んでください。'; return false; }
+  const s = stampById(id); if (!s) return false;
+  if (s.monthly){ flash = '福祉用具レンタルは月額なので、カレンダーに入れる必要はありません。'; return false; }
+  if (s.ready && !s.ready(es.set[id]||{}, es.level, es.prev)){
+    flash = `「${s.name}」の${s.needMsg}が未選択です。設定の欄で選んでから、日にちを入れてください。`; return false;
+  }
+  return true;
+}
+// 週◯回の形で今月を埋める（そのサービスの今月分は一度消してから入れ直す）
+function applyWeekly(n){
+  if (!canAddSelectedService()) return;
+  const id = es.sel, dows = WEEK_PATTERN[n]; if (!dows) return;
+  const N = daysIn(), fd = firstDow();
+  for (let d=1; d<=N; d++) removeAt(d, id);
+  let skipped = 0;
+  for (let d=1; d<=N; d++){
+    if (!dows.includes((fd+d-1)%7)) continue;
+    if (conflictOn(d, id)) skipped++; else addAt(d, id);
+  }
+  flash = skipped ? `${skipped}日は入れられませんでした。${CONFLICT_MSG}` : '';
+}
+// ◯泊◯日を、SHORT_START 日から続けて入れる
+function applyNights(nights){
+  if (!canAddSelectedService()) return;
+  const id = 'short', N = daysIn();
+  for (let d=1; d<=N; d++) removeAt(d, id);
+  const start = Math.min(SHORT_START, N);
+  const days = []; for (let k=0; k<=nights; k++) days.push(start + k);
+  if (!shortAddOk(days)){ flash = `${start}日から${nights}泊${nights+1}日で入れられませんでした。ほかのサービスが入っている日があります。`; return; }
+  days.forEach(d=> addAt(d, id));
+  flash = '';
+}
 
 // 入れられなかったときの一言（次の操作で消える）
 let flash = '';
 const CONFLICT_MSG = 'ショートステイに泊まっている途中の日（入所日と退所日のあいだ）は、ほかのサービスは使えません。';
 function tapDay(d){
-  if (!es.level){ flash = 'まず介護度を選んでください。'; return; }
-  if (es.ratio === ''){ flash = 'まず負担割合を選んでください（分からないときは「わからない」を選べます）。'; return; }
   const id = es.sel;
-  if (!id){ flash = '先に利用するサービスを選んでください。'; return; }
+  // 入っている予定を外すのは、いつでもできる
+  if (id && dayList(d).includes(id)){ removeAt(d, id); return; }
+  if (!canAddSelectedService()) return;
   const s = stampById(id);
-  if (s.ready && !s.ready(es.set[id]||{})) flash = `「${s.name}」の${s.needMsg}が未選択です。設定の欄で選ぶと料金が計算されます。`;
-  if (s.monthly){ flash = '福祉用具レンタルは月額なので、カレンダーに入れる必要はありません。'; return; }
-  if (dayList(d).includes(id)){ removeAt(d, id); return; }
   if (conflictOn(d, id)){ flash = `${d}日には入れられません。${id==='short' ? '泊まりの途中の日になる日に、ほかのサービスが入っています。' : CONFLICT_MSG}`; return; }
   // ショートステイは日帰りにならないよう、前後につながりが無ければ翌日（月末なら翌月1日）も入れる＝1泊2日
   if (id === 'short' && !hasShort(d-1) && !hasShort(d+1)){
@@ -850,8 +913,11 @@ function tapDay(d){
   addAt(d, id);
 }
 function toggleWeekday(w){
-  const id = es.sel; if (!id || id==='short' || stampById(id).monthly) return;
+  const id = es.sel; if (!id || id==='short') return;
   const N = daysIn(), fd = firstDow();
+  const target0 = []; for (let d=1; d<=N; d++) if ((fd+d-1)%7===w) target0.push(d);
+  // すでに入っている曜日を外すときは関門を通さない（入れるときだけ）
+  if (!target0.every(d=> dayList(d).includes(id)) && !canAddSelectedService()) return;
   const target = []; for (let d=1; d<=N; d++) if ((fd+d-1)%7===w) target.push(d);
   const allHave = target.every(d=> dayList(d).includes(id) || conflictOn(d, id));
   let skipped = 0;
@@ -881,8 +947,14 @@ const pickStamp = e=>{ const b = e.target.closest('button'); if (!b || !b.datase
   const box = $('eStampSet').firstElementChild; if (box) box.scrollIntoView({block:'nearest', behavior:'smooth'}); };
 $('eStamps').addEventListener('click', pickStamp);
 $('eStampsMore').addEventListener('click', pickStamp);
-$('eStampSet').addEventListener('change', e=>{ const t = e.target; const o = es.set[es.sel] = es.set[es.sel]||{};
-  if (t.dataset.opt){ o[t.dataset.opt] = t.value; t.blur(); erender(); } });
+$('eStampSet').addEventListener('click', e=>{
+  const b = e.target.closest('button'); if (!b) return;
+  const o = es.set[es.sel] = es.set[es.sel]||{};
+  b.blur();   // 押したボタンに焦点が残ると、設定欄の描き直しを飛ばしてしまう
+  if (b.dataset.opt){ o[b.dataset.opt] = b.dataset.val; erender(); return; }
+  if (b.dataset.week){ applyWeekly(Number(b.dataset.week)); erender(); return; }
+  if (b.dataset.nights){ applyNights(Number(b.dataset.nights)); erender(); return; }
+});
 $('eStampSet').addEventListener('input', e=>{ const t = e.target; const o = es.set[es.sel] = es.set[es.sel]||{};
   if (t.dataset.jp){ o[t.dataset.jp] = t.value; erender(); }
   if (t.dataset.rent){ es.rent = t.value; erender(); } });
@@ -907,8 +979,7 @@ document.querySelector('.quick').addEventListener('click', e=>{
     Object.values(mm).forEach(list=>{ const i = list.indexOf(es.sel); if (i>=0) list.splice(i,1); });
   } else {
     const P = {all:()=>true, weekday:(w)=>w>=1&&w<=5, mwf:(w)=>w===1||w===3||w===5, tt:(w)=>w===2||w===4}[q];
-    if (!es.sel){ flash = '先に利用するサービスを選んでください。'; erender(); return; }
-    if (stampById(es.sel).monthly){ flash = '福祉用具レンタルは月額なので、カレンダーに入れる必要はありません。'; erender(); return; }
+    if (!canAddSelectedService()){ erender(); return; }
     const N = daysIn(), fd = firstDow(); let skipped = 0;
     for (let d=1; d<=N; d++) if (P((fd+d-1)%7)){
       if (dayList(d).includes(es.sel)) continue;
